@@ -40,7 +40,7 @@ public class GamePlay {
         {
             l_command = d_inp.nextLine();
             l_phase = l_cmd.parseCommand(l_command);
-            System.out.println("Waiting for next command..");
+            System.out.println("Waiting for next command...");
         }
     }
 

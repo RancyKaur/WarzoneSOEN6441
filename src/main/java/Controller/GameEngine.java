@@ -37,7 +37,7 @@ public class GameEngine {
         String l_commandName = l_param[0];
         String l_mapName = null;
         String l_continentName=null;
-        int l_continentID=null;
+        int l_continentID;
 
         /* conditional execution of phases, games starts with Startgame phase on command editmap or loadmap
            Depending on player's selection it moves to editmap phase or loadmap phase

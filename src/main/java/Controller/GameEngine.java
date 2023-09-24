@@ -36,6 +36,8 @@ public class GameEngine {
         String[] l_param = p_givenCommand.split("\\s+");
         String l_commandName = l_param[0];
         String l_mapName = null;
+        String l_continentName=null;
+        int l_continentID=null;
 
         /* conditional execution of phases, games starts with Startgame phase on command editmap or loadmap
            Depending on player's selection it moves to editmap phase or loadmap phase
@@ -94,6 +96,40 @@ public class GameEngine {
                     }
                     break;
                 }
+
+                case "editcontinent":
+                {
+                    try
+                    {
+                        for (int i = 1; i < l_param.length; i++)
+                        {
+                            System.out.println((l_param[i]));
+
+                            if(l_param[i].equals("-add"))
+                            {
+                                //Checking for the country name and I given by the user should be string without any special characters
+                                if(this.isValidMapName(l_param[i+2]))
+                                {
+                                    l_continentName=l_param[i+2];
+                                    l_continentID = Integer.parseInt(l_param[i+1]);
+
+
+
+                                }
+                                else
+                                {
+                                    System.out.println("Given name(s) not valid!");
+                                }
+                            }
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: The continentID is not a valid integer.");
+                    }
+
+                    break;
+                }
+
+
                 case "stopgame":
                 {
                     this.d_phase = GamePhase.ENDGAME;

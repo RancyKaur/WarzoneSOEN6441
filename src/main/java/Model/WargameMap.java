@@ -60,13 +60,13 @@ public class WargameMap {
     }
 
     /**
-     * Setter method to set the d_Continents HashMap to the given HashMap parameter.
-     * @param p_countryName
-     * @param p_country
+     * Add method to add continents to the map
+     * @param p_continentName
+     * @param p_continent
      */
-    public void setContinents(String p_countryName, Country p_country)
+    public void addContinents(String p_continentName, Continent p_continent)
     {
-        this.getCountries().put(p_countryName.toLowerCase(), p_country);
+        this.getContinents().put(p_continentName.toLowerCase(), p_continent);
     }
 
     /**
@@ -78,10 +78,13 @@ public class WargameMap {
     }
 
     /**
-     * Setter method to set the d_Countries HashMap to the given HashMap parameter.
-     * @param p_countries HashMap for d_Countries
+     * Add method to add countries to the map
+     * @param p_countryName
+     * @param p_country
      */
-    public void setCountries(HashMap<String, Country> p_countries) {
-        this.d_Countries = p_countries;
+    public void addCountries(String p_countryName, Country p_country)
+    {
+        this.getCountries().put(p_countryName.toLowerCase(), p_country);
     }
+
 }

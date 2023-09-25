@@ -14,26 +14,19 @@ public class Continent
     private String d_continentName=null;
     private HashMap<String,Country> d_listOfCountries;
 
-    public Continent()
-    {}
+
     /**
      * Constructs the Continent object with given name and ID
      * @param p_continentName Name of the Continent
      * @param p_continentID ID of the Continent
      */
 
-    public Continent(String p_continentName,String p_continentID){
-        try
-        {
-            this.d_continentName = p_continentName;
-            this.d_continentID = Integer.parseInt(p_continentID);
-            this.d_listOfCountries = new HashMap<String,Country>();
-        }
-        catch (NumberFormatException numFormatException)
-        {
-            System.out.println("Invalid ID only numbers accepted");
+    public Continent(String p_continentName,int p_continentID)
+    {
+        this.d_continentName = p_continentName;
+        this.d_continentID = p_continentID;
+        this.d_listOfCountries = new HashMap<String,Country>();
 
-        }
     }
 
     /**
@@ -49,7 +42,7 @@ public class Continent
      * @return ListOfCountries
      */
     public HashMap<String, Country> getListOfCountries() {
-        return d_listOfCountries;
+        return this.d_listOfCountries;
     }
 
     /**
@@ -57,7 +50,9 @@ public class Continent
      * @return continentID
      */
     public int getContinentID() {
-        return d_continentID;
+        return this.d_continentID;
     }
+
+
 
 }

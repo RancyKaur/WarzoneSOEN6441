@@ -1,5 +1,7 @@
 package Model;
 
+
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -42,6 +44,26 @@ public class EngineCommand {
         }
         return true;
     }
+
+
+    public boolean addContinentToMap(WargameMap p_gameMap, int p_continentID, String p_continentName){
+        //first of all checking is this given continent already exists
+        //if it does not exists then create the new continent object and add it to the game map
+        if(!(GameGraph.isContinentExists(p_gameMap,p_continentName)))
+        {
+            Continent l_continent = new Continent(p_continentName,p_continentID);
+            p_gameMap.addContinents(p_continentName,l_continent);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+
+
+
 
 
 }

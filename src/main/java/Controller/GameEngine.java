@@ -113,6 +113,16 @@ public class GameEngine {
                                     l_continentName=l_param[i+2];
                                     l_continentID = Integer.parseInt(l_param[i+1]);
 
+                                    boolean l_status = d_RunCommand.addContinentToMap(d_map,l_continentID,l_continentName);
+                                    if(l_status)
+                                    {
+                                        System.out.println("Continent added");
+                                    }
+                                    else
+                                    {
+                                        System.out.println("Already exists");
+                                    }
+
 
 
                                 }

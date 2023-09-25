@@ -22,18 +22,12 @@ public class Continent
      * @param p_continentID ID of the Continent
      */
 
-    public Continent(String p_continentName,String p_continentID){
-        try
-        {
-            this.d_continentName = p_continentName;
-            this.d_continentID = Integer.parseInt(p_continentID);
-            this.d_listOfCountries = new HashMap<String,Country>();
-        }
-        catch (NumberFormatException numFormatException)
-        {
-            System.out.println("Invalid ID only numbers accepted");
+    public Continent(String p_continentName,int p_continentID)
+    {
+        this.d_continentName = p_continentName;
+        this.d_continentID = p_continentID;
+        this.d_listOfCountries = new HashMap<String,Country>();
 
-        }
     }
 
     /**

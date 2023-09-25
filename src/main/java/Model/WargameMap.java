@@ -10,7 +10,7 @@ public class WargameMap {
 
     /**
      * Default constructor to create map with null/empty values
-     */
+      */
     public WargameMap()
     {
         this.d_MapName=null;

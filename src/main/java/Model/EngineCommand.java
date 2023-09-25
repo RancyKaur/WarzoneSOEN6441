@@ -100,6 +100,42 @@ public class EngineCommand {
 
 
 
+    public boolean addCountryToContinent(WargameMap p_gameMap,String p_userGivenCountryName,String p_userGivenContinentName) {
+
+        //check whether given country exists or not in the map first
+        if(!GameGraph.isCountryExists(p_gameMap,p_userGivenCountryName))
+        {
+            // if not then making sure the continent exists
+            if(p_gameMap.getContinents().containsKey(p_userGivenContinentName)){
+                Country l_countryObjToBeAdded = new Country(p_userGivenCountryName,p_userGivenContinentName);
+                Continent l_continentObjToBeUsed = p_gameMap.getContinents().get(p_userGivenContinentName);
+                //adding the country object into the list of countries of the continents
+                l_continentObjToBeUsed.getListOfCountries().put(p_userGivenCountryName,l_countryObjToBeAdded);
+                //adding country to map object as well
+                p_gameMap.addCountries(p_userGivenCountryName,l_countryObjToBeAdded);
+
+                return true;
+            }
+            //if continent does not exist
+            else
+            {
+                System.out.println(p_userGivenContinentName+" continent does not exist. So first add "+p_userGivenContinentName+" to continents or use another continent which already exists");
+                System.out.println("For example: To add "+p_userGivenContinentName+" you can write this command ");
+                System.out.println("editcontinent -add <continentID (number)> "+ p_userGivenContinentName);
+                return false;
+            }
+        }
+        else
+        {
+            System.out.println(p_userGivenCountryName+" already exists in the map.");
+            System.out.println(p_userGivenCountryName+" is inside "+ p_gameMap.getCountries().get(p_userGivenCountryName).getContinentName());
+            return false;
+        }
+    }
+
+
+
+
 
 
 

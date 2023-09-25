@@ -26,6 +26,20 @@ public class GameGraph {
     }
 
 
+    public static boolean isCountryExists(WargameMap p_gameMap, String p_countryName){
+        if(p_gameMap.getCountries().containsKey(p_countryName))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+
+
 
 
 }

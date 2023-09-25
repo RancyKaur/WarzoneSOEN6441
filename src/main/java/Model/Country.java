@@ -8,7 +8,6 @@ import java.util.HashMap;
  */
 public class Country
 {
-    private int d_countryID;
     private String d_countryName=null;
     private String d_ContinentName=null;
     private HashMap<String,Country> d_neighbourCountries;
@@ -59,12 +58,6 @@ public class Country
         return this.d_neighbourCountries;
     }
 
-    /**
-     * Getter method for countryID
-     * @return countryID
-     */
-    public int getCountryID(){
-        return this.d_countryID;
-    }
+
 
 }

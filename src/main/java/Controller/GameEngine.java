@@ -36,7 +36,6 @@ public class GameEngine {
         String[] l_param = p_givenCommand.split("\\s+");
         String l_commandName = l_param[0];
         String l_mapName = null;
-        String l_continentName=null;
         int l_continentID;
 
         /* conditional execution of phases, games starts with Startgame phase on command editmap or loadmap
@@ -96,26 +95,33 @@ public class GameEngine {
                     }
                     break;
                 }
+                //parsing this type of command here
+                // editcontinent -add continentID continentValue OR
+                // editcontinent -remove continentID
+                // Here countryID and continentID both will be names strings not the numbers
 
                 case "editcontinent":
                 {
+                    String l_typeOfEditcontinent = l_param[1].toLowerCase(); // -add or -remove
+
                     try
                     {
-                        if(l_param[1].equals("-add"))
+                        String l_continentName = null;
+
+                        if(l_typeOfEditcontinent.equals("-add"))
                         {
+                            l_continentName = l_param[3].toLowerCase();
                             //Checking for the country name and I given by the user should be string without any special characters
-                            if(this.isValidMapName(l_param[3].toLowerCase()))
+                            if(this.isValidMapName(l_continentName))
                             {
-                                //3rd index contains the Continent Name like ASIA or AMERICA
-                                l_continentName=l_param[3].toLowerCase();
                                 //2nd Index Contains Continent ID like 1 2 3 int number
-                                l_continentID = Integer.parseInt(l_param[2]);
+                                l_continentID = Integer.parseInt(l_param[2]); //continentID param
 
                                 boolean l_status = d_RunCommand.addContinentToMap(d_map,l_continentID,l_continentName);
                                 if(l_status)
                                 {
                                     System.out.println("Continent added");
-                                    d_phase = GamePhase.EDITMAP;
+                                    //d_phase = GamePhase.EDITMAP;
                                 }
                                 else
                                 {
@@ -126,15 +132,56 @@ public class GameEngine {
                             {
                                 System.out.println("Given name(s) not valid!");
                             }
-                        } else if (l_param[1].equals("-remove")) {
-                            if(this.isValidMapName(l_param[2])){
-                                l_continentName = l_param[2].toLowerCase();
-                                boolean l_check = d_RunCommand.removeContinentFromMap(d_map, l_continentName);
+                        } else if (l_typeOfEditcontinent.equals("-remove")) {
+                            String l_continentNameToBeRemoved = l_param[2].toLowerCase();
+                            if(this.isValidMapName(l_continentNameToBeRemoved)){
+
+                                boolean l_check = d_RunCommand.removeContinentFromMap(d_map, l_continentNameToBeRemoved);
                                 if (l_check) {
-                                    System.out.println(l_param[2]+" continent is removed from the Map");
+                                    System.out.println(l_continentNameToBeRemoved+" continent is removed from the Map");
                                     //d_phase = GamePhase.EDITMAP;
                                 }
                             }
+                        }
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: The continentID is not a valid integer.");
+                    }
+
+                    break;
+                }
+                //parsing this type of command here
+                    // editcountry -add countryID continentID OR
+                    // editcountry -remove countryID
+                    // Here countryID and continentID both will be names strings not the numbers
+                case "editcountry":
+                {
+                    try
+                    {
+                        String l_typeOfEditcountry = l_param[1].toLowerCase(); // -add or -remove
+                        String l_userGivenCountryName = l_param[2].toLowerCase(); //countryID param
+
+                        if(l_typeOfEditcountry.equals("-add"))
+                        {
+                            String l_userGivenContinentName = l_param[3].toLowerCase(); //continentID param
+                            //Checking for the country name and I given by the user should be string without any special characters
+                            if(this.isValidMapName(l_userGivenCountryName.toLowerCase()) && this.isValidMapName(l_userGivenContinentName.toLowerCase()))
+                            {
+
+                                boolean l_status = d_RunCommand.addCountryToContinent(d_map,l_userGivenCountryName,l_userGivenContinentName);
+                                if(l_status)
+                                {
+                                    System.out.println(l_userGivenCountryName+" is successfully added to "+l_userGivenContinentName);
+                                    //d_phase = GamePhase.EDITMAP;
+                                }
+
+                            }
+                            else
+                            {
+                                System.out.println("Given name(s) not valid!");
+                            }
+                        } else if (l_param[1].equals("-remove")) {
+
                         }
 
                     } catch (NumberFormatException e) {

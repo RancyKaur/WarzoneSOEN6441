@@ -2,12 +2,11 @@ package Model;
 
 import org.jgrapht.*;
 import org.jgrapht.alg.connectivity.ConnectivityInspector;
-import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
 
 import java.util.HashMap;
-import java.util.Locale;
+
 
 /**
  * The GameGraph class is responsible for creating, validating and analyzing the game map.

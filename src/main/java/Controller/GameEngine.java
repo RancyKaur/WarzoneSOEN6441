@@ -101,37 +101,31 @@ public class GameEngine {
                 {
                     try
                     {
-                        for (int i = 1; i < l_param.length; i++)
+                        if(l_param[1].equals("-add"))
                         {
-                            System.out.println((l_param[i]));
-
-                            if(l_param[i].equals("-add"))
+                            //Checking for the country name and I given by the user should be string without any special characters
+                            if(this.isValidMapName(l_param[3]))
                             {
-                                //Checking for the country name and I given by the user should be string without any special characters
-                                if(this.isValidMapName(l_param[i+2]))
+                                l_continentName=l_param[3];
+                                l_continentID = Integer.parseInt(l_param[2]);
+
+                                boolean l_status = d_RunCommand.addContinentToMap(d_map,l_continentID,l_continentName);
+                                if(l_status)
                                 {
-                                    l_continentName=l_param[i+2];
-                                    l_continentID = Integer.parseInt(l_param[i+1]);
-
-                                    boolean l_status = d_RunCommand.addContinentToMap(d_map,l_continentID,l_continentName);
-                                    if(l_status)
-                                    {
-                                        System.out.println("Continent added");
-                                    }
-                                    else
-                                    {
-                                        System.out.println("Already exists");
-                                    }
-
-
-
+                                    System.out.println("Continent added");
+                                    d_phase = GamePhase.EDITMAP;
                                 }
                                 else
                                 {
-                                    System.out.println("Given name(s) not valid!");
+                                    System.out.println("Given Continent Already exists");
                                 }
                             }
+                            else
+                            {
+                                System.out.println("Given name(s) not valid!");
+                            }
                         }
+
                     } catch (NumberFormatException e) {
                         System.out.println("Error: The continentID is not a valid integer.");
                     }

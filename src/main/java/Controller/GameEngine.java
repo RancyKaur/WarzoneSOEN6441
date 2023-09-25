@@ -180,8 +180,19 @@ public class GameEngine {
                             {
                                 System.out.println("Given name(s) not valid!");
                             }
-                        } else if (l_param[1].equals("-remove")) {
+                        } else if (l_typeOfEditcountry.equals("-remove")) {
+                            String l_countryNameToBeRemoved = l_param[2].toLowerCase();
 
+                            if(this.isValidMapName(l_countryNameToBeRemoved)){
+
+                                boolean l_check = d_RunCommand.removeCountry(d_map, l_countryNameToBeRemoved);
+                                if (l_check) {
+                                    System.out.println(l_countryNameToBeRemoved+" country is removed from the Map");
+                                    //d_phase = GamePhase.EDITMAP;
+                                }
+                            }else {
+                                System.out.println("Invalid country name");
+                            }
                         }
 
                     } catch (NumberFormatException e) {

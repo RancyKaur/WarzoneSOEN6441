@@ -134,6 +134,85 @@ public class EngineCommand {
     }
 
 
+    /**
+     * This methods removes the country from map.
+     *
+     * To remove country, first check that country exists in map if yes then get all the neighbouring countries of the country that we want to remove.
+     * Then iterate over those neighbouring countries and remove this given country from their list of neighbouring countries.
+     * Then remove the country itself from the continent and map.
+     * @param p_gameMap
+     * @param p_countryNameToBeRemoved
+     * @return
+     */
+    public boolean removeCountry(WargameMap p_gameMap, String p_countryNameToBeRemoved){
+        //check whether given country exists or not in the map first
+        if(GameGraph.isCountryExists(p_gameMap,p_countryNameToBeRemoved))
+        {
+            Country l_countryObjToBeRemoved = p_gameMap.getCountries().get(p_countryNameToBeRemoved);
+            ArrayList<Country> l_listOfNeighbourCountriesOfGivenCountry = new ArrayList<Country>();
+
+            //Iterate over each neighbour and add it to the list
+            for(Country l_neighbourCountry : l_countryObjToBeRemoved.getNeighbours().values()){
+                l_listOfNeighbourCountriesOfGivenCountry.add(l_neighbourCountry);
+            }
+
+            Iterator<Country> l_iterator = l_listOfNeighbourCountriesOfGivenCountry.listIterator();
+            while (l_iterator.hasNext()){
+                Country l_currentNeighbourCountry = l_iterator.next();
+                //Removing the p_countryNameToBeRemoved from the neighbour list of the l_currentNeighbourCountry and vice versa
+                if(!removeNeighbour(p_gameMap,l_currentNeighbourCountry.getCountryName(),p_countryNameToBeRemoved)) {
+                    System.out.println("Internal country Neighbour removal went wrong !!");
+                    return false;
+                }
+            }
+            //removing given country obj from the list of countries of the continent object.
+            //continent name in which l_countryObjToBeRemoved resides
+            Continent l_continentOfCountryWhichToBeRemoved = p_gameMap.getContinents().get(l_countryObjToBeRemoved.getContinentName());
+            l_continentOfCountryWhichToBeRemoved.getListOfCountries().remove(p_countryNameToBeRemoved);
+
+            //removing given country object from map itself
+            p_gameMap.getCountries().remove(p_countryNameToBeRemoved);
+
+            //removed successfully
+            return true;
+
+
+        }
+        else{
+            System.out.println(p_countryNameToBeRemoved+" does not exist");
+            return false;
+        }
+    }
+
+
+
+    public boolean removeNeighbour(WargameMap p_gameMap,String p_neighbourCountryName, String p_toBeRemovedCountryName){
+        //Fist Check both the countries exists
+
+        if(GameGraph.isCountryExists(p_gameMap,p_neighbourCountryName) && GameGraph.isCountryExists(p_gameMap,p_toBeRemovedCountryName)){
+
+            Country l_country1 = p_gameMap.getCountries().get(p_neighbourCountryName);
+            Country l_country2 = p_gameMap.getCountries().get(p_toBeRemovedCountryName);
+
+            //Check whether these two countries are neighbour to each other or not
+
+            if(l_country1.getNeighbours().containsKey(p_toBeRemovedCountryName) && l_country2.getNeighbours().containsKey(p_neighbourCountryName)){
+                l_country1.getNeighbours().remove(p_toBeRemovedCountryName);
+                l_country2.getNeighbours().remove(p_neighbourCountryName);
+                return true;
+            }
+            else{
+                System.out.println("Any one of the countries is not the neighbour to the other country");
+                return false;
+            }
+
+        }else{
+            System.out.println("Any one of the countries does not exist");
+            return false;
+        }
+    }
+
+
 
 
 

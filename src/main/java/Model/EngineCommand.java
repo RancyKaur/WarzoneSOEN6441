@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * This class contains implementation of all the actions defined by the game
@@ -59,6 +61,43 @@ public class EngineCommand {
             return false;
         }
     }
+
+    /**
+     * This will remove continent from the map. In order to do that we first have to remove each country resides in that continent
+     * and then we can remove the continent itself.
+     * @param p_gameMap
+     * @param p_continentName
+     * @return
+     */
+    public boolean removeContinentFromMap(WargameMap p_gameMap, String p_continentName){
+        //Checking against existing hashmap of continents
+        if(p_gameMap.getContinents().containsKey(p_continentName.toLowerCase())) {
+            Continent l_continent = p_gameMap.getContinents().get(p_continentName.toLowerCase());
+
+            //l_countryList stores the list of countries that belongs to the specific continent
+            ArrayList<Country> l_countryList = new ArrayList<Country>();
+            for(Country l_cd : l_continent.getListOfCountries().values()) {
+                l_countryList.add(l_cd);
+            }
+            Iterator<Country> l_countryListIterator = l_countryList.listIterator();
+            while(l_countryListIterator.hasNext()) {
+                Country l_eachCountry = l_countryListIterator.next();
+                //Removing each country from MAP object
+                if(p_gameMap.getCountries().containsKey(l_eachCountry.getCountryName())){
+                    p_gameMap.getCountries().remove(l_eachCountry.getCountryName());
+                }
+            }
+            //Removing continent itself
+            p_gameMap.getContinents().remove(p_continentName.toLowerCase());
+            return true;
+        }
+        else {
+            System.out.println("Given continent name does not exist.");
+            return false;
+        }
+    }
+
+
 
 
 

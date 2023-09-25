@@ -104,9 +104,11 @@ public class GameEngine {
                         if(l_param[1].equals("-add"))
                         {
                             //Checking for the country name and I given by the user should be string without any special characters
-                            if(this.isValidMapName(l_param[3]))
+                            if(this.isValidMapName(l_param[3].toLowerCase()))
                             {
-                                l_continentName=l_param[3];
+                                //3rd index contains the Continent Name like ASIA or AMERICA
+                                l_continentName=l_param[3].toLowerCase();
+                                //2nd Index Contains Continent ID like 1 2 3 int number
                                 l_continentID = Integer.parseInt(l_param[2]);
 
                                 boolean l_status = d_RunCommand.addContinentToMap(d_map,l_continentID,l_continentName);
@@ -123,6 +125,15 @@ public class GameEngine {
                             else
                             {
                                 System.out.println("Given name(s) not valid!");
+                            }
+                        } else if (l_param[1].equals("-remove")) {
+                            if(this.isValidMapName(l_param[2])){
+                                l_continentName = l_param[2].toLowerCase();
+                                boolean l_check = d_RunCommand.removeContinentFromMap(d_map, l_continentName);
+                                if (l_check) {
+                                    System.out.println(l_param[2]+" continent is removed from the Map");
+                                    //d_phase = GamePhase.EDITMAP;
+                                }
                             }
                         }
 

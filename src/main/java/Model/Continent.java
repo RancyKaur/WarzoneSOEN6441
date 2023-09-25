@@ -14,8 +14,7 @@ public class Continent
     private String d_continentName=null;
     private HashMap<String,Country> d_listOfCountries;
 
-    public Continent()
-    {}
+
     /**
      * Constructs the Continent object with given name and ID
      * @param p_continentName Name of the Continent
@@ -43,7 +42,7 @@ public class Continent
      * @return ListOfCountries
      */
     public HashMap<String, Country> getListOfCountries() {
-        return d_listOfCountries;
+        return this.d_listOfCountries;
     }
 
     /**
@@ -51,7 +50,9 @@ public class Continent
      * @return continentID
      */
     public int getContinentID() {
-        return d_continentID;
+        return this.d_continentID;
     }
+
+
 
 }

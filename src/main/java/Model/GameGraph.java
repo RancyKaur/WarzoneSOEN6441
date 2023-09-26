@@ -66,7 +66,7 @@ public class GameGraph {
     /**
      *This function will create the whole game map graph.
      * @param p_gameMap Game map object
-     * @return Graph<Country,DefaultEdge>
+     * @return Graph object created
      */
     public Graph<Country,DefaultEdge> makeGraph(WargameMap p_gameMap)
     {
@@ -121,7 +121,7 @@ public class GameGraph {
      *
      * @param p_subMap the submap that it is creating
      * @param p_listOfCountriesOfContinent the list of countries any particular continent is having
-     * @return Graph<Country,DefaultEdge>
+     * @return sub graph created
      */
     //It iterates over the list of countries and make them vertices of the sub graph.
     // After that it iterates over their neighbour countries and adds the edge between them

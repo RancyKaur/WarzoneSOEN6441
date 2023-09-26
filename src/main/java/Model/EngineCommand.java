@@ -98,7 +98,13 @@ public class EngineCommand {
     }
 
 
-
+    /**
+     *  This function add the given country into the given continent.
+     * @param p_gameMap Game map object
+     * @param p_userGivenCountryName country name that we are adding to the continent
+     * @param p_userGivenContinentName continent name that we are adding into
+     * @return true if country is added successfully to the continent otherwise false
+     */
 
     public boolean addCountryToContinent(WargameMap p_gameMap,String p_userGivenCountryName,String p_userGivenContinentName) {
 
@@ -185,17 +191,19 @@ public class EngineCommand {
     }
 
 
-
+    /**
+     *
+     * @param p_gameMap Game map object
+     * @param p_neighbourCountryName the name of the neighbour country of the country which we are removing
+     * @param p_toBeRemovedCountryName the actual country name that we are removing.
+     * @return true if neighbour removal operation is successful otherwise false
+     */
     public boolean removeNeighbour(WargameMap p_gameMap,String p_neighbourCountryName, String p_toBeRemovedCountryName){
         //Fist Check both the countries exists
-
         if(GameGraph.isCountryExists(p_gameMap,p_neighbourCountryName) && GameGraph.isCountryExists(p_gameMap,p_toBeRemovedCountryName)){
-
             Country l_country1 = p_gameMap.getCountries().get(p_neighbourCountryName);
             Country l_country2 = p_gameMap.getCountries().get(p_toBeRemovedCountryName);
-
             //Check whether these two countries are neighbour to each other or not
-
             if(l_country1.getNeighbours().containsKey(p_toBeRemovedCountryName) && l_country2.getNeighbours().containsKey(p_neighbourCountryName)){
                 l_country1.getNeighbours().remove(p_toBeRemovedCountryName);
                 l_country2.getNeighbours().remove(p_neighbourCountryName);
@@ -213,11 +221,34 @@ public class EngineCommand {
     }
 
 
+    /**
+     * This function checks whether the game map is valid or not.
+     * @param p_gameMap Game map object
+     * @return true if the map is valid otherwise false
+     */
 
+    // Here first checking for the empty continents in the map
+    // if they do not exist then checking for each continent's subgraph
+    // if each continent's subgraph is also connected then checking for the entire game map
+    // if it is also connected then simple returning true
+    // if any of the above stages returns false then simply return false.
+    public boolean checkGameMap(WargameMap p_gameMap){
+        GameGraph l_gameGraphObj = new GameGraph();
 
+        if(l_gameGraphObj.isEmptyContinentExist(p_gameMap)){
+            System.out.println("Empty Continent Exist in the Map. ");
+            return false;
+        }
+        else if (!l_gameGraphObj.isEachContinentConnected(p_gameMap)) {
+            System.out.println("Not all Continents are connected");
+            return false;
+        }
+        else if (!l_gameGraphObj.isEntireGameMapConnected(l_gameGraphObj.makeGraph(p_gameMap))) {
+            System.out.println("It is not a connected graph");
+            return false;
+        }
+        return true;
 
-
-
-
+    }
 
 }

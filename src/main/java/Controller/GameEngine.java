@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.EngineCommand;
+import Model.GameGraph;
 import Model.GamePhase;
 import Model.WargameMap;
 
@@ -34,7 +35,7 @@ public class GameEngine {
     public GamePhase parseCommand(String p_givenCommand)
     {
         String[] l_param = p_givenCommand.split("\\s+");
-        String l_commandName = l_param[0];
+        String l_commandName = l_param[0].toLowerCase();
         String l_mapName = null;
         int l_continentID;
 
@@ -200,6 +201,22 @@ public class GameEngine {
                     }
 
                     break;
+                }
+
+                case "validatemap":
+                {
+                    if(d_RunCommand.checkGameMap(d_map))
+                    {
+                        System.out.println("Game map has been checked and it is VALID");
+                    }
+                    else {
+                        System.out.println("Game map is not a valid map.");
+                        System.out.println("Possible reasons could be having some unconnected entity in the map");
+                        System.out.println("Suggestion! You can run <showmap> command to see the map and can figure out possible unconnected entities");
+                    }
+
+                    break;
+
                 }
 
 

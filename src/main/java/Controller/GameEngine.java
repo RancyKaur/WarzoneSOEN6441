@@ -39,6 +39,7 @@ public class GameEngine {
 
     /**
      * This method is to display passed string with first letter capitalized
+     *
      * @param p_string input string
      * @return Capitalized string
      */
@@ -116,7 +117,7 @@ public class GameEngine {
 
                                     boolean l_status = d_RunCommand.addContinentToMap(d_map, l_continentControlValue, l_continentName);
                                     if (l_status) {
-                                        System.out.println(capitalizeString(l_continentName)+ " Continent is added");
+                                        System.out.println(capitalizeString(l_continentName) + " Continent is added");
                                         d_phase = GamePhase.EDITMAP;
                                     } else {
                                         System.out.println("Given Continent Already exists");
@@ -124,7 +125,7 @@ public class GameEngine {
                                 } else {
                                     System.out.println("Given continent name not valid!");
                                 }
-                            } catch(NumberFormatException ex) {
+                            } catch (NumberFormatException ex) {
                                 System.out.println("Control Value is invalid, it should be numeric only");
                             }
                         } else if (l_typeOfEditcontinent.equals("-remove")) {
@@ -136,8 +137,7 @@ public class GameEngine {
                                     System.out.println(capitalizeString(l_continentNameToBeRemoved) + " continent is removed from the Map");
                                     d_phase = GamePhase.EDITMAP;
                                 }
-                            }
-                            else {
+                            } else {
                                 //condition when parameter is neither add or remove
                                 System.out.println("Only '-add' or '-remove' parameter allowed in editcountry");
                             }
@@ -191,7 +191,7 @@ public class GameEngine {
 
                     } catch (NumberFormatException e) {
                         System.out.println("Error: The continentID is not a valid integer.");
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         System.out.println("Command is invalid, please note it is for format 'editcountry -add Denmark Europe' or 'editcountry -remove Europe");
                     }
 
@@ -285,7 +285,7 @@ public class GameEngine {
                 }
 
                 //case default invalidcommand
-                default:{
+                default: {
                     System.out.println("Invalid command, please check spelling or case sensitivity, commands are in lower case");
                     d_phase = GamePhase.EDITMAP;
                 }

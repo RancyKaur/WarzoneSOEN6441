@@ -33,6 +33,15 @@ public class WargameMap {
     }
 
     /**
+     * Getter method for name of the map
+     * @return map's name
+     */
+    public String getMapName()
+    {
+        return this.d_MapName;
+    }
+
+    /**
      * Getter method to return validity of map
      * @return return whether the map is suitable for playing
      */

@@ -12,6 +12,9 @@ public class Country
     private String d_ContinentName=null;
     private HashMap<String,Country> d_neighbourCountries;
 
+    /**
+     * Empty default constructor
+     */
     public Country(){
     }
 
@@ -23,8 +26,8 @@ public class Country
      */
     public Country(String p_countryName, String p_ContinentName)
     {
-        this.d_countryName = p_countryName;
-        this.d_ContinentName = p_ContinentName;
+        this.d_countryName = p_countryName.toLowerCase();
+        this.d_ContinentName = p_ContinentName.toLowerCase();
         this.d_neighbourCountries = new HashMap<String, Country>();
     }
 

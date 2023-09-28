@@ -10,7 +10,7 @@ import java.util.HashMap;
  */
 public class Continent
 {
-    private int d_continentID;
+    private int d_continentControlValue;
     private String d_continentName=null;
     private HashMap<String,Country> d_listOfCountries;
 
@@ -23,8 +23,8 @@ public class Continent
 
     public Continent(String p_continentName,int p_continentID)
     {
-        this.d_continentName = p_continentName;
-        this.d_continentID = p_continentID;
+        this.d_continentName = p_continentName.toLowerCase();
+        this.d_continentControlValue = p_continentID;
         this.d_listOfCountries = new HashMap<String,Country>();
 
     }
@@ -49,8 +49,8 @@ public class Continent
      * Getter method for continentID
      * @return continentID
      */
-    public int getContinentID() {
-        return this.d_continentID;
+    public int getContinentControlValue() {
+        return this.d_continentControlValue;
     }
 
 

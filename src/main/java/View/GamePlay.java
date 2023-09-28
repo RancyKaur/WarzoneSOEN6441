@@ -55,7 +55,7 @@ public class GamePlay {
         File d_mapContainer = new File("src/main/resources/maps/");
         File[] d_mapFiles = d_mapContainer.listFiles();
         System.out.println();
-        if (d_mapContainer.length()!=0) {
+        if (d_mapContainer.length() != 0) {
             System.out.println("Below are the saved game maps:");
             for (int i = 0; i < d_mapFiles.length; i++) {
                 if (d_mapFiles[i].isFile())
@@ -63,8 +63,7 @@ public class GamePlay {
             }
             System.out.println();
             System.out.println("Type 'editmap <name of map> without extension, if the map name is not part of above list, a new map will be created");
-        }
-        else{
+        } else {
             System.out.println("There are NO saved maps in the game");
             System.out.println("Type 'editmap <name of map>' without extension, to create a new map");
         }

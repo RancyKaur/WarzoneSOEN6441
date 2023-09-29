@@ -2,6 +2,7 @@ package View;
 
 import Controller.GameEngine;
 import Model.GamePhase;
+import Model.GetCommands;
 
 import java.io.File;
 import java.sql.SQLOutput;
@@ -36,11 +37,11 @@ public class GamePlay {
      */
     private void enterGamePhases() {
         GameEngine l_cmd = new GameEngine();
-        String l_command = d_inp.nextLine();
+        String l_command = GetCommands.validateCommand(l_cmd.getD_phase());
         GamePhase l_phase = l_cmd.parseCommand(l_command);
 
         while (l_phase != GamePhase.ENDGAME || l_phase != GamePhase.ISSUEORDER) {
-            l_command = d_inp.nextLine();
+            l_command = GetCommands.validateCommand(l_cmd.getD_phase());
             l_phase = l_cmd.parseCommand(l_command);
             System.out.println("Waiting for next command...");
         }

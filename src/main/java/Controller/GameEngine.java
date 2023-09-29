@@ -13,6 +13,10 @@ public class GameEngine {
     private EngineCommand d_RunCommand;
     private WargameMap d_map;
 
+    public GamePhase getD_phase() {
+        return d_phase;
+    }
+
     public GameEngine() {
         d_phase = GamePhase.BEGINGAME;
         d_RunCommand = new EngineCommand();

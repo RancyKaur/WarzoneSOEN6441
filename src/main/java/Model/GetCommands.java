@@ -47,11 +47,11 @@ public class GetCommands {
         return l_cmd;
     }
 
-    public static String validateCommand(GamePhase phase) {
+    public static String validateCommand(GamePhase p_phase) {
         String l_cmd = null;
-        if (phase == GamePhase.BEGINGAME) {
+        if (p_phase == GamePhase.BEGINGAME) {
             l_cmd = validateBeginPhaseCommand();
-        } else if (phase == GamePhase.EDITMAP) {
+        } else if (p_phase == GamePhase.EDITMAP) {
             l_cmd = validateEditMapPhaseCommand();
         }
         return l_cmd;

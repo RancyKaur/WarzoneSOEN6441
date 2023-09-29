@@ -7,9 +7,12 @@ import java.util.HashMap;
  * This class represents country object that comprises of country name, continent it resides in and its neighbhouring countries.
  */
 public class Country {
+    private static int countryIndex =1;
     private String d_countryName = null;
     private String d_ContinentName = null;
     private HashMap<String, Country> d_neighbourCountries;
+
+    private int d_countryIndex;
 
     /**
      * Empty default constructor
@@ -27,6 +30,7 @@ public class Country {
         this.d_countryName = p_countryName.toLowerCase();
         this.d_ContinentName = p_ContinentName.toLowerCase();
         this.d_neighbourCountries = new HashMap<String, Country>();
+        this.d_countryIndex = Country.countryIndex++;
     }
 
     /**
@@ -56,5 +60,13 @@ public class Country {
         return this.d_neighbourCountries;
     }
 
+    public void setIndexOfCountry(int p_index)
+    {
+        this.d_countryIndex = p_index;
+    }
 
+    public int getIndexOfCountry()
+    {
+        return this.d_countryIndex;
+    }
 }

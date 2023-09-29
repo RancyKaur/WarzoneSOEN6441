@@ -9,10 +9,11 @@ import java.util.HashMap;
  * This class provides a comprehensive representation of continents within the context of a game map.
  */
 public class Continent {
+    private static int continentCount=1;
     private int d_continentControlValue;
     private String d_continentName = null;
     private HashMap<String, Country> d_listOfCountries;
-
+    private int d_indexOfContinent;
 
     /**
      * Constructs the Continent object with given name and ID
@@ -25,7 +26,7 @@ public class Continent {
         this.d_continentName = p_continentName.toLowerCase();
         this.d_continentControlValue = p_continentID;
         this.d_listOfCountries = new HashMap<String, Country>();
-
+        this.d_indexOfContinent=Continent.continentCount++;
     }
 
     /**
@@ -56,4 +57,13 @@ public class Continent {
     }
 
 
+    public void setIndexOfContinent(int p_index)
+    {
+        this.d_indexOfContinent = p_index;
+    }
+
+    public int getIndexOfContinent()
+    {
+        return this.d_indexOfContinent;
+    }
 }

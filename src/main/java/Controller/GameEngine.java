@@ -151,6 +151,7 @@ public class GameEngine {
                         System.out.println("Error: The continentID is not a valid integer.");
                     } catch (Exception e) {
                         System.out.println("Command is invalid, please note it is for format For E.g. 'editcontinent -add Europe 1' or 'editcontinent -remove Europe");
+                        System.out.println(e);
                     }
 
                     break;
@@ -266,7 +267,7 @@ public class GameEngine {
                                 } else
                                     System.out.println("Error in saving the map, as it is invalid");
                             } else
-                                System.out.println("Map name not valid!");
+                                System.out.println("Map name is not valid, please ensure you do not put any extension");
                         }
                     } catch (Exception e) {
                         System.out.println("Invalid command - it should be of the form(without extension) savemap filename");

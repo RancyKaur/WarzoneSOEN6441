@@ -11,16 +11,16 @@ public class GetCommands {
         GetCommands.d_scan = new Scanner(System.in);
     }
 
-    private static boolean isValidPhaseCommand(String command, GamePhase phase) {
-        String[] l_splitCmds = command.split("\\s+");
+    private static boolean isValidPhaseCommand(String p_command, GamePhase p_phase) {
+        String[] l_splitCmds = p_command.split("\\s+");
         String l_phaseCmd = l_splitCmds[0];
-        if (phase == GamePhase.BEGINGAME) {
+        if (p_phase == GamePhase.BEGINGAME) {
             for (String validCommand : d_validBeginPhaseCmds) {
                 if (validCommand.equalsIgnoreCase(l_phaseCmd)) {
                     return true;
                 }
             }
-        } else if (phase == GamePhase.EDITMAP) {
+        } else if (p_phase == GamePhase.EDITMAP) {
             for (String validCommand : d_validEditMapPhaseCmds) {
                 if (validCommand.equalsIgnoreCase(l_phaseCmd)) {
                     return true;

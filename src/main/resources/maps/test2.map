@@ -1,0 +1,17 @@
+map:test2.map
+
+[Continents]
+1 Asia 1
+2 Europe 1
+
+[Countries]
+3 Germany 2
+4 Iran 2
+2 Pak 1
+1 India 1
+
+[Borders]
+3 4
+4 3 2
+2 4 1
+1 2

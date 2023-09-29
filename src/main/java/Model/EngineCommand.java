@@ -4,8 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 import Controller.GameEngine;
 
@@ -33,18 +32,8 @@ public class EngineCommand {
             System.out.println("Creating a new Map named " + p_mapName);
             l_map = new WargameMap(p_mapName);
         }
-        return l_map;
-    }
 
-    public boolean saveMap(WargameMap p_map, String p_fileName) {
-        try {
-            BufferedWriter l_writer = new BufferedWriter(new FileWriter("src/main/resources/maps/" + p_fileName + ".map"));
-            l_writer.write("name " + p_fileName + " Map");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+        return l_map;
     }
 
 
@@ -307,7 +296,7 @@ public class EngineCommand {
                     }
 
                     for (Country l_neighbor : l_country.getNeighbours().values()) {
-                        System.out.printf("\n%25s%25s%25s\n", l_displayContinent ? GameEngine.capitalizeString(l_continent.getContinentName()) : "", l_displayCountry ? GameEngine.capitalizeString(l_country.getCountryName()) : "", GameEngine.capitalizeString(l_neighbor.getCountryName()));
+                        System.out.printf("\n%25s%25s%25s\n", l_displayContinent ? GameEngine.capitalizeString(l_continent.getContinentName()): "", l_displayCountry ? GameEngine.capitalizeString(l_country.getCountryName()) : "", GameEngine.capitalizeString(l_neighbor.getCountryName()));
                         l_displayContinent = false;
                         l_displayCountry = false;
                     }
@@ -318,4 +307,92 @@ public class EngineCommand {
             }
         }
     }
+
+    /**
+     * This function is used to write continent, country and neighbours/borders to a map file
+     * It is executed when user enters savemap command
+     * It first displays continents then countries and then borders
+     *
+     * @param p_map map object whose value needs to be saved
+     * @param p_fileName filename where map's values are saved
+     * @return true if map save is successful otherwise false
+     */
+    public boolean saveMap(WargameMap p_map, String p_fileName) {
+        if(checkGameMap(p_map)) {
+            try {
+                BufferedWriter l_fileWriter = new BufferedWriter(new FileWriter("src/main/resources/maps/" + p_fileName + ".map"));
+                l_fileWriter.write("map:" + p_fileName + ".map");
+                l_fileWriter.newLine();
+                l_fileWriter.newLine();
+                l_fileWriter.flush();
+                l_fileWriter.write("[Continents]");
+                l_fileWriter.newLine();
+
+                //write continents first to the file in country Index, country name and continent's control value
+                for(Continent l_continent: p_map.getContinents().values())
+                {
+                    l_fileWriter.write(l_continent.getIndexOfContinent() + " " + GameEngine.capitalizeString(l_continent.getContinentName()) + " " + l_continent.getContinentControlValue());
+                    l_fileWriter.newLine();
+                    l_fileWriter.flush();
+                }
+
+                // Writing country details
+                l_fileWriter.newLine();
+                l_fileWriter.write("[Countries]");
+                l_fileWriter.newLine();
+
+                List<String> l_bordersList = new ArrayList<>();
+                String l_bordersMetaData = new String();
+
+                System.out.println(p_map.getCountries());
+                for (Country l_country : p_map.getCountries().values()) {
+                    String l_countryName= GameEngine.capitalizeString(l_country.getCountryName());
+
+                    String l_line = l_country.getIndexOfCountry() + " " + l_countryName + " " + p_map.getContinents().get(l_country.getContinentName()).getIndexOfContinent();
+
+                    l_fileWriter.write(l_line);
+                    l_fileWriter.newLine();
+                    l_fileWriter.flush();
+
+                    if (l_country.getNeighbours()!=null && !l_country.getNeighbours().isEmpty()) {
+                        l_bordersMetaData = new String();
+                        l_bordersMetaData = Integer.toString(l_country.getIndexOfCountry());
+                        for (Country l_neighbor : l_country.getNeighbours().values()) {
+                            l_bordersMetaData = l_bordersMetaData.concat(" ").concat(Integer.toString(l_neighbor.getIndexOfCountry()));
+                        }
+                        l_bordersList.add(l_bordersMetaData);
+                    }
+                }
+
+                System.out.println();
+                l_fileWriter.newLine();
+                l_fileWriter.write("[Borders]");
+                l_fileWriter.newLine();
+                l_fileWriter.flush();
+
+
+                // Writes Border data to the File
+                if (l_bordersList !=null  && !l_bordersList.isEmpty()) {
+                    for (String l_borderStr : l_bordersList) {
+                        l_fileWriter.write(l_borderStr);
+                        l_fileWriter.newLine();
+                    }
+                    l_fileWriter.flush();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        else
+        {
+            System.out.println("Map is invalid, it is not suitable for the game.");
+            System.out.println("Please either correct the map so that it is connected to be valid or load an existing saved map");
+            return false;
+        }
+    }
+
+
 }

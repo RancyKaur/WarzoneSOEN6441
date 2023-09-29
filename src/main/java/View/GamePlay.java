@@ -55,7 +55,7 @@ public class GamePlay {
         File d_mapContainer = new File("src/main/resources/maps/");
         File[] d_mapFiles = d_mapContainer.listFiles();
         System.out.println();
-        if (d_mapContainer.length()!=0) {
+        if (d_mapFiles.length!=0) {
             System.out.println("Below are the saved game maps:");
             for (int i = 0; i < d_mapFiles.length; i++) {
                 if (d_mapFiles[i].isFile())

@@ -1,0 +1,12 @@
+map:test1.map
+
+[Continents]
+1 asia 1
+
+[Countries]
+1 pakistan 1
+2 india 1
+
+[Borders]
+1 2 
+2 1 

@@ -11,16 +11,16 @@ public class GetCommands {
         GetCommands.d_scan = new Scanner(System.in);
     }
 
-    private static boolean isValidPhaseCommand(String command, GamePhase phase) {
-        String[] l_splitCmds = command.split("\\s+");
+    private static boolean isValidPhaseCommand(String p_command, GamePhase p_phase) {
+        String[] l_splitCmds = p_command.split("\\s+");
         String l_phaseCmd = l_splitCmds[0];
-        if (phase == GamePhase.BEGINGAME) {
+        if (p_phase == GamePhase.BEGINGAME) {
             for (String validCommand : d_validBeginPhaseCmds) {
                 if (validCommand.equalsIgnoreCase(l_phaseCmd)) {
                     return true;
                 }
             }
-        } else if (phase == GamePhase.EDITMAP) {
+        } else if (p_phase == GamePhase.EDITMAP) {
             for (String validCommand : d_validEditMapPhaseCmds) {
                 if (validCommand.equalsIgnoreCase(l_phaseCmd)) {
                     return true;
@@ -47,11 +47,11 @@ public class GetCommands {
         return l_cmd;
     }
 
-    public static String validateCommand(GamePhase phase) {
+    public static String validateCommand(GamePhase p_phase) {
         String l_cmd = null;
-        if (phase == GamePhase.BEGINGAME) {
+        if (p_phase == GamePhase.BEGINGAME) {
             l_cmd = validateBeginPhaseCommand();
-        } else if (phase == GamePhase.EDITMAP) {
+        } else if (p_phase == GamePhase.EDITMAP) {
             l_cmd = validateEditMapPhaseCommand();
         }
         return l_cmd;

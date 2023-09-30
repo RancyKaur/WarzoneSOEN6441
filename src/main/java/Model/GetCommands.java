@@ -3,7 +3,7 @@ package Model;
 import java.util.Scanner;
 
 public class GetCommands {
-    private static String[] d_validBeginPhaseCmds = new String[]{"editmap", "stopgame"};
+    private static String[] d_validBeginPhaseCmds = new String[]{"editmap", "stopgame","loadmap"};
     private static String[] d_validEditMapPhaseCmds = new String[]{"editcontinent", "editcountry", "editneighbor", "validatemap", "savemap", "showmap", "stopgame"};
     private static Scanner d_scan;
 

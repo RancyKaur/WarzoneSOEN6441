@@ -1,0 +1,12 @@
+map:world.map
+
+[Continents]
+1 Asia 2
+
+[Countries]
+1 India 1
+2 Srilanka 1
+
+[Borders]
+1 2
+2 1

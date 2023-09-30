@@ -96,4 +96,19 @@ public class WargameMap {
         this.getCountries().put(p_countryName.toLowerCase(), p_country);
     }
 
+    public String getD_MapName() {
+        return d_MapName;
+    }
+
+    public void setD_MapName(String d_MapName) {
+        this.d_MapName = d_MapName;
+    }
+
+    public boolean isD_isValid() {
+        return d_isValid;
+    }
+
+    public void setD_isValid(boolean d_isValid) {
+        this.d_isValid = d_isValid;
+    }
 }

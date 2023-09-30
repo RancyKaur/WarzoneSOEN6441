@@ -28,7 +28,7 @@ public class GameEngine {
      * The validity checks if name contains alphanumeric characters, no special character is allowed
      */
     private boolean isValidMapName(String p_mapName) {
-        return p_mapName != null && p_mapName.matches("^[a-zA-Z0-9]*$");
+        return p_mapName != null && p_mapName.matches("^[a-zA-Z0-9]*.map$");
     }
 
     /**
@@ -87,6 +87,18 @@ public class GameEngine {
                         System.out.println("Invalid command, it needs name of the map as a parameter, For E.g. editmap mapname");
                     }
                     break;
+                }
+                case "loadmap":{
+                    try{
+                        l_mapName=l_param[1];
+                        if(this.isValidMapName(l_mapName)){
+                            d_map=d_RunCommand.loadMap(l_mapName);
+                        }else{
+                            System.out.println("Map does not exist! Select a map from our resources or the one you created!");
+                        }
+                    }catch(Exception e){
+                        System.out.println("reached!");
+                    }
                 }
                 case "stopgame": {
                     this.d_phase = GamePhase.ENDGAME;

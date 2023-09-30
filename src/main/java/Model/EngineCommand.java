@@ -433,7 +433,7 @@ public class EngineCommand {
     public boolean validateMap(WargameMap p_map) {
         ValidateMap l_mv = new ValidateMap();
         if (!l_mv.notEmptyContinent(p_map)) {
-            System.out.println("Invalid map - emtpy continent present.");
+            System.out.println("Invalid map - empty continent present.");
             return false;
         } else if (!l_mv.isGraphConnected(l_mv.createGraph(p_map))) {
             System.out.println("Invalid map - not a connected graph");
@@ -443,6 +443,10 @@ public class EngineCommand {
             return false;
         }
         return true;
+    }
+
+    private void printMap(WargameMap map){
+
     }
 
 }

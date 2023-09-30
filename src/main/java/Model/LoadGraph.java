@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,12 +36,15 @@ public class LoadGraph {
             BufferedReader l_reader = new BufferedReader(new FileReader(p_map));
             String l_s;
             while ((l_s = l_reader.readLine()) != null) {
-                if (l_s.equals("[continents]"))
+                if (l_s.equals("[Continents]")){
                     l_reader = readContinents(l_reader);
-                if (l_s.equals("[countries]"))
+                }
+                if (l_s.equals("[Countries]")){
                     l_reader = readCountries(l_reader);
-                if (l_s.equals("[borders]"))
+                }
+                if (l_s.equals("[Borders]")){
                     l_reader = readBorders(l_reader);
+                }
             }
             l_reader.close();
         } catch (FileNotFoundException e) {
@@ -95,9 +99,9 @@ public class LoadGraph {
         try {
             while (!((l_s = p_reader.readLine()).equals(""))) {
                 String[] l_continentString = l_s.split("\\s+");
-
-                if (Integer.parseInt(l_continentString[1]) >= 0) {
-                    d_map.getContinents().put(l_continentString[0].toLowerCase(), new Continent(l_continentString[0], Integer.parseInt(l_continentString[1])));
+                if (Integer.parseInt(l_continentString[0]) >= 0) {
+                    d_map.getContinents().put(l_continentString[1].toLowerCase(), new Continent(l_continentString[1], Integer.parseInt(l_continentString[0])));
+//                    d_map.addContinents(l_continentString[1].toLowerCase(), new Continent(l_continentString[1], Integer.parseInt(l_continentString[0])));
                     d_indexInMap++;
                 } else {
                     System.out.println("Error reading the file.");

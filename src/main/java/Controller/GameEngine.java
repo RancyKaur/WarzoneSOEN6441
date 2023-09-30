@@ -97,7 +97,7 @@ public class GameEngine {
                             System.out.println("Map does not exist! Select a map from our resources or the one you created!");
                         }
                     }catch(Exception e){
-                        System.out.println("reached!");
+                        System.out.println("Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
                     }
                 }
                 case "stopgame": {

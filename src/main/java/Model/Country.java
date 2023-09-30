@@ -11,8 +11,8 @@ public class Country {
     private String d_countryName = null;
     private String d_ContinentName = null;
     private HashMap<String, Country> d_neighbourCountries;
-
     private int d_countryIndex;
+    private int d_armiesAllocated;
 
     /**
      * Empty default constructor
@@ -31,6 +31,28 @@ public class Country {
         this.d_ContinentName = p_ContinentName.toLowerCase();
         this.d_neighbourCountries = new HashMap<String, Country>();
         this.d_countryIndex = Country.countryIndex++;
+        this.d_armiesAllocated=0;
+    }
+
+    /**
+     * CountryDetails parameterized constructor
+     * This constructor used while reading from ".map" files.
+     * @param p_index index in the ".map" file as per Domination's conventions
+     * @param p_countryName countryName key
+     * @param p_continentName continentName key
+     * @param p_map GameMap which was loaded
+     */
+    public Country(String p_index, String p_countryName, String p_continentName, WargameMap p_map){
+        this.d_countryIndex = Integer.parseInt(p_index);
+        this.d_countryName = p_countryName;
+        for(Continent c : p_map.getContinents().values()) {
+            if(c.getIndexOfContinent()==Integer.parseInt(p_continentName)) {
+                this.d_ContinentName = c.getContinentName();
+                //break;
+            }
+        }
+        this.d_neighbourCountries = new HashMap<String, Country>();
+        this.d_armiesAllocated = 0;
     }
 
     /**

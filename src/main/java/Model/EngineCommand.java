@@ -296,7 +296,7 @@ public class EngineCommand {
                     }
 
                     for (Country l_neighbor : l_country.getNeighbours().values()) {
-                        System.out.printf("\n%25s%25s%25s\n", l_displayContinent ? GameEngine.capitalizeString(l_continent.getContinentName()): "", l_displayCountry ? GameEngine.capitalizeString(l_country.getCountryName()) : "", GameEngine.capitalizeString(l_neighbor.getCountryName()));
+                        System.out.printf("\n%25s%25s%25s\n", l_displayContinent ? GameEngine.capitalizeString(l_continent.getContinentName()) : "", l_displayCountry ? GameEngine.capitalizeString(l_country.getCountryName()) : "", GameEngine.capitalizeString(l_neighbor.getCountryName()));
                         l_displayContinent = false;
                         l_displayCountry = false;
                     }
@@ -313,12 +313,12 @@ public class EngineCommand {
      * It is executed when user enters savemap command
      * It first displays continents then countries and then borders
      *
-     * @param p_map map object whose value needs to be saved
+     * @param p_map      map object whose value needs to be saved
      * @param p_fileName filename where map's values are saved
      * @return true if map save is successful otherwise false
      */
     public boolean saveMap(WargameMap p_map, String p_fileName) {
-        if(checkGameMap(p_map)) {
+        if (checkGameMap(p_map)) {
             try {
                 BufferedWriter l_fileWriter = new BufferedWriter(new FileWriter("src/main/resources/maps/" + p_fileName + ".map"));
                 l_fileWriter.write("map:" + p_fileName + ".map");
@@ -329,8 +329,7 @@ public class EngineCommand {
                 l_fileWriter.newLine();
 
                 //write continents first to the file in country Index, country name and continent's control value
-                for(Continent l_continent: p_map.getContinents().values())
-                {
+                for (Continent l_continent : p_map.getContinents().values()) {
                     l_fileWriter.write(l_continent.getIndexOfContinent() + " " + GameEngine.capitalizeString(l_continent.getContinentName()) + " " + l_continent.getContinentControlValue());
                     l_fileWriter.newLine();
                     l_fileWriter.flush();
@@ -346,7 +345,7 @@ public class EngineCommand {
 
                 System.out.println(p_map.getCountries());
                 for (Country l_country : p_map.getCountries().values()) {
-                    String l_countryName= GameEngine.capitalizeString(l_country.getCountryName());
+                    String l_countryName = GameEngine.capitalizeString(l_country.getCountryName());
 
                     String l_line = l_country.getIndexOfCountry() + " " + l_countryName + " " + p_map.getContinents().get(l_country.getContinentName()).getIndexOfContinent();
 
@@ -354,7 +353,7 @@ public class EngineCommand {
                     l_fileWriter.newLine();
                     l_fileWriter.flush();
 
-                    if (l_country.getNeighbours()!=null && !l_country.getNeighbours().isEmpty()) {
+                    if (l_country.getNeighbours() != null && !l_country.getNeighbours().isEmpty()) {
                         l_bordersMetaData = new String();
                         l_bordersMetaData = Integer.toString(l_country.getIndexOfCountry());
                         for (Country l_neighbor : l_country.getNeighbours().values()) {
@@ -372,7 +371,7 @@ public class EngineCommand {
 
 
                 // Writes Border data to the File
-                if (l_bordersList !=null  && !l_bordersList.isEmpty()) {
+                if (l_bordersList != null && !l_bordersList.isEmpty()) {
                     for (String l_borderStr : l_bordersList) {
                         l_fileWriter.write(l_borderStr);
                         l_fileWriter.newLine();
@@ -385,14 +384,69 @@ public class EngineCommand {
                 return false;
             }
             return true;
-        }
-        else
-        {
+        } else {
             System.out.println("Map is invalid, it is not suitable for the game.");
             System.out.println("Please either correct the map so that it is connected to be valid or load an existing saved map");
             return false;
         }
     }
 
+    /**
+     * Load map for playing the game.
+     * It checks whether map file exist or not.
+     *
+     * @param p_map name of the map to be used for playing the game.
+     * @return l_gameMap represents the existing map to be used for playing the game.
+     */
+    public WargameMap loadMap(String p_map) {
+        String l_filePath = "src/main/resources/maps/" + p_map;
+        WargameMap l_gameMap;
+        File l_file = new File(l_filePath);
+        if (l_file.exists()) {
+            LoadGraph l_loadMap = new LoadGraph();
+            l_gameMap = l_loadMap.readMap(l_filePath);
+            l_gameMap.setD_MapName(p_map);
+            if (validateMap(l_gameMap)) {
+                l_gameMap.setD_isValid(true);
+            } else {
+                System.out.println("Map chosen is not a valid map! It should be a connected graph for you to load the map. Complete the map to continue or load another map from our resources");
+                l_gameMap.setD_isValid(false);
+            }
+        } else {
+            System.out.println("Map " + p_map + " does not exist! Try to load a map which exists or use 'editMap' to create a map.");
+            return null;
+        }
+        return l_gameMap;
+    }
+
+
+    /**
+     * It consist of various validity checks to ensure that map is suitable for playing the game.
+     * Checks:
+     * 1) any empty continent is present or not, i.e. continent without any country
+     * 2) map for the game is connected graph or not
+     * 3) each continent in map is a connected sub-graph or not
+     *
+     * @param p_map GameMap to be be checked.
+     * @return return true if map is valid, else false indicate invalid map
+     */
+    public boolean validateMap(WargameMap p_map) {
+        ValidateMap l_mv = new ValidateMap();
+        if (!l_mv.notEmptyContinent(p_map)) {
+            System.out.println("Invalid map - empty continent present.");
+            return false;
+        } else if (!l_mv.isGraphConnected(l_mv.createGraph(p_map))) {
+            System.out.println("Invalid map - not a connected graph");
+            return false;
+        } else if (!l_mv.continentConnectivityCheck(p_map)) {
+            System.out.println("Invalid map - one of the continent is not a connected sub-graph");
+            return false;
+        }
+        return true;
+    }
+
+    private void printMap(WargameMap map){
+
+    }
 
 }

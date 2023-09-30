@@ -98,7 +98,7 @@ public class GameEngine {
                         l_mapName=l_param[1];
                         if(this.isValidMapName(l_mapName)){
                             d_map=d_RunCommand.loadMap(l_mapName);
-                            System.out.printf("Map %s loaded in game memory successfully\n",l_mapName);
+                            System.out.printf("Map %s loaded in game memory successfully\nAdd players now\n",l_mapName);
                         }else{
                             System.out.println("Map does not exist! Select a map from our resources or the one you created!");
                         }
@@ -309,6 +309,7 @@ public class GameEngine {
                     }catch(Exception e){
                         System.out.println("Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
                     }
+                    break;
                 }
 
                 // command to stop and exit from the game

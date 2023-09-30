@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +25,7 @@ public class LoadGraph {
      * This method reads the map from the drive and runs validation on the map
      *
      * @param p_map Name of the map file to be read
-     * @return d_Map GameMap object representing the map just read
+     * @return d_Map WargameMap instance for the map read from the drive
      */
     public WargameMap readMap(String p_map) {
         d_map = new WargameMap(p_map);
@@ -36,31 +35,27 @@ public class LoadGraph {
             BufferedReader l_reader = new BufferedReader(new FileReader(p_map));
             String l_s;
             while ((l_s = l_reader.readLine()) != null) {
-                if (l_s.equals("[Continents]")){
+                if (l_s.equalsIgnoreCase("[Continents]")){
                     l_reader = readContinents(l_reader);
                 }
-                if (l_s.equals("[Countries]")){
+                if (l_s.equalsIgnoreCase("[Countries]")){
                     l_reader = readCountries(l_reader);
                 }
-                if (l_s.equals("[Borders]")){
+                if (l_s.equalsIgnoreCase("[Borders]")){
                     l_reader = readBorders(l_reader);
                 }
             }
             l_reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("FileNotFoundException");
-            System.out.println(e.getMessage());
+            System.out.printf("Map %s could not be found in our resources\n",p_map);
         } catch (IOException e) {
-            System.out.println("IOException");
-            System.out.println(e.getMessage());
+            System.out.println("Error reading the map file! Try running the command again or restart the game");
         }
         return d_map;
     }
 
     /**
-     * Reads the countries from the ".map" files.
-     * Exits the program if duplicate country or in non-existent country.
-     *
+     * This helper method reads the countries from the file
      * @param p_reader Stream starting from countries section of ".map" file
      * @return p_reader BufferedReader stream at the point where it has finished reading countries
      */
@@ -72,13 +67,13 @@ public class LoadGraph {
                 Country l_newCountry = new Country(l_countryString[0], l_countryString[1], l_countryString[2], d_map);
                 try {
                     if (l_newCountry.getContinentName() == null) {
-                        System.out.println("Error reading the file.");
+                        System.out.println("Error reading the file.Restart the game again!");
                         System.exit(-1);
                     }
                     addToContinentMap(l_newCountry);
                     d_countries.put(l_newCountry.getIndexOfCountry(), l_newCountry);
                 } catch (NullPointerException e) {
-                    e.printStackTrace();
+                    System.out.println("Error encountered while loading countries from the file! Either try to load the map again or restart the game");
                 }
             }
         } catch (IOException e) {

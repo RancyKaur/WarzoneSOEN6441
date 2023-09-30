@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class GetCommands {
     private static String[] d_validBeginPhaseCmds = new String[]{"editmap", "stopgame","loadmap"};
-    private static String[] d_validEditMapPhaseCmds = new String[]{"editcontinent", "editcountry", "editneighbor", "validatemap", "savemap", "showmap", "stopgame"};
+    private static String[] d_validEditMapPhaseCmds = new String[]{"editcontinent", "editcountry", "editneighbor", "validatemap", "savemap", "showmap", "loadmap", "stopgame"};
     private static Scanner d_scan;
 
     static {
@@ -27,7 +27,7 @@ public class GetCommands {
                 }
             }
         }
-        System.out.println("Invalid command");
+        System.out.println("Invalid phase command");
         return false;
     }
 

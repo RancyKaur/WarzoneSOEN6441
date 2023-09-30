@@ -88,6 +88,11 @@ public class GameEngine {
                     }
                     break;
                 }
+                case "stopgame": {
+                    this.d_phase = GamePhase.ENDGAME;
+                    System.out.println("Stopping the game as requested");
+                    exit(0);
+                }
                 case "loadmap":{
                     try{
                         l_mapName=l_param[1];
@@ -99,11 +104,6 @@ public class GameEngine {
                     }catch(Exception e){
                         System.out.println("Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
                     }
-                }
-                case "stopgame": {
-                    this.d_phase = GamePhase.ENDGAME;
-                    System.out.println("Stopping the game as requested");
-                    exit(0);
                 }
                 default: {
                     System.out.println("At this phase, only 'editmap' or 'stopgame' commands are accepted");
@@ -292,6 +292,19 @@ public class GameEngine {
                     d_RunCommand.showMap(d_map);
                     d_phase = GamePhase.EDITMAP;
                     break;
+                }
+
+                case "loadmap":{
+                    try{
+                        l_mapName=l_param[1];
+                        if(this.isValidMapName(l_mapName)){
+                            d_map=d_RunCommand.loadMap(l_mapName);
+                        }else{
+                            System.out.println("Map does not exist! Select a map from our resources or the one you created!");
+                        }
+                    }catch(Exception e){
+                        System.out.println("Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
+                    }
                 }
 
                 // command to stop and exit from the game

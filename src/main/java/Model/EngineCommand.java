@@ -404,14 +404,12 @@ public class EngineCommand {
         File l_file = new File(l_filePath);
         if (l_file.exists()) {
             LoadGraph l_loadMap = new LoadGraph();
-            System.out.println("********************* reached 1");
             l_gameMap = l_loadMap.readMap(l_filePath);
-            System.out.println("********************* reached 2");
             l_gameMap.setD_MapName(p_map);
             if (validateMap(l_gameMap)) {
                 l_gameMap.setD_isValid(true);
             } else {
-                System.out.println("Map chosen is not a valid map! Complete the map to continue or load another map from our resources");
+                System.out.println("Map chosen is not a valid map! It should be a connected graph for you to load the map. Complete the map to continue or load another map from our resources");
                 l_gameMap.setD_isValid(false);
             }
         } else {
@@ -425,23 +423,22 @@ public class EngineCommand {
     /**
      * It consist of various validity checks to ensure that map is suitable for playing the game.
      * Checks:
-     * 	1) any empty continent is present or not, i.e. continent without any country
-     * 	2) map for the game is connected graph or not
-     * 	3) each continent in map is a connected sub-graph or not
+     * 1) any empty continent is present or not, i.e. continent without any country
+     * 2) map for the game is connected graph or not
+     * 3) each continent in map is a connected sub-graph or not
+     *
      * @param p_map GameMap to be be checked.
      * @return return true if map is valid, else false indicate invalid map
      */
     public boolean validateMap(WargameMap p_map) {
         ValidateMap l_mv = new ValidateMap();
-        if(!l_mv.notEmptyContinent(p_map)) {
+        if (!l_mv.notEmptyContinent(p_map)) {
             System.out.println("Invalid map - emtpy continent present.");
             return false;
-        }
-        else if(!l_mv.isGraphConnected(l_mv.createGraph(p_map))) {
+        } else if (!l_mv.isGraphConnected(l_mv.createGraph(p_map))) {
             System.out.println("Invalid map - not a connected graph");
             return false;
-        }
-        else if(!l_mv.continentConnectivityCheck(p_map)) {
+        } else if (!l_mv.continentConnectivityCheck(p_map)) {
             System.out.println("Invalid map - one of the continent is not a connected sub-graph");
             return false;
         }

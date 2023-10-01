@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static java.lang.System.exit;
 
@@ -22,6 +23,8 @@ public class GameEngine {
         d_phase = GamePhase.BEGINGAME;
         d_RunCommand = new EngineCommand();
         d_map = new WargameMap();
+        d_gameStartPhase = new GameStartPhase();
+        d_Players = new ArrayList<>();
     }
 
     /**
@@ -65,7 +68,7 @@ public class GameEngine {
 
     public void addRemovePlayer(String[] l_data, String l_playerName) {
         try {
-            for (int i = 1; i < l_data.length; i++) {
+            for (int i = 1; i < l_data.length - 1; i++) {
                 if (l_data[i].equals("-add")) {
                     if (this.validatePlayerName(l_data[i + 1])) {
                         l_playerName = l_data[i + 1];
@@ -95,6 +98,7 @@ public class GameEngine {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Invalid command - it should be of the form gameplayer -add playername -remove playername");
         } catch (Exception e) {
+            System.out.println("Error:" + e);
             System.out.println("Invalid command - it should be of the form gameplayer -add playername -remove playername");
         }
     }
@@ -393,7 +397,6 @@ public class GameEngine {
         } else if (d_phase == GamePhase.STARTPLAY) {
             switch (l_commandName) {
                 case "gameplayer": {
-                    System.out.println("reached!");
                     addRemovePlayer(l_param, l_playerName);
                     break;
                 }
@@ -406,7 +409,6 @@ public class GameEngine {
             System.out.println("Stopping the game as requested");
             exit(0);
         }
-        System.out.println("reached 2");
         return d_phase;
     }
 

@@ -1,17 +1,18 @@
 package Controller;
 
-import Model.EngineCommand;
-import Model.GameGraph;
-import Model.GamePhase;
-import Model.WargameMap;
+import Model.*;
+
+import java.util.ArrayList;
 
 import static java.lang.System.exit;
 
 public class GameEngine {
 
+    public ArrayList<Player> d_Players;
     private GamePhase d_phase;
     private EngineCommand d_RunCommand;
     private WargameMap d_map;
+    private GameStartPhase d_gameStartPhase;
 
     public GamePhase getD_phase() {
         return d_phase;
@@ -42,6 +43,16 @@ public class GameEngine {
     }
 
     /**
+     * Ensures string matches the defined criteria of being an Alpha for Names.
+     *
+     * @param p_sample input string
+     * @return true if valid match, else false
+     */
+    public boolean validatePlayerName(String p_sample) {
+        return p_sample != null && p_sample.matches("[a-zA-Z0-9]+");
+    }
+
+    /**
      * This method is to display passed string with first letter capitalized
      *
      * @param p_string input string
@@ -52,6 +63,58 @@ public class GameEngine {
         return p_string.substring(0, 1).toUpperCase() + p_string.substring(1);
     }
 
+    public void addRemovePlayer(String[] l_data, String l_playerName) {
+        try {
+            for (int i = 1; i < l_data.length; i++) {
+                if (l_data[i].equals("-add")) {
+                    if (this.validatePlayerName(l_data[i + 1])) {
+                        l_playerName = l_data[i + 1];
+                        boolean l_check = d_gameStartPhase.addPlayer(d_Players, l_playerName);
+                        if (l_check) {
+                            System.out.println("Player added!");
+                        } else {
+                            System.out.println("Can not add any more player. Max pool of 6 Satisfied!");
+                        }
+                        d_phase = GamePhase.STARTPLAY;
+                    } else {
+                        System.out.println("Invalid Player Name");
+                    }
+                } else if (l_data[i].equals("-remove")) {
+                    if (this.validatePlayerName(l_data[i + 1])) {
+                        l_playerName = l_data[i + 1];
+                        boolean l_check = d_gameStartPhase.removePlayer(d_Players, l_playerName);
+                        if (l_check)
+                            System.out.println("Player removed!");
+                        else
+                            System.out.println("Player doesn't exist");
+                        d_phase = GamePhase.STARTPLAY;
+                    } else
+                        System.out.println("Invalid Player Name");
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid command - it should be of the form gameplayer -add playername -remove playername");
+        } catch (Exception e) {
+            System.out.println("Invalid command - it should be of the form gameplayer -add playername -remove playername");
+        }
+    }
+
+    public void assignCountriesToPlayers() {
+        boolean l_check = d_gameStartPhase.assignCountries(d_map, d_Players);
+        if (l_check) {
+            System.out.println("Countries allocated randomly amongst Players");
+            d_phase = GamePhase.ISSUEORDER;
+        }
+
+        for (Player p : d_Players) {
+            System.out.println("Player:" + p.getPlayerName());
+            p.printOwnedCountries();
+            p.printOwnedContinents();
+        }
+
+        d_phase = GamePhase.ISSUEORDER;
+    }
+
     /**
      * This method parses the command input by the player and then executes methods related to the commands entered
      *
@@ -59,6 +122,7 @@ public class GameEngine {
      * @return - the next phase of the current game
      */
     public GamePhase parseCommand(String p_givenCommand) {
+        String l_playerName = null;
         String[] l_param = p_givenCommand.split("\\s+");
         String l_commandName = l_param[0];
         String l_mapName = null;
@@ -93,17 +157,18 @@ public class GameEngine {
                     System.out.println("Stopping the game as requested");
                     exit(0);
                 }
-                case "loadmap":{
-                    try{
-                        l_mapName=l_param[1];
-                        if(this.isValidMapName(l_mapName)){
-                            d_map=d_RunCommand.loadMap(l_mapName);
-                            System.out.printf("Map %s loaded in game memory successfully\nAdd players now\n",l_mapName);
-                        }else{
+                case "loadmap": {
+                    try {
+                        l_mapName = l_param[1];
+                        if (this.isValidMapName(l_mapName)) {
+                            d_map = d_RunCommand.loadMap(l_mapName);
+                            System.out.printf("Map %s loaded in game memory successfully\nAdd players now\n", l_mapName);
+                            this.d_phase = GamePhase.STARTPLAY;
+                        } else {
                             System.out.println("Map does not exist! Select a map from our resources or the one you created!");
                         }
-                    }catch(Exception e){
-                        System.out.println("Exception:"+e);
+                    } catch (Exception e) {
+                        System.out.println("Exception:" + e);
                         System.out.println("Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
                     }
                     break;
@@ -297,16 +362,16 @@ public class GameEngine {
                     break;
                 }
 
-                case "loadmap":{
-                    try{
-                        l_mapName=l_param[1];
-                        if(this.isValidMapName(l_mapName)){
-                            d_map=d_RunCommand.loadMap(l_mapName);
-                            System.out.printf("Map %s loaded in game memory successfully\n",l_mapName);
-                        }else{
+                case "loadmap": {
+                    try {
+                        l_mapName = l_param[1];
+                        if (this.isValidMapName(l_mapName)) {
+                            d_map = d_RunCommand.loadMap(l_mapName);
+                            System.out.printf("Map %s loaded in game memory successfully\n", l_mapName);
+                        } else {
                             System.out.println("Map does not exist! Select a map from our resources or the one you created!");
                         }
-                    }catch(Exception e){
+                    } catch (Exception e) {
                         System.out.println("Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
                     }
                     break;
@@ -325,10 +390,23 @@ public class GameEngine {
                     d_phase = GamePhase.EDITMAP;
                 }
             }
+        } else if (d_phase == GamePhase.STARTPLAY) {
+            switch (l_commandName) {
+                case "gameplayer": {
+                    System.out.println("reached!");
+                    addRemovePlayer(l_param, l_playerName);
+                    break;
+                }
+                case "assigncountries": {
+                    assignCountriesToPlayers();
+                    break;
+                }
+            }
         } else if (d_phase == GamePhase.ENDGAME) {
             System.out.println("Stopping the game as requested");
             exit(0);
         }
+        System.out.println("reached 2");
         return d_phase;
     }
 

@@ -3,8 +3,9 @@ package Model;
 import java.util.Scanner;
 
 public class GetCommands {
-    private static String[] d_validBeginPhaseCmds = new String[]{"editmap", "stopgame","loadmap"};
+    private static String[] d_validBeginPhaseCmds = new String[]{"editmap", "stopgame", "loadmap"};
     private static String[] d_validEditMapPhaseCmds = new String[]{"editcontinent", "editcountry", "editneighbor", "validatemap", "savemap", "showmap", "loadmap", "stopgame"};
+    private static String[] d_validateStartPlayCmds = new String[]{"gameplayer"};
     private static Scanner d_scan;
 
     static {
@@ -53,6 +54,8 @@ public class GetCommands {
             l_cmd = validateBeginPhaseCommand();
         } else if (p_phase == GamePhase.EDITMAP) {
             l_cmd = validateEditMapPhaseCommand();
+        } else if (p_phase == GamePhase.STARTPLAY) {
+
         }
         return l_cmd;
     }

@@ -45,16 +45,9 @@ public class GamePlay {
         GameEngine l_cmd = new GameEngine();
         String l_command = GetCommands.validateCommand(l_cmd.getD_phase());
         GamePhase l_phase = l_cmd.parseCommand(null, l_command);
-
-        while (l_phase != GamePhase.ENDGAME && l_phase != GamePhase.ISSUEORDER) {
-            l_command = GetCommands.validateCommand(l_cmd.getD_phase());
-            l_phase = l_cmd.parseCommand(null, l_command);
-            System.out.println("Waiting for next command...");
-        }
+        l_phase = handleStartPhase(l_phase, l_cmd, l_command);
         l_game.assignEachPlayerReinforcements(l_cmd);
-
         takeOrders(l_cmd, l_phase, l_command);
-
     }
 
     /**
@@ -117,6 +110,15 @@ public class GamePlay {
             l_cmd.setD_phase(l_phase);
             l_traversalCounter = 0;
         }
+    }
+
+    public GamePhase handleStartPhase(GamePhase p_phase, GameEngine p_cmd, String p_command) {
+        while (p_phase != GamePhase.ENDGAME && p_phase != GamePhase.ISSUEORDER) {
+            p_command = GetCommands.validateCommand(p_cmd.getD_phase());
+            p_phase = p_cmd.parseCommand(null, p_command);
+            System.out.println("Waiting for next command...");
+        }
+        return p_phase;
     }
 
 }

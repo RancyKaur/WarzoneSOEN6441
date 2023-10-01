@@ -6,6 +6,7 @@ public class GetCommands {
     private static String[] d_validBeginPhaseCmds = new String[]{"editmap", "stopgame", "loadmap"};
     private static String[] d_validEditMapPhaseCmds = new String[]{"editcontinent", "editcountry", "editneighbor", "validatemap", "savemap", "showmap", "loadmap", "stopgame"};
     private static String[] d_validateStartPlayCmds = new String[]{"gameplayer", "assigncountries"};
+    private static String[] d_validIssueOrderCmds = new String[]{"deploy"};
     private static Scanner d_scan;
 
     static {
@@ -29,6 +30,12 @@ public class GetCommands {
             }
         } else if (p_phase == GamePhase.STARTPLAY) {
             for (String validCommand : d_validateStartPlayCmds) {
+                if (validCommand.equalsIgnoreCase(l_phaseCmd)) {
+                    return true;
+                }
+            }
+        } else if (p_phase == GamePhase.ISSUEORDER) {
+            for (String validCommand : d_validIssueOrderCmds) {
                 if (validCommand.equalsIgnoreCase(l_phaseCmd)) {
                     return true;
                 }
@@ -62,6 +69,14 @@ public class GetCommands {
         return l_cmd;
     }
 
+    private static String validateIssueOrderCommand() {
+        String l_cmd;
+        do {
+            l_cmd = d_scan.nextLine();
+        } while (!isValidPhaseCommand(l_cmd, GamePhase.ISSUEORDER));
+        return l_cmd;
+    }
+
     public static String validateCommand(GamePhase p_phase) {
         String l_cmd = null;
         if (p_phase == GamePhase.BEGINGAME) {
@@ -70,6 +85,8 @@ public class GetCommands {
             l_cmd = validateEditMapPhaseCommand();
         } else if (p_phase == GamePhase.STARTPLAY) {
             l_cmd = validateGamePhaseCommand();
+        } else if (p_phase == GamePhase.ISSUEORDER) {
+            l_cmd = validateIssueOrderCommand();
         }
         return l_cmd;
     }

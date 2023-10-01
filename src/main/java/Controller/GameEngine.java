@@ -402,9 +402,14 @@ public class GameEngine {
                 }
                 case "assigncountries": {
                     assignCountriesToPlayers();
+                    d_phase = GamePhase.ISSUEORDER;
                     break;
                 }
+                default: {
+                    System.out.println("Invalid command.Type the correct command in StartPlay phase!");
+                }
             }
+        } else if (d_phase == GamePhase.ISSUEORDER) {
         } else if (d_phase == GamePhase.ENDGAME) {
             System.out.println("Stopping the game as requested");
             exit(0);

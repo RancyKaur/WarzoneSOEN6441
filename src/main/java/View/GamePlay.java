@@ -66,10 +66,10 @@ public class GamePlay {
                     System.out.println(d_mapFiles[i].getName());
             }
             System.out.println();
-            System.out.println("Type 'editmap <name of map> without extension, if the map name is not part of above list, a new map will be created");
+            System.out.println("Type 'editmap <name of map> with extension, if the map name is not part of above list, a new map will be created");
         } else {
             System.out.println("There are NO saved maps in the game");
-            System.out.println("Type 'editmap <name of map>' without extension, to create a new map");
+            System.out.println("Type 'editmap <name of map>' with extension, to create a new map");
         }
         System.out.println();
     }

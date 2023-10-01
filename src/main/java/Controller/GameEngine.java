@@ -5,6 +5,7 @@ import Model.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Queue;
 
 import static java.lang.System.exit;
 
@@ -424,6 +425,12 @@ public class GameEngine {
                     assignCountriesToPlayers();
                     break;
                 }
+                // command to stop and exit from the game
+                case "stopgame": {
+                    this.d_phase = GamePhase.ENDGAME;
+                    System.out.println("Stopping the game as requested");
+                    exit(0);
+                }
                 default: {
                     System.out.println("Invalid command.Type the correct command in StartPlay phase!");
                 }
@@ -482,6 +489,13 @@ public class GameEngine {
                         d_gameStartPhase.showMap(d_Players, d_map);
                         break;
 
+                    // command to stop and exit from the game
+                    case "stopgame": {
+                        this.d_phase = GamePhase.ENDGAME;
+                        System.out.println("Stopping the game as requested");
+                        exit(0);
+                    }
+
                     default:
                         System.out.println("Invalid command - either use deploy | pass | showmap commands in ISSUE_ORDERS Phase");
                         break;
@@ -491,7 +505,68 @@ public class GameEngine {
                 d_phase = GamePhase.EXECUTEORDER;
                 return d_phase;
             }
-        } else if (d_phase == GamePhase.ENDGAME) {
+        }
+        //EXECUTE_ORDERS Phase
+        //EXECUTE ORDERS : execute, showmap
+        else if (d_phase.equals(GamePhase.EXECUTEORDER)) {
+            switch (l_commandName) {
+                case "execute":
+                    int l_count = 0;
+                    // get count of total orders for all players
+                    for (Player l_p : d_Players) {
+                        Queue<ExecuteOrders> l_templist = l_p.getD_orderList();
+                        l_count = l_count +l_templist.size();
+                    }
+
+                    if(l_count == 0){
+                        System.out.println("All orders are already executed!");
+                        d_gameStartPhase.showMap(d_Players, d_map);
+                        d_phase = GamePhase.ISSUEORDER;
+                        return d_phase;
+                    }
+                    else{
+                        System.out.println("Total Orders in Queue are : " + l_count);
+                        while (l_count != 0) {
+                            for (Player l_p : d_Players) {
+
+                                Queue<ExecuteOrders> l_tempOrderList = l_p.getD_orderList();
+                                if (l_tempOrderList.size() > 0) {
+                                    ExecuteOrders l_toRemove = l_p.next_order();
+                                    System.out.println("Order: " +l_toRemove+ " executed for player: "+l_p.getPlayerName());
+                                    l_toRemove.execute();
+                                }
+                            }
+                            l_count--;
+                        }
+
+                        System.out.println("Orders executed!");
+                        d_gameStartPhase.showMap(d_Players, d_map);
+                        d_phase = GamePhase.ISSUEORDER;
+                    }
+                    break;
+
+                case "showmap":
+                    d_gameStartPhase.showMap(d_Players, d_map);
+                    break;
+
+                // command to stop and exit from the game
+                case "stopgame": {
+                    this.d_phase = GamePhase.ENDGAME;
+                    System.out.println("Stopping the game as requested");
+                    exit(0);
+                }
+
+                case "exit":
+                    System.out.println("Build 1 ENDS HERE!");
+                    exit(0);
+
+                default:
+                    System.out.println("Execute Order Phase has commenced, either use showmap | execute");
+                    break;
+            }
+        }
+
+        else if (d_phase == GamePhase.ENDGAME) {
             System.out.println("Stopping the game as requested");
             exit(0);
         }

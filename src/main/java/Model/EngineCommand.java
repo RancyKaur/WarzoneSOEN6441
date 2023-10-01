@@ -23,7 +23,7 @@ public class EngineCommand {
      */
     public WargameMap editMap(String p_mapName) {
         WargameMap l_map = null;
-        String l_mapfilePath = "src/main/resources/maps/" + p_mapName + ".map";
+        String l_mapfilePath = "src/main/resources/maps/" + p_mapName;
         File l_mapFile = new File(l_mapfilePath);
         if (l_mapFile.exists()) {
             System.out.println("Map " + p_mapName + ".map already exists, follow below commands to edit it");

@@ -53,27 +53,7 @@ public class GamePlay {
         }
         l_game.assignEachPlayerReinforcements(l_cmd);
 
-        //Loops through all Players in Round Robin fashion collecting orders.
-        int l_numberOfPlayers = l_cmd.d_Players.size();
-        int l_traversalCounter = 0;
-        while (true) {
-            while (l_traversalCounter < l_numberOfPlayers) {
-                Player l_p = l_cmd.d_Players.get(l_traversalCounter);
-                System.out.println("It's " + l_p.getPlayerName() + "'s turn");
-                //listen orders from players - deploy | pass
-                l_phase = GamePhase.ISSUEORDER;
-                l_cmd.setD_phase(l_phase);
-                while (l_phase != GamePhase.TAKETURN) {
-                    l_command = d_inp.nextLine();
-                    l_phase = l_cmd.parseCommand(l_p, l_command);
-                }
-                //gets to next Player
-                l_traversalCounter++;
-            }
-            l_phase = GamePhase.ISSUEORDER;
-            l_cmd.setD_phase(l_phase);
-            l_traversalCounter = 0;
-        }
+        takeOrders(l_cmd, l_phase, l_command);
 
     }
 
@@ -113,6 +93,29 @@ public class GamePlay {
                 Player p = itr.next();
                 ReinforcePlayers.assignReinforcementArmies(p);
             } while (itr.hasNext());
+        }
+    }
+
+    public void takeOrders(GameEngine l_cmd, GamePhase l_phase, String l_command) {
+        int l_numberOfPlayers = l_cmd.d_Players.size();
+        int l_traversalCounter = 0;
+        while (true) {
+            while (l_traversalCounter < l_numberOfPlayers) {
+                Player l_p = l_cmd.d_Players.get(l_traversalCounter);
+                System.out.println("It's " + l_p.getPlayerName() + "'s turn");
+                //listen orders from players - deploy | pass
+                l_phase = GamePhase.ISSUEORDER;
+                l_cmd.setD_phase(l_phase);
+                while (l_phase != GamePhase.TAKETURN) {
+                    l_command = d_inp.nextLine();
+                    l_phase = l_cmd.parseCommand(l_p, l_command);
+                }
+                //gets to next Player
+                l_traversalCounter++;
+            }
+            l_phase = GamePhase.ISSUEORDER;
+            l_cmd.setD_phase(l_phase);
+            l_traversalCounter = 0;
         }
     }
 

@@ -4,6 +4,7 @@ import Model.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import static java.lang.System.exit;
 
@@ -17,6 +18,10 @@ public class GameEngine {
 
     public GamePhase getD_phase() {
         return d_phase;
+    }
+
+    public void setD_phase(GamePhase d_phase) {
+        this.d_phase = d_phase;
     }
 
     public GameEngine() {
@@ -66,6 +71,16 @@ public class GameEngine {
         return p_string.substring(0, 1).toUpperCase() + p_string.substring(1);
     }
 
+    /**
+     * Ensures string matches the defined criteria of being a Numeric for ID.
+     *
+     * @param p_sample input string
+     * @return true if valid match, else false
+     */
+    public boolean isNumeric(String p_sample) {
+        return p_sample != null && p_sample.matches("[0-9]+");
+    }
+
     public void addRemovePlayer(String[] l_data, String l_playerName) {
         try {
             for (int i = 1; i < l_data.length - 1; i++) {
@@ -107,7 +122,7 @@ public class GameEngine {
         boolean l_check = d_gameStartPhase.assignCountries(d_map, d_Players);
         if (l_check) {
             System.out.println("Countries allocated randomly amongst Players");
-            d_phase = GamePhase.ISSUEORDER;
+            this.setD_phase(GamePhase.ISSUEORDER);
         }
 
         for (Player p : d_Players) {
@@ -116,7 +131,8 @@ public class GameEngine {
             p.printOwnedContinents();
         }
 
-        d_phase = GamePhase.ISSUEORDER;
+        this.setD_phase(GamePhase.ISSUEORDER);
+
     }
 
     /**
@@ -125,11 +141,15 @@ public class GameEngine {
      * @param p_givenCommand - Command entered by the player
      * @return - the next phase of the current game
      */
-    public GamePhase parseCommand(String p_givenCommand) {
+    public GamePhase parseCommand(Player p_player, String p_givenCommand) {
         String l_playerName = null;
         String[] l_param = p_givenCommand.split("\\s+");
         String l_commandName = l_param[0];
         String l_mapName = null;
+        int l_numberOfArmies = 0;
+        String l_continentId = null;
+        String l_countryId = null;
+        String l_neighborCountryId = null;
         int l_continentControlValue;
 
         /* conditional execution of phases, games starts with Startgame phase on command editmap or loadmap
@@ -402,7 +422,6 @@ public class GameEngine {
                 }
                 case "assigncountries": {
                     assignCountriesToPlayers();
-                    d_phase = GamePhase.ISSUEORDER;
                     break;
                 }
                 default: {
@@ -410,6 +429,68 @@ public class GameEngine {
                 }
             }
         } else if (d_phase == GamePhase.ISSUEORDER) {
+            int l_counter = 0;
+            Iterator<Player> l_itr = d_Players.listIterator();
+            while (l_itr.hasNext()) {
+                Player l_p = l_itr.next();
+                System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmies() + " Armies currently!");
+                if (l_p.getOwnedArmies() > 0) {
+                    l_counter = l_counter + l_p.getOwnedArmies();
+                }
+            }
+            System.out.println("Total Armies left with all Players in Pool: " + l_counter);
+            if (l_counter > 0) {
+                switch (l_commandName) {
+                    case "deploy":
+                        try {
+                            if (!(l_param[1] == null) || !(l_param[2] == null)) {
+                                if (this.isNumeric(l_param[1]) || this.isNumeric(l_param[2])) {
+                                    l_countryId = l_param[1];
+                                    l_numberOfArmies = Integer.parseInt(l_param[2]);
+                                    boolean l_checkOwnedCountry = p_player.getOwnedCountries().containsKey(l_countryId.toLowerCase());
+                                    boolean l_checkArmies = (p_player.getOwnedArmies() >= l_numberOfArmies);
+                                    System.out.println("Player " + p_player.getPlayerName() + " Can provide deploy order or pass order");
+                                    if (l_checkOwnedCountry && l_checkArmies) {
+                                        ExecuteOrders l_temp = new ExecuteOrders(p_player, l_countryId, l_numberOfArmies);
+                                        p_player.addOrder(l_temp);
+                                        p_player.issue_order();
+                                        p_player.setOwnedArmies(p_player.getOwnedArmies() - l_numberOfArmies);
+                                        System.out.println("Player " + p_player.getPlayerName() + " now has " + p_player.getOwnedArmies() + " Army units left!");
+                                    } else {
+                                        System.out.println("Country not owned by player or insufficient Army units | please pass to next player");
+                                    }
+                                    d_phase = GamePhase.TAKETURN;
+                                    break;
+                                }
+                            } else
+                                System.out.println("Invalid Command");
+
+                        } catch (Exception e) {
+                            System.out.println("Country not owned by player or insufficient Army units | please pass to next player");
+                        }
+                        break;
+
+                    case "pass":
+                        try {
+                            d_phase = GamePhase.TAKETURN;
+                        } catch (Exception e) {
+                            System.out.println("Invalid Command - it should be of the form -> deploy countryID num | pass");
+                        }
+                        break;
+
+                    case "showmap":
+                        d_gameStartPhase.showMap(d_Players, d_map);
+                        break;
+
+                    default:
+                        System.out.println("Invalid command - either use deploy | pass | showmap commands in ISSUE_ORDERS Phase");
+                        break;
+                }
+            } else {
+                System.out.println("press ENTER to continue to execute Phase..");
+                d_phase = GamePhase.EXECUTEORDER;
+                return d_phase;
+            }
         } else if (d_phase == GamePhase.ENDGAME) {
             System.out.println("Stopping the game as requested");
             exit(0);

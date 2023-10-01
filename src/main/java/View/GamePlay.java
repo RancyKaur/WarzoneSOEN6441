@@ -3,10 +3,11 @@ package View;
 import Controller.GameEngine;
 import Model.GamePhase;
 import Model.GetCommands;
+import Model.Player;
+import Model.ReinforcePlayers;
 
 import java.io.File;
-import java.sql.SQLOutput;
-import java.util.Objects;
+import java.util.Iterator;
 import java.util.Scanner;
 
 
@@ -18,12 +19,17 @@ public class GamePlay {
 
     Scanner d_inp = new Scanner(System.in);
 
+    private static GamePlay l_game;
+
+    static {
+        l_game = new GamePlay();
+    }
+
     public static void main(String[] args) {
         System.out.println("****************************************");
         System.out.println("Welcome to the WARZONE game");
         System.out.println("****************************************");
         System.out.println();
-        GamePlay l_game = new GamePlay();
 
         System.out.println("You can start the game by EITHER: Selecting an existing map as given below or Creating new map");
         System.out.println("At any point if you type 'stopgame' the game would be stopped");
@@ -38,13 +44,37 @@ public class GamePlay {
     private void enterGamePhases() {
         GameEngine l_cmd = new GameEngine();
         String l_command = GetCommands.validateCommand(l_cmd.getD_phase());
-        GamePhase l_phase = l_cmd.parseCommand(l_command);
+        GamePhase l_phase = l_cmd.parseCommand(null, l_command);
 
-        while (l_phase != GamePhase.ENDGAME || l_phase != GamePhase.ISSUEORDER) {
+        while (l_phase != GamePhase.ENDGAME && l_phase != GamePhase.ISSUEORDER) {
             l_command = GetCommands.validateCommand(l_cmd.getD_phase());
-            l_phase = l_cmd.parseCommand(l_command);
+            l_phase = l_cmd.parseCommand(null, l_command);
             System.out.println("Waiting for next command...");
         }
+        l_game.assignEachPlayerReinforcements(l_cmd);
+
+        //Loops through all Players in Round Robin fashion collecting orders.
+        int l_numberOfPlayers = l_cmd.d_Players.size();
+        int l_traversalCounter = 0;
+        while (true) {
+            while (l_traversalCounter < l_numberOfPlayers) {
+                Player l_p = l_cmd.d_Players.get(l_traversalCounter);
+                System.out.println("It's " + l_p.getPlayerName() + "'s turn");
+                //listen orders from players - deploy | pass
+                l_phase = GamePhase.ISSUEORDER;
+                l_cmd.setD_phase(l_phase);
+                while (l_phase != GamePhase.TAKETURN) {
+                    l_command = d_inp.nextLine();
+                    l_phase = l_cmd.parseCommand(l_p, l_command);
+                }
+                //gets to next Player
+                l_traversalCounter++;
+            }
+            l_phase = GamePhase.ISSUEORDER;
+            l_cmd.setD_phase(l_phase);
+            l_traversalCounter = 0;
+        }
+
     }
 
     /**
@@ -70,4 +100,20 @@ public class GamePlay {
         }
         System.out.println();
     }
+
+    /**
+     * This method assigns armies to countries randomly based on the number of countries owned by each player
+     *
+     * @param p_gameEngine GameEngine Reference
+     */
+    public void assignEachPlayerReinforcements(GameEngine p_gameEngine) {
+        Iterator<Player> itr = p_gameEngine.d_Players.listIterator();
+        if (itr.hasNext()) {
+            do {
+                Player p = itr.next();
+                ReinforcePlayers.assignReinforcementArmies(p);
+            } while (itr.hasNext());
+        }
+    }
+
 }

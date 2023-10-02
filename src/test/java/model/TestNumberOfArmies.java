@@ -37,7 +37,7 @@ public class TestNumberOfArmies {
     public void before() {
         d_Player1 = new Player("Alekhya");
         d_Player2 = new Player("Janu");
-        d_Map = new WargameMap("world.map");
+        d_Map = new WargameMap("alekmap.map");
         d_Engine = new EngineCommand();
         d_Players = new ArrayList<Player>();
         d_Players.add(d_Player1);
@@ -54,13 +54,12 @@ public class TestNumberOfArmies {
     public void testAssignReinforcements() {
         d_Engine = new EngineCommand();
         d_StartPhase = new GameStartPhase();
-        d_Map = d_Engine.loadMap("world.map");
+        d_Map = d_Engine.loadMap("alekmap.map");
         boolean l_check = d_StartPhase.assignCountries(d_Map, d_Players);
         System.out.println(d_Player1.getOwnedCountries());
-        if(l_check){
+        if(l_check) {
             ReinforcePlayers.assignReinforcementArmies(d_Player1);
         }
-
         assertNotEquals(d_Player1.getOwnedArmies(),d_Player2.getOwnedArmies());
         assertEquals(3,d_Player1.getOwnedArmies());
         assertEquals(0,d_Player2.getOwnedArmies());

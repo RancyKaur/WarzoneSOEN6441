@@ -22,7 +22,7 @@ public class TestContinent {
     public void before() {
         d_Map = new WargameMap("world.map");
         engineCommand = new EngineCommand();
-        d_ContinentName = "Asia";
+        d_ContinentName = "africa";
         d_ControlValue = 5;
         engineCommand.addContinentToMap(d_Map, d_ControlValue, d_ContinentName);
     }
@@ -33,7 +33,7 @@ public class TestContinent {
      */
     @Test
     public void testAddContinent(){
-        d_Map = engineCommand.editMap("world.map");
+        d_ContinentName = "arctic";
         boolean l_check = engineCommand.addContinentToMap(d_Map,d_ControlValue, d_ContinentName);
         assertTrue(l_check);
     }
@@ -42,7 +42,6 @@ public class TestContinent {
      */
     @Test
     public void testRemoveContinent(){
-        d_ContinentName = "asia";
         boolean l_check = engineCommand.removeContinentFromMap(d_Map, d_ContinentName);
         assertTrue(l_check);
 

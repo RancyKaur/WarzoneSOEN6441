@@ -19,7 +19,8 @@ public class TestValidateMap {
     @Before
     public void before(){
         engine = new EngineCommand();
-        map = new WargameMap("test1.map");
+        map = new WargameMap("alekmap");
+        System.out.println("ASDF" + map.getContinents());
     }
 
     /**
@@ -27,6 +28,8 @@ public class TestValidateMap {
      */
     @Test
     public void testValidateMap(){
+        map = engine.editMap("alekmap.map");
+        System.out.println(map.getContinents());
         boolean l_check = engine.validateMap(map);
         assertTrue(l_check);
     }

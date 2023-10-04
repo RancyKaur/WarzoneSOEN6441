@@ -47,7 +47,7 @@ public class GamePlay {
         GamePhase l_phase = l_cmd.parseCommand(null, l_command);
         l_phase = handleStartPhase(l_phase, l_cmd, l_command);
         l_game.assignEachPlayerReinforcements(l_cmd);
-        takeOrders(l_cmd, l_phase, l_command);
+        takeOrders(l_cmd);
     }
 
     /**
@@ -90,27 +90,34 @@ public class GamePlay {
     }
     
 
-    public void takeOrders(GameEngine l_cmd, GamePhase l_phase, String l_command) {
-        int l_numberOfPlayers = l_cmd.d_Players.size();
-        int l_traversalCounter = 0;
+    public void takeOrders(GameEngine gameEngine) {
+        int numberOfPlayers = gameEngine.d_Players.size();
+    
         while (true) {
-            while (l_traversalCounter < l_numberOfPlayers) {
-                Player l_p = l_cmd.d_Players.get(l_traversalCounter);
-                System.out.println("It's " + l_p.getPlayerName() + "'s turn");
-                //listen orders from players - deploy | pass
-                l_phase = GamePhase.ISSUEORDER;
-                l_cmd.setD_phase(l_phase);
-                while (l_phase != GamePhase.TAKETURN) {
-                    l_command = d_inp.nextLine();
-                    l_phase = l_cmd.parseCommand(l_p, l_command);
-                }
-                //gets to next Player
-                l_traversalCounter++;
+            for (int traversalCounter = 0; traversalCounter < numberOfPlayers; traversalCounter++) {
+                Player currentPlayer = gameEngine.d_Players.get(traversalCounter);
+                System.out.println("It's " + currentPlayer.getPlayerName() + "'s turn");
+    
+                processPlayerOrders(gameEngine, currentPlayer);
             }
-            l_phase = GamePhase.ISSUEORDER;
-            l_cmd.setD_phase(l_phase);
-            l_traversalCounter = 0;
+    
+            resetPhaseAndCounter(gameEngine);
         }
+    }
+    
+    private void processPlayerOrders(GameEngine gameEngine, Player player) {
+        GamePhase phase = GamePhase.ISSUEORDER;
+        gameEngine.setD_phase(phase);
+    
+        while (phase != GamePhase.TAKETURN) {
+            String command = d_inp.nextLine();
+            phase = gameEngine.parseCommand(player, command);
+        }
+    }
+    
+    private void resetPhaseAndCounter(GameEngine gameEngine) {
+        GamePhase phase = GamePhase.ISSUEORDER;
+        gameEngine.setD_phase(phase);
     }
 
     public GamePhase handleStartPhase(GamePhase p_phase, GameEngine p_cmd, String p_command) {

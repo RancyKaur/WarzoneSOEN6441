@@ -56,42 +56,39 @@ public class GamePlay {
      * If there are none, then user would be prompted to create new map
      */
     private void displaySavedMaps() {
-        File mapContainer = new File("src/main/resources/maps/");
-        File[] mapFiles = mapContainer.listFiles();
-    
-        System.out.println();
-    
-        if (mapFiles.length != 0) {
-            System.out.println("Below are the saved game maps:");
-            for (File mapFile : mapFiles) {
-                if (mapFile.isFile()) {
-                    System.out.println(mapFile.getName());
-                }
+    File mapContainer = new File("src/main/resources/maps/");
+    File[] mapFiles = mapContainer.listFiles();
+
+    System.out.println();
+
+    if (mapFiles.length != 0) {
+        System.out.println("Below are the saved game maps:");
+        for (File mapFile : mapFiles) {
+            if (mapFile.isFile()) {
+                System.out.println(mapFile.getName());
             }
-            System.out.println();
-            System.out.println("Type 'editmap <name of map> with extension. If the map name is not in the list above, a new map will be created.");
-        } else {
-            System.out.println("There are NO saved maps in the game.");
-            System.out.println("Type 'editmap <name of map>' with extension to create a new map.");
         }
-    
         System.out.println();
+        System.out.println("Type 'editmap <name of map> with extension. If the map name is not in the list above, a new map will be created.");
+    } else {
+        System.out.println("There are NO saved maps in the game.");
+        System.out.println("Type 'editmap <name of map>' with extension to create a new map.");
     }
+
+    System.out.println();
+}
 
     /**
      * This method assigns armies to countries randomly based on the number of countries owned by each player
      *
      * @param p_gameEngine GameEngine Reference
      */
-    public void assignEachPlayerReinforcements(GameEngine p_gameEngine) {
-        Iterator<Player> itr = p_gameEngine.d_Players.listIterator();
-        if (itr.hasNext()) {
-            do {
-                Player p = itr.next();
-                ReinforcePlayers.assignReinforcementArmies(p);
-            } while (itr.hasNext());
+    public void assignEachPlayerReinforcements(GameEngine gameEngine) {
+        for (Player player : gameEngine.d_Players) {
+            ReinforcePlayers.assignReinforcementArmies(player);
         }
     }
+    
 
     public void takeOrders(GameEngine l_cmd, GamePhase l_phase, String l_command) {
         int l_numberOfPlayers = l_cmd.d_Players.size();

@@ -3,7 +3,7 @@ package Controller;
 import Model.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+// import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Queue;
 
@@ -35,7 +35,8 @@ public class GameEngine {
 
     /**
      * Checks if map's name is valid
-     * The validity checks if name contains alphanumeric characters, no special character is allowed
+     * The validity checks if name contains alphanumeric characters, no special
+     * character is allowed
      */
     private boolean isValidMapName(String p_mapName) {
         return p_mapName != null && p_mapName.matches("^[a-zA-Z0-9]*.map$");
@@ -82,6 +83,12 @@ public class GameEngine {
         return p_sample != null && p_sample.matches("[0-9]+");
     }
 
+    /**
+     * Handles the addition and removal of players based on command data.
+     *
+     * @param l_data       An array of strings containing command data.
+     * @param l_playerName A string representing the player's name.
+     */
     public void addRemovePlayer(String[] l_data, String l_playerName) {
         try {
             for (int i = 1; i < l_data.length - 1; i++) {
@@ -112,20 +119,32 @@ public class GameEngine {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid command - it should be of the form gameplayer -add playername -remove playername");
+            System.out.println(
+                    "Invalid command - it should be of the form gameplayer -add playername -remove playername");
         } catch (Exception e) {
             System.out.println("Error:" + e);
-            System.out.println("Invalid command - it should be of the form gameplayer -add playername -remove playername");
+            System.out.println(
+                    "Invalid command - it should be of the form gameplayer -add playername -remove playername");
         }
     }
 
+    /**
+ * Assigns countries to players at the start of the game.
+ * This method randomly allocates countries from the game map to players.
+ * After allocation, it sets the game phase to ISSUEORDER.
+ * It also prints each player's owned countries and continents.
+ */
     public void assignCountriesToPlayers() {
+        // Attempt to assign countries to players
         boolean l_check = d_gameStartPhase.assignCountries(d_map, d_Players);
+
+        // Check if the allocation was successful
         if (l_check) {
             System.out.println("Countries allocated randomly amongst Players");
             this.setD_phase(GamePhase.ISSUEORDER);
         }
 
+        // Print the owned countries and continents for each player
         for (Player p : d_Players) {
             System.out.println("Player:" + p.getPlayerName());
             p.printOwnedCountries();
@@ -137,7 +156,8 @@ public class GameEngine {
     }
 
     /**
-     * This method parses the command input by the player and then executes methods related to the commands entered
+     * This method parses the command input by the player and then executes methods
+     * related to the commands entered
      *
      * @param p_givenCommand - Command entered by the player
      * @return - the next phase of the current game
@@ -148,14 +168,16 @@ public class GameEngine {
         String l_commandName = l_param[0];
         String l_mapName = null;
         int l_numberOfArmies = 0;
-        String l_continentId = null;
+        // String l_continentId = null;
         String l_countryId = null;
-        String l_neighborCountryId = null;
+        // String l_neighborCountryId = null;
         int l_continentControlValue;
 
-        /* conditional execution of phases, games starts with Startgame phase on command editmap or loadmap
-           Depending on player's selection it moves to editmap phase or loadmap phase
-        */
+        /*
+         * conditional execution of phases, games starts with Startgame phase on command
+         * editmap or loadmap
+         * Depending on player's selection it moves to editmap phase or loadmap phase
+         */
         if (d_phase == GamePhase.BEGINGAME) {
             switch (l_commandName) {
                 /**/
@@ -169,11 +191,13 @@ public class GameEngine {
                                 this.d_phase = GamePhase.EDITMAP;
                                 this.printEditmapHelpCommands();
                             } else {
-                                System.out.println("Sorry, map name is invalid, please try again with AlphaNumeric characters and no extension");
+                                System.out.println(
+                                        "Sorry, map name is invalid, please try again with AlphaNumeric characters and no extension");
                             }
                         }
                     } catch (Exception e) {
-                        System.out.println("Invalid command, it needs name of the map as a parameter, For E.g. editmap mapname");
+                        System.out.println(
+                                "Invalid command, it needs name of the map as a parameter, For E.g. editmap mapname");
                     }
                     break;
                 }
@@ -187,14 +211,17 @@ public class GameEngine {
                         l_mapName = l_param[1];
                         if (this.isValidMapName(l_mapName)) {
                             d_map = d_RunCommand.loadMap(l_mapName);
-                            System.out.printf("Map %s loaded in game memory successfully\nAdd players now\n", l_mapName);
+                            System.out.printf("Map %s loaded in game memory successfully\nAdd players now\n",
+                                    l_mapName);
                             this.d_phase = GamePhase.STARTPLAY;
                         } else {
-                            System.out.println("Map does not exist! Select a map from our resources or the one you created!");
+                            System.out.println(
+                                    "Map does not exist! Select a map from our resources or the one you created!");
                         }
                     } catch (Exception e) {
                         System.out.println("Exception:" + e);
-                        System.out.println("Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
+                        System.out.println(
+                                "Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
                     }
                     break;
                 }
@@ -205,7 +232,7 @@ public class GameEngine {
         } else if (d_phase == GamePhase.EDITMAP) {
             switch (l_commandName) {
 
-                //parsing this type of command here
+                // parsing this type of command here
                 // editcontinent -add continentID continentValue OR
                 // editcontinent -remove continentID
                 // Here countryID and continentID both will be names strings not the numbers
@@ -218,13 +245,15 @@ public class GameEngine {
 
                         if (l_typeOfEditcontinent.equals("-add")) {
                             l_continentName = l_param[2].toLowerCase();
-                            //Checking for the country name and I given by the user should be string without any special characters
+                            // Checking for the country name and I given by the user should be string
+                            // without any special characters
                             try {
                                 if (this.containsAlphabetsOnly(l_continentName)) {
-                                    //2nd Index Contains Continent ID like 1 2 3 int number
-                                    l_continentControlValue = Integer.parseInt(l_param[3]); //continentID param
+                                    // 2nd Index Contains Continent ID like 1 2 3 int number
+                                    l_continentControlValue = Integer.parseInt(l_param[3]); // continentID param
 
-                                    boolean l_status = d_RunCommand.addContinentToMap(d_map, l_continentControlValue, l_continentName);
+                                    boolean l_status = d_RunCommand.addContinentToMap(d_map, l_continentControlValue,
+                                            l_continentName);
                                     if (l_status) {
                                         System.out.println(capitalizeString(l_continentName) + " Continent is added");
                                         d_phase = GamePhase.EDITMAP;
@@ -241,13 +270,15 @@ public class GameEngine {
                             String l_continentNameToBeRemoved = l_param[2].toLowerCase();
                             if (this.containsAlphabetsOnly(l_continentNameToBeRemoved)) {
 
-                                boolean l_check = d_RunCommand.removeContinentFromMap(d_map, l_continentNameToBeRemoved);
+                                boolean l_check = d_RunCommand.removeContinentFromMap(d_map,
+                                        l_continentNameToBeRemoved);
                                 if (l_check) {
-                                    System.out.println(capitalizeString(l_continentNameToBeRemoved) + " continent is removed from the Map");
+                                    System.out.println(capitalizeString(l_continentNameToBeRemoved)
+                                            + " continent is removed from the Map");
                                     d_phase = GamePhase.EDITMAP;
                                 }
                             } else {
-                                //condition when parameter is neither add or remove
+                                // condition when parameter is neither add or remove
                                 System.out.println("Only '-add' or '-remove' parameter allowed in editcountry");
                             }
                         }
@@ -255,29 +286,34 @@ public class GameEngine {
                     } catch (NumberFormatException e) {
                         System.out.println("Error: The continentID is not a valid integer.");
                     } catch (Exception e) {
-                        System.out.println("Command is invalid, please note it is for format For E.g. 'editcontinent -add Europe 1' or 'editcontinent -remove Europe");
+                        System.out.println(
+                                "Command is invalid, please note it is for format For E.g. 'editcontinent -add Europe 1' or 'editcontinent -remove Europe");
                         System.out.println(e);
                     }
 
                     break;
                 }
-                //parsing this type of command here
+                // parsing this type of command here
                 // editcountry -add countryID continentID OR
                 // editcountry -remove countryID
                 // Here countryID and continentID both will be names strings not the numbers
                 case "editcountry": {
                     try {
                         String l_typeOfEditcountry = l_param[1].toLowerCase(); // -add or -remove
-                        String l_userGivenCountryName = l_param[2].toLowerCase(); //countryID param
+                        String l_userGivenCountryName = l_param[2].toLowerCase(); // countryID param
 
                         if (l_typeOfEditcountry.equals("-add")) {
-                            String l_userGivenContinentName = l_param[3].toLowerCase(); //continentID param
-                            //Checking for the country name and I given by the user should be string without any special characters
-                            if (this.containsAlphabetsOnly(l_userGivenCountryName) && this.containsAlphabetsOnly(l_userGivenContinentName)) {
+                            String l_userGivenContinentName = l_param[3].toLowerCase(); // continentID param
+                            // Checking for the country name and I given by the user should be string
+                            // without any special characters
+                            if (this.containsAlphabetsOnly(l_userGivenCountryName)
+                                    && this.containsAlphabetsOnly(l_userGivenContinentName)) {
 
-                                boolean l_status = d_RunCommand.addCountryToContinent(d_map, l_userGivenCountryName, l_userGivenContinentName);
+                                boolean l_status = d_RunCommand.addCountryToContinent(d_map, l_userGivenCountryName,
+                                        l_userGivenContinentName);
                                 if (l_status) {
-                                    System.out.println(capitalizeString(l_userGivenCountryName) + " is successfully added to " + l_userGivenContinentName);
+                                    System.out.println(capitalizeString(l_userGivenCountryName)
+                                            + " is successfully added to " + l_userGivenContinentName);
                                     d_phase = GamePhase.EDITMAP;
                                 }
 
@@ -291,7 +327,8 @@ public class GameEngine {
 
                                 boolean l_check = d_RunCommand.removeCountry(d_map, l_countryNameToBeRemoved);
                                 if (l_check) {
-                                    System.out.println(capitalizeString(l_countryNameToBeRemoved) + " country is removed from the Map");
+                                    System.out.println(capitalizeString(l_countryNameToBeRemoved)
+                                            + " country is removed from the Map");
                                     d_phase = GamePhase.EDITMAP;
                                 }
                             } else {
@@ -302,7 +339,8 @@ public class GameEngine {
                     } catch (NumberFormatException e) {
                         System.out.println("Error: The continentID is not a valid integer.");
                     } catch (Exception e) {
-                        System.out.println("Command is invalid, please note it is for format 'editcountry -add Denmark Europe' or 'editcountry -remove Europe");
+                        System.out.println(
+                                "Command is invalid, please note it is for format 'editcountry -add Denmark Europe' or 'editcountry -remove Europe");
                     }
 
                     break;
@@ -317,29 +355,36 @@ public class GameEngine {
                             String l_neighborCountryName = l_param[3].toLowerCase();
 
                             if ("-add".equals(l_typeOfEdit) || "-remove".equals(l_typeOfEdit)) {
-                                if (d_map.getCountries().containsKey(l_countryName) && d_map.getCountries().containsKey(l_neighborCountryName)) {
+                                if (d_map.getCountries().containsKey(l_countryName)
+                                        && d_map.getCountries().containsKey(l_neighborCountryName)) {
                                     boolean l_success;
                                     if ("-add".equals(l_typeOfEdit)) {
-                                        l_success = d_RunCommand.addNeighbour(d_map, l_countryName, l_neighborCountryName);
+                                        l_success = d_RunCommand.addNeighbour(d_map, l_countryName,
+                                                l_neighborCountryName);
                                     } else {
-                                        l_success = d_RunCommand.removeNeighbour(d_map, l_countryName, l_neighborCountryName);
+                                        l_success = d_RunCommand.removeNeighbour(d_map, l_countryName,
+                                                l_neighborCountryName);
                                     }
                                     if (l_success) {
                                         d_phase = GamePhase.EDITMAP;
                                     }
                                 } else {
-                                    System.out.println("It appears that either one or both of the countries do not exist in the map, please create the country first");
+                                    System.out.println(
+                                            "It appears that either one or both of the countries do not exist in the map, please create the country first");
                                 }
                             } else {
-                                System.out.println("Invalid action command, expecting either 'editneighbor -add' or 'editneighbor -remove'");
+                                System.out.println(
+                                        "Invalid action command, expecting either 'editneighbor -add' or 'editneighbor -remove'");
                             }
                         } else {
                             System.out.println("Invalid Country Names, please provide valid country name");
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Command is invalid - it should be of the form editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID");
+                        System.out.println(
+                                "Command is invalid - it should be of the form editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID");
                     } catch (Exception e) {
-                        System.out.println("Command is invalid  - it should be of the form editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID");
+                        System.out.println(
+                                "Command is invalid  - it should be of the form editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID");
                     }
                     break;
                 }
@@ -351,7 +396,8 @@ public class GameEngine {
                     } else {
                         System.out.println("Game map is not a valid map.");
                         System.out.println("Possible reasons could be having some unconnected entity in the map");
-                        System.out.println("Suggestion! You can run 'showmap' command to see the map and can figure out possible unconnected entities");
+                        System.out.println(
+                                "Suggestion! You can run 'showmap' command to see the map and can figure out possible unconnected entities");
                     }
 
                     break;
@@ -375,12 +421,13 @@ public class GameEngine {
                                 System.out.println("Map name is not valid, please ensure you do not put any extension");
                         }
                     } catch (Exception e) {
-                        System.out.println("Invalid command - it should be of the form(without extension) savemap filename");
+                        System.out.println(
+                                "Invalid command - it should be of the form(without extension) savemap filename");
                     }
                     break;
                 }
 
-                //command for showing the map
+                // command for showing the map
                 case "showmap": {
                     d_RunCommand.showMap(d_map);
                     d_phase = GamePhase.EDITMAP;
@@ -394,10 +441,12 @@ public class GameEngine {
                             d_map = d_RunCommand.loadMap(l_mapName);
                             System.out.printf("Map %s loaded in game memory successfully\n", l_mapName);
                         } else {
-                            System.out.println("Map does not exist! Select a map from our resources or the one you created!");
+                            System.out.println(
+                                    "Map does not exist! Select a map from our resources or the one you created!");
                         }
                     } catch (Exception e) {
-                        System.out.println("Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
+                        System.out.println(
+                                "Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
                     }
                     break;
                 }
@@ -409,9 +458,10 @@ public class GameEngine {
                     exit(0);
                 }
 
-                //case default invalidcommand
+                // case default invalidcommand
                 default: {
-                    System.out.println("Invalid command, please check spelling or case sensitivity, commands are in lower case");
+                    System.out.println(
+                            "Invalid command, please check spelling or case sensitivity, commands are in lower case");
                     d_phase = GamePhase.EDITMAP;
                 }
             }
@@ -440,7 +490,8 @@ public class GameEngine {
             Iterator<Player> l_itr = d_Players.listIterator();
             while (l_itr.hasNext()) {
                 Player l_p = l_itr.next();
-                System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmies() + " Armies currently!");
+                System.out.println(
+                        "Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmies() + " Armies currently!");
                 if (l_p.getOwnedArmies() > 0) {
                     l_counter = l_counter + l_p.getOwnedArmies();
                 }
@@ -454,17 +505,22 @@ public class GameEngine {
                                 if (this.isNumeric(l_param[1]) || this.isNumeric(l_param[2])) {
                                     l_countryId = l_param[1];
                                     l_numberOfArmies = Integer.parseInt(l_param[2]);
-                                    boolean l_checkOwnedCountry = p_player.getOwnedCountries().containsKey(l_countryId.toLowerCase());
+                                    boolean l_checkOwnedCountry = p_player.getOwnedCountries()
+                                            .containsKey(l_countryId.toLowerCase());
                                     boolean l_checkArmies = (p_player.getOwnedArmies() >= l_numberOfArmies);
-                                    System.out.println("Player " + p_player.getPlayerName() + " Can provide deploy order or pass order");
+                                    System.out.println("Player " + p_player.getPlayerName()
+                                            + " Can provide deploy order or pass order");
                                     if (l_checkOwnedCountry && l_checkArmies) {
-                                        ExecuteOrders l_temp = new ExecuteOrders(p_player, l_countryId, l_numberOfArmies);
+                                        ExecuteOrders l_temp = new ExecuteOrders(p_player, l_countryId,
+                                                l_numberOfArmies);
                                         p_player.addOrder(l_temp);
                                         p_player.issue_order();
                                         p_player.setOwnedArmies(p_player.getOwnedArmies() - l_numberOfArmies);
-                                        System.out.println("Player " + p_player.getPlayerName() + " now has " + p_player.getOwnedArmies() + " Army units left!");
+                                        System.out.println("Player " + p_player.getPlayerName() + " now has "
+                                                + p_player.getOwnedArmies() + " Army units left!");
                                     } else {
-                                        System.out.println("Country not owned by player or insufficient Army units | please pass to next player");
+                                        System.out.println(
+                                                "Country not owned by player or insufficient Army units | please pass to next player");
                                     }
                                     d_phase = GamePhase.TAKETURN;
                                     break;
@@ -473,7 +529,8 @@ public class GameEngine {
                                 System.out.println("Invalid Command");
 
                         } catch (Exception e) {
-                            System.out.println("Country not owned by player or insufficient Army units | please pass to next player");
+                            System.out.println(
+                                    "Country not owned by player or insufficient Army units | please pass to next player");
                         }
                         break;
 
@@ -481,7 +538,8 @@ public class GameEngine {
                         try {
                             d_phase = GamePhase.TAKETURN;
                         } catch (Exception e) {
-                            System.out.println("Invalid Command - it should be of the form -> deploy countryID num | pass");
+                            System.out.println(
+                                    "Invalid Command - it should be of the form -> deploy countryID num | pass");
                         }
                         break;
 
@@ -497,7 +555,8 @@ public class GameEngine {
                     }
 
                     default:
-                        System.out.println("Invalid command - either use deploy | pass | showmap commands in ISSUE_ORDERS Phase");
+                        System.out.println(
+                                "Invalid command - either use deploy | pass | showmap commands in ISSUE_ORDERS Phase");
                         break;
                 }
             } else {
@@ -506,8 +565,8 @@ public class GameEngine {
                 return d_phase;
             }
         }
-        //EXECUTE_ORDERS Phase
-        //EXECUTE ORDERS : execute, showmap
+        // EXECUTE_ORDERS Phase
+        // EXECUTE ORDERS : execute, showmap
         else if (d_phase.equals(GamePhase.EXECUTEORDER)) {
             switch (l_commandName) {
                 case "execute":
@@ -515,16 +574,15 @@ public class GameEngine {
                     // get count of total orders for all players
                     for (Player l_p : d_Players) {
                         Queue<ExecuteOrders> l_templist = l_p.getD_orderList();
-                        l_count = l_count +l_templist.size();
+                        l_count = l_count + l_templist.size();
                     }
 
-                    if(l_count == 0){
+                    if (l_count == 0) {
                         System.out.println("All orders are already executed!");
                         d_gameStartPhase.showMap(d_Players, d_map);
                         d_phase = GamePhase.ISSUEORDER;
                         return d_phase;
-                    }
-                    else{
+                    } else {
                         System.out.println("Total Orders in Queue are : " + l_count);
                         while (l_count != 0) {
                             for (Player l_p : d_Players) {
@@ -532,7 +590,8 @@ public class GameEngine {
                                 Queue<ExecuteOrders> l_tempOrderList = l_p.getD_orderList();
                                 if (l_tempOrderList.size() > 0) {
                                     ExecuteOrders l_toRemove = l_p.next_order();
-                                    System.out.println("Order: " +l_toRemove+ " executed for player: "+l_p.getPlayerName());
+                                    System.out.println(
+                                            "Order: " + l_toRemove + " executed for player: " + l_p.getPlayerName());
                                     l_toRemove.execute();
                                 }
                             }
@@ -575,9 +634,12 @@ public class GameEngine {
 
     private void printEditmapHelpCommands() {
         System.out.println();
-        System.out.println("To add continents: editcontinent -add <continentName> <ControlValue>, E.g. editcontinent -add Europe 1");
-        System.out.println("To add country: editcountry -add <countryName> <continentName>, E.g. editcountry -add Germany Europe");
-        System.out.println("To add neighbor relation: editneighbor -add <countryName> <countryName>, E.g. editneighbor -add Germany Denmark");
+        System.out.println(
+                "To add continents: editcontinent -add <continentName> <ControlValue>, E.g. editcontinent -add Europe 1");
+        System.out.println(
+                "To add country: editcountry -add <countryName> <continentName>, E.g. editcountry -add Germany Europe");
+        System.out.println(
+                "To add neighbor relation: editneighbor -add <countryName> <countryName>, E.g. editneighbor -add Germany Denmark");
         System.out.println("To save map file: savemap <map file name without extension>, E.g. savemap AsiaMap");
         System.out.println("Waiting for next command..");
     }

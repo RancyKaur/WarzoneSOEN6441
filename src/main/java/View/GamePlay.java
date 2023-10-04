@@ -56,21 +56,25 @@ public class GamePlay {
      * If there are none, then user would be prompted to create new map
      */
     private void displaySavedMaps() {
-        File d_mapContainer = new File("src/main/resources/maps/");
-        File[] d_mapFiles = d_mapContainer.listFiles();
+        File mapContainer = new File("src/main/resources/maps/");
+        File[] mapFiles = mapContainer.listFiles();
+    
         System.out.println();
-        if (d_mapFiles.length != 0) {
+    
+        if (mapFiles.length != 0) {
             System.out.println("Below are the saved game maps:");
-            for (int i = 0; i < d_mapFiles.length; i++) {
-                if (d_mapFiles[i].isFile())
-                    System.out.println(d_mapFiles[i].getName());
+            for (File mapFile : mapFiles) {
+                if (mapFile.isFile()) {
+                    System.out.println(mapFile.getName());
+                }
             }
             System.out.println();
-            System.out.println("Type 'editmap <name of map> with extension, if the map name is not part of above list, a new map will be created");
+            System.out.println("Type 'editmap <name of map> with extension. If the map name is not in the list above, a new map will be created.");
         } else {
-            System.out.println("There are NO saved maps in the game");
-            System.out.println("Type 'editmap <name of map>' with extension, to create a new map");
+            System.out.println("There are NO saved maps in the game.");
+            System.out.println("Type 'editmap <name of map>' with extension to create a new map.");
         }
+    
         System.out.println();
     }
 

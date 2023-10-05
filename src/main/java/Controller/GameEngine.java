@@ -82,7 +82,8 @@ public class GameEngine {
         return p_sample != null && p_sample.matches("[0-9]+");
     }
 
-    public void addRemovePlayer(String[] l_data, String l_playerName) {
+    public void addRemovePlayer(String[] l_data) {
+        String l_playerName=null;
         try {
             for (int i = 1; i < l_data.length - 1; i++) {
                 if (l_data[i].equals("-add")) {
@@ -153,9 +154,12 @@ public class GameEngine {
         String l_neighborCountryId = null;
         int l_continentControlValue;
 
+
+
         /* conditional execution of phases, games starts with Startgame phase on command editmap or loadmap
            Depending on player's selection it moves to editmap phase or loadmap phase
         */
+
         if (d_phase == GamePhase.BEGINGAME) {
             switch (l_commandName) {
                 /**/
@@ -165,8 +169,10 @@ public class GameEngine {
                             if (this.isValidMapName(l_param[1])) {
                                 l_mapName = l_param[1];
                                 System.out.println(" You are editing Map: " + l_mapName);
-                                this.d_map = d_RunCommand.editMap(l_mapName);
                                 this.d_phase = GamePhase.EDITMAP;
+                                //setting up the map object can be newly created if the user given map name does not exists
+                                this.d_map = d_RunCommand.editMap(l_mapName);
+
                                 this.printEditmapHelpCommands();
                             } else {
                                 System.out.println("Sorry, map name is invalid, please try again with AlphaNumeric characters and no extension");
@@ -186,9 +192,14 @@ public class GameEngine {
                     try {
                         l_mapName = l_param[1];
                         if (this.isValidMapName(l_mapName)) {
-                            d_map = d_RunCommand.loadMap(l_mapName);
-                            System.out.printf("Map %s loaded in game memory successfully\nAdd players now\n", l_mapName);
                             this.d_phase = GamePhase.STARTPLAY;
+                            d_map = d_RunCommand.loadMap(l_mapName);
+                            System.out.printf("Map %s loaded in game memory successfully\n", l_mapName);
+                            System.out.println("Now you are have to follow two following steps IN ORDER");
+                            System.out.println("Step 1: add the players to the game by using gameplayer -add <playername>. There total number of players must be between 2 and 6");
+                            System.out.println("\t You can also remove the player by replacing -add to -remove exmaple gameplayer -remove <playername>");
+                            System.out.println("Step 2: issue 'assigncountries' command to initially assign the countries randomly to all the players");
+
                         } else {
                             System.out.println("Map does not exist! Select a map from our resources or the one you created!");
                         }
@@ -199,10 +210,11 @@ public class GameEngine {
                     break;
                 }
                 default: {
-                    System.out.println("At this phase, only 'editmap' or 'stopgame' commands are accepted");
+                    System.out.println("At this phase, only 'editmap', 'loadmap'  or 'stopgame' commands are accepted");
                 }
             }
         } else if (d_phase == GamePhase.EDITMAP) {
+            System.out.println("When you done creating map Do not forget to save the map using the command 'savemap <map name>'");
             switch (l_commandName) {
 
                 //parsing this type of command here
@@ -365,10 +377,11 @@ public class GameEngine {
                         if (l_param[1] != "") {
                             if (this.isValidMapName(l_param[1])) {
                                 l_mapName = l_param[1];
+
                                 boolean l_check = d_RunCommand.saveMap(d_map, l_mapName);
                                 if (l_check) {
                                     System.out.println("Map file has been saved successfully");
-                                    d_phase = GamePhase.EDITMAP;
+                                    d_phase = GamePhase.BEGINGAME;
                                 } else
                                     System.out.println("Error in saving the map, as it is invalid");
                             } else
@@ -418,11 +431,23 @@ public class GameEngine {
         } else if (d_phase == GamePhase.STARTPLAY) {
             switch (l_commandName) {
                 case "gameplayer": {
-                    addRemovePlayer(l_param, l_playerName);
+                    addRemovePlayer(l_param);
                     break;
                 }
                 case "assigncountries": {
-                    assignCountriesToPlayers();
+                    if(d_Players.size()<2) {
+                        System.out.println("Not enough players in the game. At least two players should be in the game to assign the countries and start the game.");
+                    }
+                    else{
+                        assignCountriesToPlayers();
+                    }
+
+                    break;
+                }
+                //command for showing the map
+                case "showmap": {
+                    d_RunCommand.showMap(d_map);
+                    d_phase = GamePhase.STARTPLAY;
                     break;
                 }
                 // command to stop and exit from the game
@@ -431,6 +456,9 @@ public class GameEngine {
                     System.out.println("Stopping the game as requested");
                     exit(0);
                 }
+
+
+
                 default: {
                     System.out.println("Invalid command.Type the correct command in StartPlay phase!");
                 }

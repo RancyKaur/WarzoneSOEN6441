@@ -17,6 +17,9 @@ import static java.lang.System.exit;
  */
 public class GameEngine {
 
+    /**
+     * list of players
+     */
     public ArrayList<Player> d_Players;
     private GamePhase d_phase;
     private EngineCommand d_RunCommand;
@@ -33,7 +36,7 @@ public class GameEngine {
 
     /**
      * Ensures string matches the defined criteria of being a Numeric for ID.
-     * @return
+     * @param  d_phase gamephase
      */
     public void setD_phase(GamePhase d_phase) {
         this.d_phase = d_phase;

@@ -26,7 +26,7 @@ public class LoadGraph {
 
     /**
      * setter
-     * @param d_map
+     * @param d_map index
      */
     public void setD_map(WargameMap d_map) {
         this.d_map = d_map;

@@ -38,9 +38,21 @@ function loadScripts(doc, tag) {
     createElem(doc, tag, 'tag-search-index.js');
 }
 
+/**
+ * Creates and appends an HTML element with a specified 'src' attribute.
+ *
+ * @param {Document} doc - The document object.
+ * @param {string} tagName - The tag name of the element to create.
+ * @param {string} path - The path to the script or resource to load.
+ */
 function createElem(doc, tag, path) {
+    // Create a new script element
     var script = doc.createElement(tag);
+
+    // Get the first element of the specified tag type (e.g., the first <script> element)
     var scriptElement = doc.getElementsByTagName(tag)[0];
+
+    // Set the 'src' attribute of the script element
     script.src = pathtoroot + path;
     scriptElement.parentNode.insertBefore(script, scriptElement);
 }

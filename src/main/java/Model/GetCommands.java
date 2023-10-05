@@ -2,6 +2,10 @@ package Model;
 
 import java.util.Scanner;
 
+/**
+ * The GetCommands class provides methods for validating and retrieving user commands
+ * based on the current game phase.
+ */
 public class GetCommands {
     private static String[] d_validBeginPhaseCmds = new String[]{"editmap", "stopgame", "loadmap"};
     private static String[] d_validEditMapPhaseCmds = new String[]{"editcontinent", "editcountry", "editneighbor", "validatemap", "savemap", "showmap", "loadmap", "stopgame"};
@@ -13,6 +17,13 @@ public class GetCommands {
         GetCommands.d_scan = new Scanner(System.in);
     }
 
+    /**
+     * Checks if a given command is valid for the specified game phase.
+     *
+     * @param p_command The command to validate.
+     * @param p_phase   The current game phase.
+     * @return True if the command is valid, false otherwise.
+     */
     private static boolean isValidPhaseCommand(String p_command, GamePhase p_phase) {
         String[] l_splitCmds = p_command.split("\\s+");
         String l_phaseCmd = l_splitCmds[0];
@@ -45,6 +56,11 @@ public class GetCommands {
         return false;
     }
 
+    /**
+     * Validates and retrieves a valid command for the "BEGINGAME" phase.
+     *
+     * @return A valid command for the "BEGINGAME" phase.
+     */
     private static String validateBeginPhaseCommand() {
         String l_cmd;
         do {
@@ -53,6 +69,11 @@ public class GetCommands {
         return l_cmd;
     }
 
+    /**
+     * Validates and retrieves a valid command for the "EDITMAP" phase.
+     *
+     * @return A valid command for the "EDITMAP" phase.
+     */
     private static String validateEditMapPhaseCommand() {
         String l_cmd;
         do {
@@ -61,6 +82,11 @@ public class GetCommands {
         return l_cmd;
     }
 
+    /**
+     * Validates and retrieves a valid command for the "STARTPLAY" phase.
+     *
+     * @return A valid command for the "STARTPLAY" phase.
+     */
     private static String validateGamePhaseCommand() {
         String l_cmd;
         do {
@@ -69,6 +95,11 @@ public class GetCommands {
         return l_cmd;
     }
 
+    /**
+     * Validates and retrieves a valid command for the "ISSUEORDER" phase.
+     *
+     * @return A valid command for the "ISSUEORDER" phase.
+     */
     private static String validateIssueOrderCommand() {
         String l_cmd;
         do {
@@ -77,6 +108,12 @@ public class GetCommands {
         return l_cmd;
     }
 
+    /**
+     * Validates and retrieves a valid command based on the specified game phase.
+     *
+     * @param p_phase The current game phase.
+     * @return A valid command for the specified game phase.
+     */
     public static String validateCommand(GamePhase p_phase) {
         String l_cmd = null;
         if (p_phase == GamePhase.BEGINGAME) {

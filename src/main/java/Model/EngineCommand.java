@@ -25,7 +25,9 @@ public class EngineCommand {
         WargameMap l_map = null;
         String l_mapfilePath = "src/main/resources/maps/" + p_mapName;
         File l_mapFile = new File(l_mapfilePath);
+        LoadGraph l_graph = new LoadGraph();
         if (l_mapFile.exists()) {
+            l_map = l_graph.readMap(l_mapfilePath);
             System.out.println("Map " + p_mapName + ".map already exists, follow below commands to edit it");
         } else {
             System.out.println(p_mapName + " does not exist.");
@@ -327,8 +329,8 @@ public class EngineCommand {
     public boolean saveMap(WargameMap p_map, String p_fileName) {
         if (checkGameMap(p_map)) {
             try {
-                BufferedWriter l_fileWriter = new BufferedWriter(new FileWriter("src/main/resources/maps/" + p_fileName + ".map"));
-                l_fileWriter.write("map:" + p_fileName + ".map");
+                BufferedWriter l_fileWriter = new BufferedWriter(new FileWriter("src/main/resources/maps/" + p_fileName));
+                l_fileWriter.write("map:" + p_fileName);
                 l_fileWriter.newLine();
                 l_fileWriter.newLine();
                 l_fileWriter.flush();

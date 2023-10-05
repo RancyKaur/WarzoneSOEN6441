@@ -226,9 +226,6 @@ public class GameEngine {
                     break;
                 }
 
-
-
-
                 default: {
                     System.out.println("At this phase, only 'editmap', 'showmap', 'loadmap'  or 'stopgame' commands are accepted");
                 }

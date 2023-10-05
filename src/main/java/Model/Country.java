@@ -83,10 +83,18 @@ public class Country {
         return this.d_neighbourCountries;
     }
 
+    /**
+     * setter method for d_countryIndex
+     * @param p_index
+     */
     public void setIndexOfCountry(int p_index) {
         this.d_countryIndex = p_index;
     }
 
+    /**
+     * getter method for d_countryIndex
+     * @return
+     */
     public int getIndexOfCountry() {
         return this.d_countryIndex;
     }

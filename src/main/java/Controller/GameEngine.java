@@ -227,6 +227,8 @@ public class GameEngine {
                     }
                     break;
                 }
+
+
                 default: {
                     System.out.println("At this phase, only 'editmap', 'loadmap'  or 'stopgame' commands are accepted");
                 }
@@ -564,6 +566,7 @@ public class GameEngine {
 
                     case "showmap":
                         d_gameStartPhase.showMap(d_Players, d_map);
+                        System.out.println("Please run 'deploy <countryName> #_of_armies'");
                         break;
 
                     // command to stop and exit from the game
@@ -621,23 +624,23 @@ public class GameEngine {
                         d_gameStartPhase.showMap(d_Players, d_map);
                         d_phase = GamePhase.ISSUEORDER;
                     }
+//                    System.out.println("Type Exit to end the game");
                     break;
 
                 case "showmap":
                     d_gameStartPhase.showMap(d_Players, d_map);
                     break;
 
-                // command to stop and exit from the game
+                case "exit":
+                    System.out.println("Build 1 ENDS HERE!");
+                    exit(0);
+
+                    // command to stop and exit from the game
                 case "stopgame": {
                     this.d_phase = GamePhase.ENDGAME;
                     System.out.println("Stopping the game as requested");
                     exit(0);
                 }
-
-                case "exit":
-                    System.out.println("Build 1 ENDS HERE!");
-                    exit(0);
-
                 default:
                     System.out.println("Execute Order Phase has commenced, either use showmap | execute");
                     break;

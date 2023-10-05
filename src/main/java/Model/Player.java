@@ -37,6 +37,9 @@ public class Player {
         d_OrderList = new ArrayDeque<ExecuteOrders>();
     }
 
+    /**
+     * display owned continents
+     */
     public void printOwnedCountries() {
         System.out.println("player's countries:" + this.d_OwnedCountries);
     }

@@ -2,6 +2,9 @@ package Model;
 
 import java.util.HashMap;
 
+/**
+ * WargameMap class
+ */
 public class WargameMap {
     private String d_MapName;
     private boolean d_isValid;
@@ -21,7 +24,7 @@ public class WargameMap {
     /**
      * Custom constructor that takes name of the map and creates map object with null/empty values for other data members
      *
-     * @param p_MapName
+     * @param p_MapName mapname
      */
     public WargameMap(String p_MapName) {
         this.d_MapName = p_MapName;
@@ -70,8 +73,8 @@ public class WargameMap {
     /**
      * Add method to add continents to the map
      *
-     * @param p_continentName
-     * @param p_continent
+     * @param p_continentName continent name
+     * @param p_continent p_continent
      */
     public void addContinents(String p_continentName, Continent p_continent) {
         this.getContinents().put(p_continentName.toLowerCase(), p_continent);
@@ -89,25 +92,41 @@ public class WargameMap {
     /**
      * Add method to add countries to the map
      *
-     * @param p_countryName
-     * @param p_country
+     * @param p_countryName country name
+     * @param p_country p_contry
      */
     public void addCountries(String p_countryName, Country p_country) {
         this.getCountries().put(p_countryName.toLowerCase(), p_country);
     }
 
+    /**
+     * getter
+     * @return d_MapName
+     */
     public String getD_MapName() {
         return d_MapName;
     }
 
+    /**
+     * setter
+     * @param d_MapName
+     */
     public void setD_MapName(String d_MapName) {
         this.d_MapName = d_MapName;
     }
 
+    /**
+     * return boolean
+     * @return d_isValid
+     */
     public boolean isD_isValid() {
         return d_isValid;
     }
 
+    /**
+     * setter
+     * @param d_isValid
+     */
     public void setD_isValid(boolean d_isValid) {
         this.d_isValid = d_isValid;
     }

@@ -56,12 +56,19 @@ public class Continent {
         return this.d_continentControlValue;
     }
 
-
+    /**
+     * setter method for d_indexOfContinent
+     * @param p_index
+     */
     public void setIndexOfContinent(int p_index)
     {
         this.d_indexOfContinent = p_index;
     }
 
+    /**
+     * getter method for d_indexOfContinent
+     * @return
+     */
     public int getIndexOfContinent()
     {
         return this.d_indexOfContinent;

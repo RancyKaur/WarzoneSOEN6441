@@ -7,16 +7,27 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *  LoadGraph class
+ */
 public class LoadGraph {
 
     private WargameMap d_map;
     private Map<Integer, Country> d_countries;
     private static int d_indexInMap = 1;
 
+    /**
+     * getter
+     * @return
+     */
     public WargameMap getD_map() {
         return d_map;
     }
 
+    /**
+     * setter
+     * @param d_map
+     */
     public void setD_map(WargameMap d_map) {
         this.d_map = d_map;
     }

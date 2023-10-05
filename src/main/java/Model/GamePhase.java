@@ -33,6 +33,9 @@ public enum GamePhase {
      */
     ISSUEORDER,
 
+    /**
+     * This phase starts when player executes 'order' command
+     */
     EXECUTEORDER,
 
     /**

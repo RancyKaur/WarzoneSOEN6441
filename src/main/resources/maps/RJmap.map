@@ -1,13 +1,14 @@
-map:RJmap.map
+map:RJmap.map.map
 
 [Continents]
-2 Usa 710
-1 Asia 610
+1 Usa 2
+2 Asia 1
 
 [Countries]
 3 Chin 1
 2 Pakistan 1
 4 California 2
+1 Australia 1
 1 India 1
 5 Taxas 2
 
@@ -15,5 +16,6 @@ map:RJmap.map
 3 1
 2 1
 4 5
+1 5
 1 3 2 5
-5 4 1
+5 4 1 1

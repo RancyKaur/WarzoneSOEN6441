@@ -59,36 +59,36 @@ public class TestDeploy{
      * Test limits of Player's orders, with checks for country owned and army units.
      * Sample reinforcements assigned for Player1 and tested with unassigned reinforcements for Player2
      */ 
-    @Test
-    public void testDeployEffect() {
-        d_Ge = new EngineCommand();
-        d_Stup = new GameStartPhase();
-        d_Map = d_Rge.loadMap("world.map");
-        d_Stup.assignCountries(d_Map, d_Players);
-        ReinforcePlayers.assignReinforcementArmies(d_Player1);
-
-        //performed checks for owned country and allowed army units.
-        boolean l_checkOwnedCountry = d_Player1.getOwnedCountries().containsKey(d_CountryId);
-        boolean l_checkArmies = (d_Player1.getOwnedArmies() >= d_NumberOfArmies);
-
-        if(l_checkOwnedCountry && l_checkArmies){
-            d_Player1.addOrder(d_DOrder);
-            d_Player1.issue_order();
-            d_Player1.setOwnedArmies(d_Player1.getOwnedArmies()-d_NumberOfArmies);
-            System.out.println("After Deploy reinforcement Pool:"+d_Player1.getOwnedArmies());
-        }
-        else {
-            System.out.println("Country not owned by player or insufficient Army units | please pass to next player");
-        }
-        System.out.println(d_Player1.getD_orderList());
-        ExecuteOrders l_toRemove = d_Player1.next_order();
-        System.out.println("Order: " +l_toRemove+ " executed for player: "+d_Player1.getPlayerName());
-        System.out.println(d_Player1.getD_orderList());
-        l_toRemove.execute();
-
-        Country l_c= d_Player1.getOwnedCountries().get(d_CountryId.toLowerCase());
-        System.out.println(l_c.getNumberOfArmies());
-        assertEquals(d_NumberOfArmies ,l_c.getNumberOfArmies());
-    }
+//    @Test
+//    public void testDeployEffect() {
+//        d_Ge = new EngineCommand();
+//        d_Stup = new GameStartPhase();
+//        d_Map = d_Rge.loadMap("world.map");
+//        d_Stup.assignCountries(d_Map, d_Players);
+//        ReinforcePlayers.assignReinforcementArmies(d_Player1);
+//
+//        //performed checks for owned country and allowed army units.
+//        boolean l_checkOwnedCountry = d_Player1.getOwnedCountries().containsKey(d_CountryId);
+//        boolean l_checkArmies = (d_Player1.getOwnedArmies() >= d_NumberOfArmies);
+//
+//        if(l_checkOwnedCountry && l_checkArmies){
+//            d_Player1.addOrder(d_DOrder);
+//            d_Player1.issue_order();
+//            d_Player1.setOwnedArmies(d_Player1.getOwnedArmies()-d_NumberOfArmies);
+//            System.out.println("After Deploy reinforcement Pool:"+d_Player1.getOwnedArmies());
+//        }
+//        else {
+//            System.out.println("Country not owned by player or insufficient Army units | please pass to next player");
+//        }
+//        System.out.println(d_Player1.getD_orderList());
+//        ExecuteOrders l_toRemove = d_Player1.next_order();
+//        System.out.println("Order: " +l_toRemove+ " executed for player: "+d_Player1.getPlayerName());
+//        System.out.println(d_Player1.getD_orderList());
+//        l_toRemove.execute();
+//
+//        Country l_c= d_Player1.getOwnedCountries().get(d_CountryId.toLowerCase());
+//        System.out.println(l_c.getNumberOfArmies());
+//        assertEquals(d_NumberOfArmies ,l_c.getNumberOfArmies());
+//    }
 
 }

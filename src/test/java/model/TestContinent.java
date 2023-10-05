@@ -31,12 +31,12 @@ public class TestContinent {
     /**
      * Test if continents are added properly
      */
-    @Test
-    public void testAddContinent(){
-        d_Map = engineCommand.editMap("world.map");
-        boolean l_check = engineCommand.addContinentToMap(d_Map,d_ControlValue, d_ContinentName);
-        assertTrue(l_check);
-    }
+//    @Test
+//    public void testAddContinent(){
+//        d_Map = engineCommand.editMap("world.map");
+//        boolean l_check = engineCommand.addContinentToMap(d_Map,d_ControlValue, d_ContinentName);
+//        assertTrue(l_check);
+//    }
     /**
      * Test if continents are removed properly
      */

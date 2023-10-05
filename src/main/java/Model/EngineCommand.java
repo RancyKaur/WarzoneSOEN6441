@@ -296,6 +296,7 @@ public class EngineCommand {
                     System.out.printf("\n%25s%25s%25s\n", GameEngine.capitalizeString(l_continent.getContinentName()), "", "");
                     continue;
                 }
+                Collection<Country> tt = l_continent.getListOfCountries().values(); 
 
                 for (Country l_country : l_continent.getListOfCountries().values()) {
                     if (l_country.getNeighbours().isEmpty()) {

@@ -205,6 +205,29 @@ public class GameEngine {
                     break;
                 }
 
+                //command for showing the map
+                case "showmap": {
+                    try {
+                        WargameMap d_temp_map;
+                        l_mapName = l_param[1];
+                        if (this.isValidMapName(l_mapName)) {
+                            this.d_phase = GamePhase.STARTPLAY;
+                            d_temp_map = d_RunCommand.loadMap(l_mapName);
+                            d_RunCommand.showMap(d_temp_map);
+                            d_phase = GamePhase.BEGINGAME;
+                        } else {
+                            System.out.println("Map does not exist! Select a map from our resources or the one you created!");
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Exception:" + e);
+                        System.out.println("Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
+                    }
+
+                    break;
+                }
+
+
+
 
                 default: {
                     System.out.println("At this phase, only 'editmap', 'loadmap'  or 'stopgame' commands are accepted");
@@ -394,21 +417,6 @@ public class GameEngine {
                 case "showmap": {
                     d_RunCommand.showMap(d_map);
                     d_phase = GamePhase.EDITMAP;
-                    break;
-                }
-
-                case "loadmap": {
-                    try {
-                        l_mapName = l_param[1];
-                        if (this.isValidMapName(l_mapName)) {
-                            d_map = d_RunCommand.loadMap(l_mapName);
-                            System.out.printf("Map %s loaded in game memory successfully\n", l_mapName);
-                        } else {
-                            System.out.println("Map does not exist! Select a map from our resources or the one you created!");
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Invalid command. To load a map from our resources or the one you created, type loadmap <mapname>.map");
-                    }
                     break;
                 }
 

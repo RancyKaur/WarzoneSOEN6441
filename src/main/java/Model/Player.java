@@ -21,8 +21,6 @@ public class Player {
     private HashMap<String, Continent> d_OwnedContinents;
     private HashMap<String, Country> d_OwnedCountries;
     private int d_OwnedArmies;
-    private int d_ReinforcementArmies;
-    private String d_CountryId;
     private ExecuteOrders d_Order;
     private Queue<ExecuteOrders> d_OrderList;
 

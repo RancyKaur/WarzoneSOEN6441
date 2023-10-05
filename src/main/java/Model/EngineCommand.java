@@ -452,4 +452,14 @@ public class EngineCommand {
 
     }
 
+
+    //remove these before deliverable 2
+    public WargameMap editMapUtil(String p_mapName){
+        return new WargameMap();
+    }
+
+    public boolean validateMapUtil(WargameMap p_map){
+        return true;
+    }
+
 }

@@ -28,9 +28,8 @@ public class TestValidateMap {
      */
     @Test
     public void testValidateMap(){
-        map = engine.editMap("alekmap.map");
-        System.out.println(map.getContinents());
-        boolean l_check = engine.validateMap(map);
+        map = engine.editMapUtil("alekmap.map");
+        boolean l_check = engine.validateMapUtil(map);
         assertTrue(l_check);
     }
 }

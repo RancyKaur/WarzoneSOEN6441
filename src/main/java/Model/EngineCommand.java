@@ -330,8 +330,8 @@ public class EngineCommand {
     public boolean saveMap(WargameMap p_map, String p_fileName) {
         if (checkGameMap(p_map)) {
             try {
-                BufferedWriter l_fileWriter = new BufferedWriter(new FileWriter("src/main/resources/maps/" + p_fileName + ".map"));
-                l_fileWriter.write("map:" + p_fileName + ".map");
+                BufferedWriter l_fileWriter = new BufferedWriter(new FileWriter("src/main/resources/maps/" + p_fileName));
+                l_fileWriter.write("map:" + p_fileName);
                 l_fileWriter.newLine();
                 l_fileWriter.newLine();
                 l_fileWriter.flush();

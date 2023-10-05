@@ -1,16 +1,16 @@
-package model;
+package Test;
 
-import Model.Continent;
 import Model.WargameMap;
 import Model.EngineCommand;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-
 import static org.junit.Assert.*;
 
-
+/**
+ * To test the functionalities carried out related to Continents
+ *
+ */
 public class TestContinent {
 
     WargameMap d_Map;

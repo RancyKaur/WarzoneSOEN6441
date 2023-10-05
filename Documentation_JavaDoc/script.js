@@ -45,22 +45,36 @@ function createElem(doc, tag, path) {
     scriptElement.parentNode.insertBefore(script, scriptElement);
 }
 
+/**
+ * Shows or hides elements in a table-like layout and updates tabs accordingly.
+ *
+ * @param {string} tableId - The ID of the table container element.
+ * @param {string} selected - The class name of the selected table section.
+ * @param {number} columns - The number of columns in the table.
+ */
 function show(tableId, selected, columns) {
+    // Hide all elements with the given tableId that are not selected
     if (tableId !== selected) {
-        document.querySelectorAll('div.' + tableId + ':not(.' + selected + ')')
+        document.querySelectorAll(`div.${tableId}:not(.${selected})`)
             .forEach(function(elem) {
                 elem.style.display = 'none';
             });
     }
-    document.querySelectorAll('div.' + selected)
+    
+    // Show and style selected elements
+    document.querySelectorAll(`div.${selected}`)
         .forEach(function(elem, index) {
             elem.style.display = '';
-            var isEvenRow = index % (columns * 2) < columns;
-            elem.classList.remove(isEvenRow ? oddRowColor : evenRowColor);
-            elem.classList.add(isEvenRow ? evenRowColor : oddRowColor);
+            const isEvenRow = index % (columns * 2) < columns;
+            const rowColorClass = isEvenRow ? evenRowColor : oddRowColor;
+            elem.classList.remove(rowColorClass === evenRowColor ? oddRowColor : evenRowColor);
+            elem.classList.add(rowColorClass);
         });
+    
+    // Update tabs if needed
     updateTabs(tableId, selected);
 }
+
 
 function updateTabs(tableId, selected) {
     document.querySelector('div#' + tableId +' .summary-table')

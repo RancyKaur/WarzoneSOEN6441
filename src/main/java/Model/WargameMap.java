@@ -109,7 +109,7 @@ public class WargameMap {
 
     /**
      * setter
-     * @param d_MapName
+     * @param d_MapName String mapName
      */
     public void setD_MapName(String d_MapName) {
         this.d_MapName = d_MapName;
@@ -125,7 +125,7 @@ public class WargameMap {
 
     /**
      * setter
-     * @param d_isValid
+     * @param d_isValid boolean
      */
     public void setD_isValid(boolean d_isValid) {
         this.d_isValid = d_isValid;

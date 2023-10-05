@@ -9,6 +9,12 @@ import java.util.Queue;
 
 import static java.lang.System.exit;
 
+/**
+ * The `Continent` class encapsulates information about continents, including their name, ID.
+ * It also maintains a mapping of countries belonging to the continent.
+ * <p>
+ * This class provides a comprehensive representation of continents within the context of a game map.
+ */
 public class GameEngine {
 
     public ArrayList<Player> d_Players;
@@ -17,14 +23,25 @@ public class GameEngine {
     private WargameMap d_map;
     private GameStartPhase d_gameStartPhase;
 
+    /**
+     * Ensures string matches the defined criteria of being a Numeric for ID.
+     * @return d_phase;
+     */
     public GamePhase getD_phase() {
         return d_phase;
     }
 
+    /**
+     * Ensures string matches the defined criteria of being a Numeric for ID.
+     * @return
+     */
     public void setD_phase(GamePhase d_phase) {
         this.d_phase = d_phase;
     }
 
+    /**
+     * Empty default constructor
+     */
     public GameEngine() {
         d_phase = GamePhase.BEGINGAME;
         d_RunCommand = new EngineCommand();
@@ -83,6 +100,12 @@ public class GameEngine {
         return p_sample != null && p_sample.matches("[0-9]+");
     }
 
+    /**
+     * Ensures string matches the defined criteria of being a Numeric for ID.
+     *
+     * @param l_data input string
+     * @return
+     */
     public void addRemovePlayer(String[] l_data) {
         String l_playerName=null;
         try {
@@ -155,6 +178,7 @@ public class GameEngine {
      * related to the commands entered
      *
      * @param p_givenCommand - Command entered by the player
+     * @param p_player player
      * @return - the next phase of the current game
      */
     public GamePhase parseCommand(Player p_player, String p_givenCommand) {

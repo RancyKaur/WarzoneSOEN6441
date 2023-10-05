@@ -44,6 +44,9 @@ public class Player {
         System.out.println("player's countries:" + this.d_OwnedCountries);
     }
 
+    /**
+     * display owned continents
+     */
     public void printOwnedContinents() {
         System.out.println("player's continents:" + this.d_OwnedContinents);
     }

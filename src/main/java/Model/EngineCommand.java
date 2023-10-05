@@ -62,8 +62,8 @@ public class EngineCommand {
      * This will remove continent from the map. In order to do that we first have to remove each country resides in that continent
      * and then we can remove the continent itself.
      *
-     * @param p_gameMap
-     * @param p_continentName
+     * @param p_gameMap param
+     * @param p_continentName param
      * @return returns true if continent is successfully remove otherwise false
      */
     public boolean removeContinentFromMap(WargameMap p_gameMap, String p_continentName) {

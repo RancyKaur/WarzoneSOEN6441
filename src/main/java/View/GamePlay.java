@@ -25,6 +25,11 @@ public class GamePlay {
         l_game = new GamePlay();
     }
 
+    /**
+     * Ensures string matches the defined criteria of being a Numeric for ID.
+     *
+     * @param args input string array
+     */
     public static void main(String[] args) {
         System.out.println("****************************************");
         System.out.println("Welcome to the WARZONE game");
@@ -82,15 +87,20 @@ public class GamePlay {
     /**
      * This method assigns armies to countries randomly based on the number of countries owned by each player
      *
-     * @param p_gameEngine GameEngine Reference
+     * @param gameEngine GameEngine Reference
      */
     public void assignEachPlayerReinforcements(GameEngine gameEngine) {
         for (Player player : gameEngine.d_Players) {
             ReinforcePlayers.assignReinforcementArmies(player);
         }
     }
-    
 
+
+    /**
+     * Ensures string matches the defined criteria of being a Numeric for ID.
+     *
+     * @param gameEngine GameEngine
+     */
     public void takeOrders(GameEngine gameEngine) {
         int numberOfPlayers = gameEngine.d_Players.size();
     
@@ -121,6 +131,14 @@ public class GamePlay {
         gameEngine.setD_phase(phase);
     }
 
+    /**
+     * Ensures string matches the defined criteria of being a Numeric for ID.
+     *
+     * @param p_phase GamePhase
+     * @param p_cmd GameEnginer
+     * @param p_command string
+     * @return true if valid match, else false
+     */
     public GamePhase handleStartPhase(GamePhase p_phase, GameEngine p_cmd, String p_command) {
         while (p_phase != GamePhase.ENDGAME && p_phase != GamePhase.ISSUEORDER) {
             p_command = GetCommands.validateCommand(p_cmd.getD_phase());

@@ -58,7 +58,7 @@ public class Continent {
 
     /**
      * setter method for d_indexOfContinent
-     * @param p_index
+     * @param p_index some param
      */
     public void setIndexOfContinent(int p_index)
     {
@@ -67,7 +67,7 @@ public class Continent {
 
     /**
      * getter method for d_indexOfContinent
-     * @return
+     * @return  indexOfContinent
      */
     public int getIndexOfContinent()
     {

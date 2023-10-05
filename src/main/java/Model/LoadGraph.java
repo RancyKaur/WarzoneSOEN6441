@@ -17,8 +17,8 @@ public class LoadGraph {
     private static int d_indexInMap = 1;
 
     /**
-     * getter
-     * @return
+     * getter method
+     * @return WargameMap
      */
     public WargameMap getD_map() {
         return d_map;

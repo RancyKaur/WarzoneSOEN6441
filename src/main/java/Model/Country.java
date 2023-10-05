@@ -85,7 +85,7 @@ public class Country {
 
     /**
      * setter method for d_countryIndex
-     * @param p_index
+     * @param p_index index
      */
     public void setIndexOfCountry(int p_index) {
         this.d_countryIndex = p_index;
@@ -93,7 +93,7 @@ public class Country {
 
     /**
      * getter method for d_countryIndex
-     * @return
+     * @return index
      */
     public int getIndexOfCountry() {
         return this.d_countryIndex;

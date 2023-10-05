@@ -230,7 +230,7 @@ public class GameEngine {
 
 
                 default: {
-                    System.out.println("At this phase, only 'editmap', 'loadmap'  or 'stopgame' commands are accepted");
+                    System.out.println("At this phase, only 'editmap', 'showmap', 'loadmap'  or 'stopgame' commands are accepted");
                 }
             }
         } else if (d_phase == GamePhase.EDITMAP) {

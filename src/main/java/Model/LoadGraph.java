@@ -95,8 +95,8 @@ public class LoadGraph {
             while (!((l_s = p_reader.readLine()).equals(""))) {
                 String[] l_continentString = l_s.split("\\s+");
                 if (Integer.parseInt(l_continentString[0]) >= 0) {
-                    d_map.getContinents().put(l_continentString[1].toLowerCase(), new Continent(l_continentString[1], Integer.parseInt(l_continentString[0])));
-//                    d_map.addContinents(l_continentString[1].toLowerCase(), new Continent(l_continentString[1], Integer.parseInt(l_continentString[0])));
+                    //to create new continent we give first its string name and secondly controlvalue
+                    d_map.getContinents().put(l_continentString[1].toLowerCase(), new Continent(l_continentString[1], Integer.parseInt(l_continentString[2])));
                     d_indexInMap++;
                 } else {
                     System.out.println("Error reading the file.");
@@ -120,7 +120,7 @@ public class LoadGraph {
 
         if (!ValidateMap.doesCountryExist(d_map, l_newCountry.getCountryName())) {
             Continent argumentContinent = d_map.getContinents().get(l_newCountry.getContinentName().toLowerCase());
-            argumentContinent.getListOfCountries().put(l_newCountry.getContinentName().toLowerCase(), l_newCountry);
+            argumentContinent.getListOfCountries().put(l_newCountry.getCountryName().toLowerCase(), l_newCountry);
             d_map.getCountries().put(l_newCountry.getCountryName().toLowerCase(), l_newCountry);
         } else {
             System.out.println("Error reading the file.");

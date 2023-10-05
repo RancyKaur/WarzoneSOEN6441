@@ -38,9 +38,17 @@ var NO_MATCH = 0xffff;
 var MIN_RESULTS = 3;
 var MAX_RESULTS = 500;
 var UNNAMED = "<Unnamed>";
+
+/**
+ * Escapes HTML characters in a given string to prevent HTML injection.
+ *
+ * @param {string} str - The input string to escape.
+ * @returns {string} - The escaped string with HTML characters replaced.
+ */
 function escapeHtml(str) {
     return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
+
 function getHighlightedText(item, matcher, fallbackMatcher) {
     var escapedItem = escapeHtml(item);
     var highlighted = escapedItem.replace(matcher, highlight);
@@ -49,6 +57,13 @@ function getHighlightedText(item, matcher, fallbackMatcher) {
     }
     return highlighted;
 }
+
+/**
+ * Get the URL prefix based on the user interface item category.
+ *
+ * @param {object} ui - The user interface item.
+ * @returns {string} - The URL prefix.
+ */
 function getURLPrefix(ui) {
     var urlPrefix="";
     var slash = "/";
@@ -69,6 +84,13 @@ function getURLPrefix(ui) {
     }
     return urlPrefix;
 }
+
+/**
+ * Create a search pattern from the given term.
+ *
+ * @param {string} term - The search term.
+ * @returns {string} - The search pattern.
+ */
 function createSearchPattern(term) {
     var pattern = "";
     var isWordToken = false;
@@ -92,10 +114,19 @@ function createSearchPattern(term) {
     });
     return pattern;
 }
+
+/**
+ * Create a regular expression matcher based on the provided pattern and flags.
+ *
+ * @param {string} pattern - The pattern to match.
+ * @param {string} flags - The regular expression flags.
+ * @returns {RegExp} - The regular expression matcher.
+ */
 function createMatcher(pattern, flags) {
     var isCamelCase = /[A-Z]/.test(pattern);
     return new RegExp(pattern, flags + (isCamelCase ? "" : "i"));
 }
+
 var watermark = 'Search';
 $(function() {
     var search = $("#search-input");
@@ -184,6 +215,14 @@ $.widget("custom.catcomplete", $.ui.autocomplete, {
         return li;
     }
 });
+
+/**
+ * Calculate the ranking score for a match in the search results.
+ *
+ * @param {Object} match - The match object.
+ * @param {string} category - The category of the match.
+ * @returns {number} - The ranking score.
+ */
 function rankMatch(match, category) {
     if (!match) {
         return NO_MATCH;
@@ -226,6 +265,7 @@ function rankMatch(match, category) {
     return leftBoundaryMatch + periferalMatch + (delta / 200);
 
 }
+
 function doSearch(request, response) {
     var result = [];
     searchPattern = createSearchPattern(request.term);

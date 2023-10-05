@@ -116,6 +116,11 @@ function updateTabs(tableId, selected) {
     });
 }
 
+/**
+ * Handles tab switching based on arrow key events.
+ *
+ * @param {Event} e - The keyboard event object.
+ */
 function switchTab(e) {
     var selected = document.querySelector('[aria-selected=true]');
     if (selected) {
@@ -144,26 +149,43 @@ function indexFilesLoaded() {
 }
 
 // Workaround for scroll position not being included in browser history (8249133)
-document.addEventListener("DOMContentLoaded", function(e) {
+
+
+/**
+ * Function to handle scroll position synchronization with browser history.
+ *
+ * @param {number} scrollTop - The scroll position value to set.
+ */
+function handleScrollPosition(scrollTop) {
+    history.replaceState(scrollTop, document.title);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
     var contentDiv = document.querySelector("div.flex-content");
-    window.addEventListener("popstate", function(e) {
+
+    window.addEventListener("popstate", function (e) {
         if (e.state !== null) {
             contentDiv.scrollTop = e.state;
         }
     });
-    window.addEventListener("hashchange", function(e) {
-        history.replaceState(contentDiv.scrollTop, document.title);
+
+    window.addEventListener("hashchange", function () {
+        handleScrollPosition(contentDiv.scrollTop);
     });
-    contentDiv.addEventListener("scroll", function(e) {
+
+    contentDiv.addEventListener("scroll", function () {
         var timeoutID;
+
         if (!timeoutID) {
-            timeoutID = setTimeout(function() {
-                history.replaceState(contentDiv.scrollTop, document.title);
+            timeoutID = setTimeout(function () {
+                handleScrollPosition(contentDiv.scrollTop);
                 timeoutID = null;
             }, 100);
         }
     });
+
     if (!location.hash) {
-        history.replaceState(contentDiv.scrollTop, document.title);
+        handleScrollPosition(contentDiv.scrollTop);
     }
 });
+

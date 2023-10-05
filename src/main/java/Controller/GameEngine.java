@@ -9,6 +9,8 @@ import java.util.Queue;
 
 import static java.lang.System.exit;
 
+/** This class manages game phases, player actions, and map editing. */
+
 public class GameEngine {
 
     public ArrayList<Player> d_Players;

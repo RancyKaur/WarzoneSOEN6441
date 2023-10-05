@@ -1,0 +1,13 @@
+map:testrj.map.map
+
+[Continents]
+1 Qq 22
+2 Europe 23
+
+[Countries]
+2 England 2
+1 India 1
+
+[Borders]
+2 1
+1 2

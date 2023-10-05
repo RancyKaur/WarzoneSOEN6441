@@ -44,6 +44,7 @@ public class GamePlay {
     private void enterGamePhases() {
         GameEngine l_cmd = new GameEngine();
         String l_command = GetCommands.validateCommand(l_cmd.getD_phase());
+
         GamePhase l_phase = l_cmd.parseCommand(null, l_command);
         l_phase = handleStartPhase(l_phase, l_cmd, l_command);
         l_game.assignEachPlayerReinforcements(l_cmd);

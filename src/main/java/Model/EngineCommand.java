@@ -261,17 +261,24 @@ public class EngineCommand {
     public boolean checkGameMap(WargameMap p_gameMap) {
         GameGraph l_gameGraphObj = new GameGraph();
 
-        if (l_gameGraphObj.isEmptyContinentExist(p_gameMap)) {
-            System.out.println("Empty Continent Exist in the Map. ");
-            return false;
-        } else if (!l_gameGraphObj.isEachContinentConnected(p_gameMap)) {
-            System.out.println("Not all Continents are connected");
-            return false;
-        } else if (!l_gameGraphObj.isEntireGameMapConnected(l_gameGraphObj.makeGraph(p_gameMap))) {
-            System.out.println("It is not a connected graph");
+        if (p_gameMap == null) {
+            System.out.println("MAP is empty so validation is not possible !");
             return false;
         }
-        return true;
+        else
+        {
+            if (l_gameGraphObj.isEmptyContinentExist(p_gameMap)) {
+                System.out.println("Empty Continent Exist in the Map. ");
+                return false;
+            } else if (!l_gameGraphObj.isEachContinentConnected(p_gameMap)) {
+                System.out.println("Not all Continents are connected");
+                return false;
+            } else if (!l_gameGraphObj.isEntireGameMapConnected(l_gameGraphObj.makeGraph(p_gameMap))) {
+                System.out.println("It is not a connected graph");
+                return false;
+            }
+            return true;
+        }
     }
 
     /**
@@ -434,7 +441,7 @@ public class EngineCommand {
      * 2) map for the game is connected graph or not
      * 3) each continent in map is a connected sub-graph or not
      *
-     * @param p_map GameMap to be be checked.
+     * @param p_map GameMap to be checked.
      * @return return true if map is valid, else false indicate invalid map
      */
     public boolean validateMap(WargameMap p_map) {

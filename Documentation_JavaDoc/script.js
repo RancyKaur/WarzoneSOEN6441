@@ -87,22 +87,33 @@ function show(tableId, selected, columns) {
     updateTabs(tableId, selected);
 }
 
-
+/**
+ * Updates the tabs and accessibility attributes for a specific table.
+ *
+ * @param {string} tableId - The ID of the table container.
+ * @param {string} selected - The ID of the selected tab.
+ */
 function updateTabs(tableId, selected) {
-    document.querySelector('div#' + tableId +' .summary-table')
-        .setAttribute('aria-labelledby', selected);
-    document.querySelectorAll('button[id^="' + tableId + '"]')
-        .forEach(function(tab, index) {
-            if (selected === tab.id || (tableId === selected && index === 0)) {
-                tab.className = activeTableTab;
-                tab.setAttribute('aria-selected', true);
-                tab.setAttribute('tabindex',0);
-            } else {
-                tab.className = tableTab;
-                tab.setAttribute('aria-selected', false);
-                tab.setAttribute('tabindex',-1);
-            }
-        });
+    // Set 'aria-labelledby' attribute for the table container
+    var tableContainer = document.querySelector('div#' + tableId + ' .summary-table');
+    tableContainer.setAttribute('aria-labelledby', selected);
+    
+    // Select all button elements with IDs starting with 'tableId'
+    var tabButtons = document.querySelectorAll('button[id^="' + tableId + '"]');
+    
+    tabButtons.forEach(function(tab, index) {
+        if (selected === tab.id || (tableId === selected && index === 0)) {
+            // Apply styles and accessibility attributes for the selected tab
+            tab.className = activeTableTab;
+            tab.setAttribute('aria-selected', true);
+            tab.setAttribute('tabindex', 0);
+        } else {
+            // Apply styles and accessibility attributes for other tabs
+            tab.className = tableTab;
+            tab.setAttribute('aria-selected', false);
+            tab.setAttribute('tabindex', -1);
+        }
+    });
 }
 
 function switchTab(e) {

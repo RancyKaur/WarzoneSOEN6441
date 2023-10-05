@@ -1,4 +1,4 @@
-package model;
+package Test;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * To test the functinalities carried out related to Country
+ * To test the functionalities carried out related to Country
  *
  */
 public class TestCountry {

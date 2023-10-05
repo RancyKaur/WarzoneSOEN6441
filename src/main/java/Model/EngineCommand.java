@@ -36,7 +36,14 @@ public class EngineCommand {
         return l_map;
     }
 
-
+    /**
+    * Adds a new continent to the game map if it doesn't already exist.
+    *
+    * @param p_gameMap               The game map to which the continent will be added.
+    * @param p_continentControlValue The control value of the continent.
+    * @param p_continentName         The name of the continent to add.
+    * @return True if the continent was added successfully, false if it already exists.
+    */
     public boolean addContinentToMap(WargameMap p_gameMap, int p_continentControlValue, String p_continentName) {
         //first of all checking is this given continent already exists
         //if it does not exists then create the new continent object and add it to the game map

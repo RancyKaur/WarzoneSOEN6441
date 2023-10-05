@@ -6,8 +6,10 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-//        TestContinent.class,
-		TestCountry.class
+		TestNumberOfArmies.class,
+		TestCountry.class,
+		TestContinent.class,
+		TestValidateMap.class,
 })
 
 	/**

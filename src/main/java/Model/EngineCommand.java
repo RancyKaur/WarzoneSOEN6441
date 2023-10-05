@@ -24,6 +24,7 @@ public class EngineCommand {
     public WargameMap editMap(String p_mapName) {
         WargameMap l_map = null;
         String l_mapfilePath = "src/main/resources/maps/" + p_mapName;
+        String l_MapType;
         File l_mapFile = new File(l_mapfilePath);
         LoadGraph l_graph = new LoadGraph();
         if (l_mapFile.exists()) {
@@ -456,6 +457,16 @@ public class EngineCommand {
 
     private void printMap(WargameMap map){
 
+    }
+
+
+    //remove these before deliverable 2
+    public WargameMap editMapUtil(String p_mapName){
+        return new WargameMap();
+    }
+
+    public boolean validateMapUtil(WargameMap p_map){
+        return true;
     }
 
 }

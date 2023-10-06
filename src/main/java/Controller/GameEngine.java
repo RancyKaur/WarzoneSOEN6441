@@ -469,7 +469,7 @@ public class GameEngine {
             Iterator<Player> l_itr = d_Players.listIterator();
             while (l_itr.hasNext()) {
                 Player l_p = l_itr.next();
-                System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmies() + " Armies currently left to be deployed!");
+                //System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmies() + " Armies currently left to be deployed!");
                 if (l_p.getOwnedArmies() > 0) {
                     l_counter = l_counter + l_p.getOwnedArmies();
                 }
@@ -492,7 +492,7 @@ public class GameEngine {
                                         p_player.addOrder(l_temp);
                                         p_player.issue_order();
                                         p_player.setOwnedArmies(p_player.getOwnedArmies() - l_numberOfArmies);
-                                        System.out.println("Player " + p_player.getPlayerName() + " NOW has " + p_player.getOwnedArmies() + " Army units left!");
+                                        //System.out.println("Player " + p_player.getPlayerName() + " NOW has " + p_player.getOwnedArmies() + " Army units left!");
                                     } else {
                                         System.out.println("Country not owned by player or insufficient Army units | please pass to next player");
                                     }

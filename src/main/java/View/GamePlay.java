@@ -48,6 +48,12 @@ public class GamePlay {
         GamePhase l_phase = l_cmd.parseCommand(null, l_command);
         l_phase = handleStartPhase(l_phase, l_cmd, l_command);
         l_game.assignEachPlayerReinforcements(l_cmd);
+
+//        Iterator<Player> l_itr = l_cmd.d_Players.listIterator();
+//        while (l_itr.hasNext()) {
+//            Player l_p = l_itr.next();
+//            System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmies() + " Armies currently left to be deployed!");
+//        }
         takeOrders(l_cmd, l_phase, l_command);
     }
 
@@ -100,6 +106,11 @@ public class GamePlay {
         while (true) {
             while (l_traversalCounter < l_numberOfPlayers) {
                 Player l_p = l_cmd.d_Players.get(l_traversalCounter);
+                Iterator<Player> l_itr = l_cmd.d_Players.listIterator();
+                while (l_itr.hasNext()) {
+                    Player l_sp = l_itr.next();
+                    System.out.println("Player " + l_sp.getPlayerName() + " has " + l_sp.getOwnedArmies() + " Armies currently left to be deployed!");
+                }
                 System.out.println();
                 System.out.println("It's " + l_p.getPlayerName() + "'s turn");
                 //listen orders from players - deploy | pass

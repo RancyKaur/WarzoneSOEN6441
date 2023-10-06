@@ -1,0 +1,14 @@
+map:dummy.map
+
+[Continents]
+1 Asia 1
+
+[Countries]
+3 Korea 1
+2 Japan 1
+1 India 1
+
+[Borders]
+3 2
+2 3 1
+1 2

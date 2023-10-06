@@ -30,6 +30,19 @@ public class Continent {
     }
 
     /**
+     * This constructor is called when reading existing map file
+     * @param p_continentName
+     * @param p_continentID
+     * @param p_existingmap
+     */
+    Continent(String p_continentName, int p_continentID,String p_existingmap) {
+        this.d_continentName = p_continentName;
+        d_continentControlValue = p_continentID;
+        this.d_indexOfContinent = LoadGraph.d_indexInMap;
+        this.d_listOfCountries = new HashMap<>();
+    }
+
+    /**
      * Getter method for continentName
      *
      * @return ContinentName

@@ -1,14 +1,12 @@
-package model;
+package Model;
 
 import static org.junit.Assert.*;
 
-import Model.EngineCommand;
-import Model.WargameMap;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * To test the functinalities carried out related to Country
+ * To test the functionalities carried out related to Country
  *
  */
 public class TestCountry {
@@ -59,4 +57,17 @@ public class TestCountry {
     }
 
 
+     /**
+      * Test if continents are removed properly
+     */
+    @Test
+    public void testRemoveContinent(){
+        boolean l_check = engineCommand.removeContinentFromMap(d_Map, d_ContinentName);
+        assertTrue(l_check);
+
+        d_ContinentName = "Europe";
+        l_check = engineCommand.removeContinentFromMap(d_Map, d_ContinentName);
+        assertFalse(l_check);
+
+    }
 }

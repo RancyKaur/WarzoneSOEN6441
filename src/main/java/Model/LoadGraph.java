@@ -11,7 +11,7 @@ public class LoadGraph {
 
     private WargameMap d_map;
     private Map<Integer, Country> d_countries;
-    private static int d_indexInMap = 1;
+    public static int d_indexInMap = 1;
 
     public WargameMap getD_map() {
         return d_map;
@@ -64,7 +64,7 @@ public class LoadGraph {
         try {
             while (!((l_s = p_reader.readLine()).equals(""))) {
                 String[] l_countryString = l_s.split("\\s+");
-                Country l_newCountry = new Country(l_countryString[0], l_countryString[1], l_countryString[2], d_map);
+                Country l_newCountry = new Country(l_countryString[0], l_countryString[1], l_countryString[2], this.d_map);
                 try {
                     if (l_newCountry.getContinentName() == null) {
                         System.out.println("Error reading the file.Restart the game again!");
@@ -96,7 +96,7 @@ public class LoadGraph {
                 String[] l_continentString = l_s.split("\\s+");
                 if (Integer.parseInt(l_continentString[0]) >= 0) {
                     //to create new continent we give first its string name and secondly controlvalue
-                    d_map.getContinents().put(l_continentString[1].toLowerCase(), new Continent(l_continentString[1], Integer.parseInt(l_continentString[2])));
+                    d_map.getContinents().put(l_continentString[1].toLowerCase(), new Continent(l_continentString[1], Integer.parseInt(l_continentString[2]),"NaN"));
                     d_indexInMap++;
                 } else {
                     System.out.println("Error reading the file.");

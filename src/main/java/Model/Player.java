@@ -123,9 +123,9 @@ public class Player {
      */
     public void issue_order() {
         this.d_OrderList.add(this.d_Order);
-        for (ExecuteOrders l_x : d_OrderList) {
-            System.out.println(l_x.getD_player().getPlayerName());
-        }
+//        for (ExecuteOrders l_x : d_OrderList) {
+//            System.out.println(l_x.getD_player().getPlayerName());
+//        }
     }
 
     /**

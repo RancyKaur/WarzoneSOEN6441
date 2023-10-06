@@ -40,14 +40,14 @@ public class Country {
      *
      * @param p_index         index in the ".map" file as per Domination's conventions
      * @param p_countryName   countryName key
-     * @param p_continentName continentName key
+     * @param p_unique_continentID continentName key
      * @param p_map           GameMap which was loaded
      */
-    public Country(String p_index, String p_countryName, String p_continentName, WargameMap p_map) {
+    public Country(String p_index, String p_countryName, String p_unique_continentID, WargameMap p_map) {
         this.d_countryIndex = Integer.parseInt(p_index);
         this.d_countryName = p_countryName;
         for (Continent c : p_map.getContinents().values()) {
-            if (c.getIndexOfContinent() == Integer.parseInt(p_continentName)) {
+            if (c.getIndexOfContinent() == Integer.parseInt(p_unique_continentID)) {
                 this.d_ContinentName = c.getContinentName();
                 //break;
             }

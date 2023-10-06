@@ -6,8 +6,8 @@ import java.util.Scanner;
  * Provides methods to validate and retrieve user commands based on the current game phase.
  */
 public class GetCommands {
-    private static String[] d_validBeginPhaseCmds = new String[]{"editmap", "stopgame", "loadmap"};
-    private static String[] d_validEditMapPhaseCmds = new String[]{"editcontinent", "editcountry", "editneighbor", "validatemap", "savemap", "showmap", "loadmap", "stopgame"};
+    private static String[] d_validBeginPhaseCmds = new String[]{"editmap", "stopgame", "loadmap","showmap"};
+    private static String[] d_validEditMapPhaseCmds = new String[]{"editcontinent", "editcountry", "editneighbor", "validatemap", "savemap", "showmap", "stopgame"};
     private static String[] d_validateStartPlayCmds = new String[]{"gameplayer", "assigncountries","showmap"};
     private static String[] d_validIssueOrderCmds = new String[]{"deploy"};
     private static Scanner d_scan;

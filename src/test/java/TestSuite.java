@@ -1,4 +1,6 @@
-import Test.*;
+
+import Model.*;
+
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -6,10 +8,17 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-		TestNumberOfArmies.class,
-		TestCountry.class,
+		TestMapEdit.class,
 		TestContinent.class,
+		TestCountry.class,
+		TestNeighbor.class,
 		TestValidateMap.class,
+		TestMapLoad.class,
+		TestCountryAssignment.class,
+		TestNumberOfArmies.class,
+		TestOrderAddition.class,
+		TestOrderRemoval.class
+
 })
 
 	/**

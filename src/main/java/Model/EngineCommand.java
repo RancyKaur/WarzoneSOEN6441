@@ -28,7 +28,7 @@ public class EngineCommand {
         LoadGraph l_graph = new LoadGraph();
         if (l_mapFile.exists()) {
             l_map = l_graph.readMap(l_mapfilePath);
-            System.out.println("Map " + p_mapName + ".map already exists, follow below commands to edit it");
+            System.out.println("Map " + p_mapName + " already exists, follow below commands to edit it");
         } else {
             System.out.println(p_mapName + " does not exist.");
             System.out.println("Creating a new Map named " + p_mapName);

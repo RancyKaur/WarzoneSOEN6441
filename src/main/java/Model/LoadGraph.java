@@ -28,7 +28,9 @@ public class LoadGraph {
      * @return d_Map WargameMap instance for the map read from the drive
      */
     public WargameMap readMap(String p_map) {
-        d_map = new WargameMap(p_map);
+        String p_mapName = p_map.substring(p_map.lastIndexOf('/')+1);
+        //System.out.println(p_mapName);
+        d_map = new WargameMap(p_mapName);
         d_countries = new HashMap<>();
 
         try {

@@ -211,10 +211,9 @@ public class GameEngine {
                         WargameMap d_temp_map;
                         l_mapName = l_param[1];
                         if (this.isValidMapName(l_mapName)) {
-                            this.d_phase = GamePhase.STARTPLAY;
                             d_temp_map = d_RunCommand.loadMap(l_mapName);
                             d_RunCommand.showMap(d_temp_map);
-                            d_phase = GamePhase.BEGINGAME;
+                            this.d_phase = GamePhase.BEGINGAME;
                         } else {
                             System.out.println("Map does not exist! Select a map from our resources or the one you created!");
                         }
@@ -470,12 +469,13 @@ public class GameEngine {
             Iterator<Player> l_itr = d_Players.listIterator();
             while (l_itr.hasNext()) {
                 Player l_p = l_itr.next();
-                System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmies() + " Armies currently!");
+                System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmies() + " Armies currently left to be deployed!");
                 if (l_p.getOwnedArmies() > 0) {
                     l_counter = l_counter + l_p.getOwnedArmies();
                 }
             }
-            System.out.println("Total Armies left with all Players in Pool: " + l_counter);
+            System.out.println();
+            //System.out.println("Total Armies left with all Players in Pool: " + l_counter);
             if (l_counter > 0) {
                 switch (l_commandName) {
                     case "deploy":
@@ -486,17 +486,33 @@ public class GameEngine {
                                     l_numberOfArmies = Integer.parseInt(l_param[2]);
                                     boolean l_checkOwnedCountry = p_player.getOwnedCountries().containsKey(l_countryId.toLowerCase());
                                     boolean l_checkArmies = (p_player.getOwnedArmies() >= l_numberOfArmies);
-                                    System.out.println("Player " + p_player.getPlayerName() + " Can provide deploy order or pass order");
+                                    //System.out.println("Player " + p_player.getPlayerName() + " Can provide deploy order or pass order");
                                     if (l_checkOwnedCountry && l_checkArmies) {
                                         ExecuteOrders l_temp = new ExecuteOrders(p_player, l_countryId, l_numberOfArmies);
                                         p_player.addOrder(l_temp);
                                         p_player.issue_order();
                                         p_player.setOwnedArmies(p_player.getOwnedArmies() - l_numberOfArmies);
-                                        System.out.println("Player " + p_player.getPlayerName() + " now has " + p_player.getOwnedArmies() + " Army units left!");
+                                        System.out.println("Player " + p_player.getPlayerName() + " NOW has " + p_player.getOwnedArmies() + " Army units left!");
                                     } else {
                                         System.out.println("Country not owned by player or insufficient Army units | please pass to next player");
                                     }
                                     d_phase = GamePhase.TAKETURN;
+
+                                    //below code block to avoid extra turn when all armies are deployed
+                                    l_itr = d_Players.listIterator();
+                                    int l_tempcounter=0;
+                                    while (l_itr.hasNext()) {
+                                        Player l_p = l_itr.next();
+                                        if (l_p.getOwnedArmies() > 0) {
+                                            l_tempcounter = l_tempcounter + l_p.getOwnedArmies();
+                                        }
+                                    }
+                                    if(l_tempcounter ==0)
+                                    {
+                                        System.out.println("press ENTER to continue to execute Phase..");
+                                        d_phase = GamePhase.EXECUTEORDER;
+                                        return d_phase;
+                                    }
                                     break;
                                 }
                             } else
@@ -517,7 +533,7 @@ public class GameEngine {
 
                     case "showmap":
                         d_gameStartPhase.showMap(d_Players, d_map);
-                        System.out.println("Please run 'deploy <countryName> #_of_armies'");
+                        System.out.println("Please run 'deploy <countryName> #_of_armies' or 'pass' to pass your turn");
                         break;
 
                     // command to stop and exit from the game
@@ -563,36 +579,32 @@ public class GameEngine {
                                 Queue<ExecuteOrders> l_tempOrderList = l_p.getD_orderList();
                                 if (l_tempOrderList.size() > 0) {
                                     ExecuteOrders l_toRemove = l_p.next_order();
-                                    System.out.println("Order: " +l_toRemove+ " executed for player: "+l_p.getPlayerName());
+                                    System.out.println("Order executed for player: "+l_p.getPlayerName());
                                     l_toRemove.execute();
                                 }
                             }
                             l_count--;
                         }
 
-                        System.out.println("Orders executed!");
+                        System.out.println("All Orders executed and current deployment is shown below:");
+                        System.out.println();
                         d_gameStartPhase.showMap(d_Players, d_map);
                         d_phase = GamePhase.ISSUEORDER;
                     }
 //                    System.out.println("Type Exit to end the game");
-                    break;
-
-                case "showmap":
-                    d_gameStartPhase.showMap(d_Players, d_map);
-                    break;
+                    //break;
 
                 case "exit":
                     System.out.println("Build 1 ENDS HERE!");
                     exit(0);
 
-                    // command to stop and exit from the game
-                case "stopgame": {
-                    this.d_phase = GamePhase.ENDGAME;
-                    System.out.println("Stopping the game as requested");
-                    exit(0);
-                }
+                case "showmap":
+                    d_gameStartPhase.showMap(d_Players, d_map);
+                    break;
+
+
                 default:
-                    System.out.println("Execute Order Phase has commenced, either use showmap | execute");
+                    System.out.println("Execute Order Phase has commenced, please type 'execute' to execute all orders");
                     break;
             }
         }
@@ -609,7 +621,7 @@ public class GameEngine {
         System.out.println("To add continents: editcontinent -add <continentName> <ControlValue>, E.g. editcontinent -add Europe 1");
         System.out.println("To add country: editcountry -add <countryName> <continentName>, E.g. editcountry -add Germany Europe");
         System.out.println("To add neighbor relation: editneighbor -add <countryName> <countryName>, E.g. editneighbor -add Germany Denmark");
-        System.out.println("To save map file: savemap <map file name without extension>, E.g. savemap AsiaMap");
+        System.out.println("To save map file: savemap <map file name with extension>, E.g. savemap Asia.map");
         System.out.println("Waiting for next command..");
     }
 }

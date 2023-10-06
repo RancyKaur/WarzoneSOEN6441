@@ -67,7 +67,10 @@ public class GamePlay {
                     System.out.println(d_mapFiles[i].getName());
             }
             System.out.println();
-            System.out.println("Type 'editmap <name of map> with extension, if the map name is not part of above list, a new map will be created");
+            //System.out.println("To see an existing map, type 'showmap <name of map>' with extension");
+            System.out.println("To edit or create a new map, type 'editmap <name of map>' with extension, if the map name is not part of above list, a new map will be created");
+            System.out.println("To start playing on existing map, type 'loadmap <name of map>' with extension");
+
         } else {
             System.out.println("There are NO saved maps in the game");
             System.out.println("Type 'editmap <name of map>' with extension, to create a new map");
@@ -88,6 +91,7 @@ public class GamePlay {
                 ReinforcePlayers.assignReinforcementArmies(p);
             } while (itr.hasNext());
         }
+        System.out.println("Enter 'showmap' to see country assignments given to each player");
     }
 
     public void takeOrders(GameEngine l_cmd, GamePhase l_phase, String l_command) {
@@ -96,10 +100,12 @@ public class GamePlay {
         while (true) {
             while (l_traversalCounter < l_numberOfPlayers) {
                 Player l_p = l_cmd.d_Players.get(l_traversalCounter);
+                System.out.println();
                 System.out.println("It's " + l_p.getPlayerName() + "'s turn");
                 //listen orders from players - deploy | pass
                 l_phase = GamePhase.ISSUEORDER;
                 l_cmd.setD_phase(l_phase);
+                System.out.println("Player " + l_p.getPlayerName() + " Can provide deploy order or pass order");
                 while (l_phase != GamePhase.TAKETURN) {
                     l_command = d_inp.nextLine();
                     l_phase = l_cmd.parseCommand(l_p, l_command);

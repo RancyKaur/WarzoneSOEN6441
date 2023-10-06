@@ -2,6 +2,9 @@ package Model;
 
 import java.util.Scanner;
 
+/**
+ * Provides methods to validate and retrieve user commands based on the current game phase.
+ */
 public class GetCommands {
     private static String[] d_validBeginPhaseCmds = new String[]{"editmap", "stopgame", "loadmap","showmap"};
     private static String[] d_validEditMapPhaseCmds = new String[]{"editcontinent", "editcountry", "editneighbor", "validatemap", "savemap", "showmap", "stopgame"};

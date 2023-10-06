@@ -1,4 +1,6 @@
+
 import Model.*;
+
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -16,6 +18,7 @@ import org.junit.runners.Suite;
 		TestNumberOfArmies.class,
 		TestOrderAddition.class,
 		TestOrderRemoval.class
+
 })
 
 	/**

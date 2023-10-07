@@ -34,6 +34,7 @@ public class GamePlay {
         System.out.println("You can start the game by EITHER: Selecting an existing map as given below or Creating new map");
         System.out.println("At any point if you type 'stopgame' the game would be stopped");
         System.out.println();
+        System.out.println();
         l_game.displaySavedMaps();
         l_game.enterGamePhases();
     }

@@ -3,7 +3,6 @@ package Controller;
 import Model.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Queue;
 
@@ -490,7 +489,7 @@ public class GameEngine {
                                     boolean l_checkArmies = (p_player.getOwnedArmies() >= l_numberOfArmies);
                                     //System.out.println("Player " + p_player.getPlayerName() + " Can provide deploy order or pass order");
                                     if (l_checkOwnedCountry && l_checkArmies) {
-                                        ExecuteOrders l_temp = new ExecuteOrders(p_player, l_countryId, l_numberOfArmies);
+                                        Deploy l_temp = new Deploy(p_player, l_countryId, l_numberOfArmies);
                                         p_player.addOrder(l_temp);
                                         p_player.issue_order();
                                         p_player.setOwnedArmies(p_player.getOwnedArmies() - l_numberOfArmies);
@@ -563,7 +562,7 @@ public class GameEngine {
                     int l_count = 0;
                     // get count of total orders for all players
                     for (Player l_p : d_Players) {
-                        Queue<ExecuteOrders> l_templist = l_p.getD_orderList();
+                        Queue<Order> l_templist = l_p.getD_orderList();
                         l_count = l_count +l_templist.size();
                     }
 
@@ -578,9 +577,9 @@ public class GameEngine {
                         while (l_count != 0) {
                             for (Player l_p : d_Players) {
 
-                                Queue<ExecuteOrders> l_tempOrderList = l_p.getD_orderList();
+                                Queue<Order> l_tempOrderList = l_p.getD_orderList();
                                 if (l_tempOrderList.size() > 0) {
-                                    ExecuteOrders l_toRemove = l_p.next_order();
+                                    Order l_toRemove = l_p.next_order();
                                     System.out.println("Order executed for player: "+l_p.getPlayerName());
                                     l_toRemove.execute();
                                 }

@@ -1,16 +1,8 @@
 package model;
 
-import Model.ExecuteOrders;
-import Model.Player;
-import Model.WargameMap;
-import Model.GamePhase;
-import Model.GameStartPhase;
-import Model.EngineCommand;
-import Model.Country;
-import Model.ReinforcePlayers;
-import org.junit.Assert;
+import Model.*;
+import Model.Deploy;
 import org.junit.Before;
-import org.junit.Test;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -23,8 +15,8 @@ import static org.junit.Assert.assertEquals;
  * @author Rahul
  */
 public class TestDeploy{
-    ExecuteOrders d_DOrder;
-    Queue<ExecuteOrders> d_OrderList;
+    Deploy d_DOrder;
+    Queue<Deploy> d_OrderList;
     Player d_Player1;
     Player d_Player2;
     WargameMap d_Map;
@@ -51,7 +43,7 @@ public class TestDeploy{
         d_Players.add(d_Player2);
         d_GamePhase = GamePhase.ISSUEORDER;
         l_checkOwnedCountry = true;
-        d_DOrder = new ExecuteOrders(d_Player1,d_CountryId,d_NumberOfArmies);
+        d_DOrder = new Deploy(d_Player1,d_CountryId,d_NumberOfArmies);
         d_OrderList = new ArrayDeque<>();
     }
 

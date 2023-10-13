@@ -1,12 +1,9 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 /**
- * class performs execute orders functionality
+ * class contains the logic for the deploy order functionality
  */
-public class ExecuteOrders {
+public class Deploy implements Order{
 
     /**
      * @param d_CountryId is for country name
@@ -24,7 +21,7 @@ public class ExecuteOrders {
      * @param p_countryId country where armies will be deployed
      * @param p_numArmies total armies which will be deployed
      */
-    public ExecuteOrders(Player p_player, String p_countryId, int p_numArmies) {
+    public Deploy(Player p_player, String p_countryId, int p_numArmies) {
         d_Player = p_player;
         d_CountryId = p_countryId;
         d_NumArmies = p_numArmies;

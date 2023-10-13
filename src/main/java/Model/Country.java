@@ -40,7 +40,7 @@ public class Country {
      *
      * @param p_index         index in the ".map" file as per Domination's conventions
      * @param p_countryName   countryName key
-     * @param p_continentName continentName key
+     * @param p_unique_continentID continentName key
      * @param p_map           GameMap which was loaded
      */
     public Country(String p_index, String p_countryName, String p_unique_continentID, WargameMap p_map) {

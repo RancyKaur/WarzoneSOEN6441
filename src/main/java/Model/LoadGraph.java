@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Handles loading and parsing game map data from a file.
+ */
 public class LoadGraph {
 
     private WargameMap d_map;

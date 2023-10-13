@@ -2,6 +2,8 @@ package Model;
 
 import java.util.HashMap;
 
+/** Represents a wargame map containing continents and countries. */
+
 public class WargameMap {
     private String d_MapName;
     private boolean d_isValid;

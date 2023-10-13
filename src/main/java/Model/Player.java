@@ -4,10 +4,7 @@ package Model;
 import java.util.*;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 
 /**
@@ -21,8 +18,8 @@ public class Player {
     private HashMap<String, Continent> d_OwnedContinents;
     private HashMap<String, Country> d_OwnedCountries;
     private int d_OwnedArmies;
-    private ExecuteOrders d_Order;
-    private Queue<ExecuteOrders> d_OrderList;
+    private Order d_Order;
+    private Queue<Order> d_OrderList;
 
     /**
      * This constructor assigns name to the player.
@@ -34,7 +31,7 @@ public class Player {
         d_OwnedContinents = new HashMap<>();
         d_OwnedCountries = new HashMap<>();
         this.d_OwnedArmies = 0;
-        d_OrderList = new ArrayDeque<ExecuteOrders>();
+        d_OrderList = new ArrayDeque<Order>();
     }
 
     public void printOwnedCountries() {
@@ -123,9 +120,6 @@ public class Player {
      */
     public void issue_order() {
         this.d_OrderList.add(this.d_Order);
-//        for (ExecuteOrders l_x : d_OrderList) {
-//            System.out.println(l_x.getD_player().getPlayerName());
-//        }
     }
 
     /**
@@ -133,7 +127,7 @@ public class Player {
      *
      * @return d_OrderList
      */
-    public Queue<ExecuteOrders> getD_orderList() {
+    public Queue<Order> getD_orderList() {
         return d_OrderList;
     }
 
@@ -142,7 +136,7 @@ public class Player {
      *
      * @param p_order created Order
      */
-    public void addOrder(ExecuteOrders p_order) {
+    public void addOrder(Order p_order) {
         this.d_Order = p_order;
     }
 
@@ -151,7 +145,7 @@ public class Player {
      *
      * @return first Order in the List.
      */
-    public ExecuteOrders next_order() {
+    public Order next_order() {
         return d_OrderList.poll();
     }
 

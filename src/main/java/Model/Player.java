@@ -20,6 +20,7 @@ public class Player {
     private int d_OwnedArmies;
     private Order d_Order;
     private Queue<Order> d_OrderList;
+    ArrayList<GameCard> d_CardDeck;
 
     /**
      * This constructor assigns name to the player.
@@ -149,4 +150,79 @@ public class Player {
         return d_OrderList.poll();
     }
 
+
+    /**
+     * Method to assign random card to player once he has won any territory
+     */
+    public void addCard() {
+        GameCard l_card = new GameCard();
+        l_card.createGameCard();
+        d_CardDeck.add(l_card);
+    }
+
+    /**
+     * Helper method to test addCard method
+     * @param test card
+     */
+    public void addCard(String test){
+        GameCard l_card = new GameCard();
+        l_card.createGameCard(test);
+        d_CardDeck.add(l_card);
+    }
+
+    /**
+     * Method to remove card, this would be called when player uses their card
+     * @param p_cardName
+     */
+    public void removeCard(String p_cardName)
+    {
+        //remove card from deck
+        Iterator l_Carditer = d_CardDeck.iterator();
+        while (l_Carditer.hasNext()) {
+            GameCard l_card = (GameCard) l_Carditer.next();
+            if (l_card.getCardName() == p_cardName) {
+                d_CardDeck.remove(l_card);
+                break;
+            }
+        }
+    }
+
+    /**
+     * This method helps to check if player has the specified card
+     * It is called before the player starts playing any card
+     * @param p_card
+     * @return true if player has card in the deck otherwise false
+     */
+    public boolean checkCardExists(String p_card) {
+
+        int l_cardCount = 0;
+        Iterator l_iter = d_CardDeck.iterator();
+        while (l_iter.hasNext()) {
+            GameCard l_card = (GameCard) l_iter.next();
+            if (l_card.getCardName()==p_card)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Method to display deck of cards that player owns
+     */
+    public void showCards()
+    {
+        Iterator l_iter = d_CardDeck.iterator();
+        System.out.println("Player owns following cards:");
+        while (l_iter.hasNext()) {
+            GameCard l_card = (GameCard) l_iter.next();
+            System.out.println(l_card.getCardName());
+        }
+    }
+
+    /**
+     * Method to return list of cards that player currently owns
+     * @return cards' list
+     */
+    public ArrayList<GameCard> get_CardDeck() {
+        return d_CardDeck;
+    }
 }

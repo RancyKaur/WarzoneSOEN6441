@@ -550,6 +550,37 @@ public class GameEngine {
                         exit(0);
                     }
 
+		    case "blockade":
+                        System.out.println(l_commandName+" Command is being executed");
+                        try {
+                            if (!(l_param[1] == null)) {
+                                if (this.isAlphabetic(l_param[1])) {
+                                    l_countryId = l_param[1];
+                                    boolean l_checkOwnedCountry = p_player.getOwnedCountries().containsKey(l_countryId.toLowerCase());
+                                    boolean checkCard = p_player.doesCardExists("Blockade");
+                                    if(l_checkOwnedCountry && checkCard){
+                                        p_player.addOrder(new Blockade(p_player, l_countryId));
+                                        p_player.issue_order();
+                                        System.out.println(p_player.getPlayerName()+" Blockade order added to Players OrdersList: "+l_param[0]+"  "+l_param[1]);
+                                        p_player.removeCard("Blockade");
+                                        System.out.println("Bloackade card removed from Player's cardList ");
+                                    }
+                                    else{
+                                        System.out.println("Blockade Card not Owned or Country not owned by current player | please pass to next player");
+                                        System.out.println("Blockade Card not Owned or Country not owned by current player | please pass to next player");
+                                    }
+                                    this.d_phase = GamePhase.TAKETURN;
+                                    break;
+                                }
+                            } else
+                                System.out.println("Invalid Command");
+                            System.out.println("Invalid Command");
+                        }catch (Exception e) {
+                            System.out.println("Blockade Card not Owned or Country not owned by current player | please pass to next player");
+                            System.out.println("Blockade Card not Owned or Country not owned by current player | please pass to next player");
+                        }
+                        break;
+
                     default:
                         System.out.println("Invalid command - either use deploy | pass | showmap commands in ISSUE_ORDERS Phase");
                         break;
@@ -608,7 +639,6 @@ public class GameEngine {
                 case "showmap":
                     d_gameStartPhase.showMap(d_Players, d_map);
                     break;
-
 
                 default:
                     System.out.println("Execute Order Phase has commenced, please type 'execute' to execute all orders");

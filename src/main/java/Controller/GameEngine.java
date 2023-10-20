@@ -554,10 +554,10 @@ public class GameEngine {
                         System.out.println(l_commandName+" Command is being executed");
                         try {
                             if (!(l_param[1] == null)) {
-                                if (this.isAlphabetic(l_param[1])) {
+                                if (this.isNumeric(l_param[1])) {
                                     l_countryId = l_param[1];
                                     boolean l_checkOwnedCountry = p_player.getOwnedCountries().containsKey(l_countryId.toLowerCase());
-                                    boolean checkCard = p_player.doesCardExists("Blockade");
+                                    boolean checkCard = p_player.checkCardExists("Blockade");
                                     if(l_checkOwnedCountry && checkCard){
                                         p_player.addOrder(new Blockade(p_player, l_countryId));
                                         p_player.issue_order();

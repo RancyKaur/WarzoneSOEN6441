@@ -3,39 +3,45 @@ package Model;
 import java.util.HashMap;
 
 /**
- * The `Continent` class encapsulates information about continents, including their name, ID.
+ * The `Continent` class encapsulates information about continents, including
+ * their name, ID.
  * It also maintains a mapping of countries belonging to the continent.
  * <p>
- * This class provides a comprehensive representation of continents within the context of a game map.
+ * This class provides a comprehensive representation of continents within the
+ * context of a game map.
  */
 public class Continent {
-    private static int continentCount=1;
+    private static int continentCount = 1;
     private int d_continentControlValue;
     private String d_continentName = null;
     private HashMap<String, Country> d_listOfCountries;
     private int d_indexOfContinent;
-
-    /**
-     * Constructs the Continent object with given name and ID
-     *
-     * @param p_continentName Name of the Continent
-     * @param p_continentID   ID of the Continent
-     */
-
-    public Continent(String p_continentName, int p_continentID) {
-        this.d_continentName = p_continentName.toLowerCase();
-        this.d_continentControlValue = p_continentID;
-        this.d_listOfCountries = new HashMap<String, Country>();
-        this.d_indexOfContinent=Continent.continentCount++;
-    }
+    private int d_InMapIndex;
+    private String d_ContinentId;
 
     /**
      * This constructor is called when reading existing map file
+     * 
      * @param p_continentName
      * @param p_continentID
      * @param p_existingmap
      */
-    Continent(String p_continentName, int p_continentID,String p_existingmap) {
+    Continent(String p_continentName, String p_continentID, String p_existingmap) {
+        d_ContinentId = p_continentID;
+        this.d_continentName = p_continentName;
+        d_continentControlValue = Integer.parseInt(p_continentID);
+        this.d_indexOfContinent = LoadGraph.d_indexInMap;
+        this.d_listOfCountries = new HashMap<>();
+    }
+
+    /**
+     * This constructor is called when reading existing map file
+     * 
+     * @param p_continentName
+     * @param p_continentID
+     * @param p_existingmap
+     */
+    Continent(String p_continentName, int p_continentID) {
         this.d_continentName = p_continentName;
         d_continentControlValue = p_continentID;
         this.d_indexOfContinent = LoadGraph.d_indexInMap;
@@ -69,15 +75,34 @@ public class Continent {
         return this.d_continentControlValue;
     }
 
-
-    public void setIndexOfContinent(int p_index)
-    {
+    public void setIndexOfContinent(int p_index) {
         this.d_indexOfContinent = p_index;
     }
 
-
-    public int getIndexOfContinent()
-    {
+    public int getIndexOfContinent() {
         return this.d_indexOfContinent;
+    }
+
+    public String getContinentId() {
+        return this.d_ContinentId;
+    }
+
+    /**
+     * Returns the Index value for this continent when saved in ".map" file
+     * following domination's rules
+     * 
+     * @return returns Index value of the continent
+     */
+    public int getInMapIndex() {
+        return this.d_InMapIndex;
+    }
+
+    /**
+     * Sets the Index value of this continent
+     * 
+     * @param p_inMapIndex Index value of the continent
+     */
+    public void setInMapIndex(int p_inMapIndex) {
+        d_InMapIndex = p_inMapIndex;
     }
 }

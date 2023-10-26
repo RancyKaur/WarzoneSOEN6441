@@ -101,7 +101,7 @@ public class LoadGraph {
                 String[] l_continentString = l_s.split("\\s+");
                 if (Integer.parseInt(l_continentString[0]) >= 0) {
                     //to create new continent we give first its string name and secondly controlvalue
-                    d_map.getContinents().put(l_continentString[1].toLowerCase(), new Continent(l_continentString[1], Integer.parseInt(l_continentString[2]),"NaN"));
+                    d_map.getContinents().put(l_continentString[1].toLowerCase(), new Continent(l_continentString[1], l_continentString[2],"NaN"));
                     d_indexInMap++;
                 } else {
                     System.out.println("Error reading the file.");

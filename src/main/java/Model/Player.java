@@ -2,9 +2,8 @@ package Model;
 
 
 import java.util.*;
+import Model.Order;
 
-
-import java.util.HashMap;
 
 
 /**
@@ -21,6 +20,10 @@ public class Player {
     private Order d_Order;
     private Queue<Order> d_OrderList;
     ArrayList<GameCard> d_CardDeck;
+
+    ArrayList<Player> d_NegotiateList;
+    ArrayList<Card> d_Deck;
+    
 
     /**
      * This constructor assigns name to the player.
@@ -70,14 +73,6 @@ public class Player {
         d_OwnedCountries = p_countries;
     }
 
-    /**
-     * Getter method to return to countries owned by a player.
-     *
-     * @return d_ownedCountries
-     */
-    public HashMap<String, Country> getOwnedCountries() {
-        return d_OwnedCountries;
-    }
 
     /**
      * This method assigns continents to the player as a HashMap.
@@ -151,14 +146,6 @@ public class Player {
     }
 
 
-    /**
-     * Method to assign random card to player once he has won any territory
-     */
-    public void addCard() {
-        GameCard l_card = new GameCard();
-        l_card.createGameCard();
-        d_CardDeck.add(l_card);
-    }
 
     /**
      * Helper method to test addCard method
@@ -225,4 +212,25 @@ public class Player {
     public ArrayList<GameCard> get_CardDeck() {
         return d_CardDeck;
     }
+
+    /**
+     * Getter method to return to countries owned by a player.
+     *
+     * @return d_ownedCountries
+     */
+    public HashMap<String, Country> getOwnedCountries() {
+        return d_OwnedCountries;
+    }
+
+
+
+/**
+     * If a player conquers a territory,a card will be added to that player
+     */
+    public void addCard() {
+        Card l_card = new Card();
+        l_card.createCard();
+        d_Deck.add(l_card);
+    }
+
 }

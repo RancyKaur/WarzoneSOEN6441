@@ -1,10 +1,7 @@
 package Model;
 
-
 import java.util.*;
 import Model.Order;
-
-
 
 /**
  * This class creates a Player and assigns attributes to the player.

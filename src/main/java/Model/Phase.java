@@ -25,7 +25,7 @@ public abstract class Phase {
 	 * @param p_players list of the players in game
 	 * @return returns boolean value
 	 */
-	abstract public boolean assignCountries(GameMap p_map, ArrayList<Player> p_players);
+	abstract public boolean assignCountries(Map p_map, ArrayList<Player> p_players);
 	
 	/**
 	 * Method to Load the map.
@@ -38,7 +38,7 @@ public abstract class Phase {
 	 * Method to show the loaded map
 	 * @param p_map refrence of the map to be loaded.
 	 */
-	abstract public void showMap(GameMap p_map) ;
+	abstract public void showMap(Map p_map) ;
 	
 	/**
 	 * Method to edit the map
@@ -97,7 +97,7 @@ public abstract class Phase {
 	 * @param p_map the map that is loaded.
 	 */
 	
-	abstract public void showMap(ArrayList<Player> p_players, GameMap p_map);
+	abstract public void showMap(ArrayList<Player> p_players, Map p_map);
 	
 	/**
 	 * Method for validation of map.

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 /**
  * The LogEntry class stores log entries related to the game state.
- * This class extends the Observable class to notify observers when log entries are updated.
+ * This class extends the Observable class to notify observers when log entries
+ * are updated.
  */
 public class LogEntry extends Observable {
 
@@ -122,7 +123,7 @@ public class LogEntry extends Observable {
 
         setPhaseValue("In " + d_GamePhase.getD_PhaseName() + " Phase:");
         d_IsGamePhaseSet = true;
-        notifyObservers(this);
+        inform(this);
     }
 
     /**
@@ -187,7 +188,7 @@ public class LogEntry extends Observable {
     public void setCommand(String p_command) {
         d_Command = p_command;
         d_IsCommandSet = true;
-        notifyObservers(this);
+        inform(this);
     }
 
     /**
@@ -207,7 +208,7 @@ public class LogEntry extends Observable {
     public void setMessage(String p_message) {
         d_Message = p_message;
         d_IsMessageSet = true;
-        notifyObservers(this);
+        inform(this);
 
     }
 
@@ -255,7 +256,7 @@ public class LogEntry extends Observable {
     public void setActivePlayer(Player p_player) {
         this.d_ActivePlayer = p_player;
         if (p_player != null) {
-            notifyObservers(this);
+            inform(this);
         }
     }
 }

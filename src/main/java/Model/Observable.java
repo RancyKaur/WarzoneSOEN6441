@@ -1,40 +1,44 @@
 package Model;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
- * Class to assist attaching, detaching, and notifying observers.
+ * for performing operations including adding, removing, and informing observers.
  */
 public class Observable {
     /**
      * Maintains list of observers.
      */
-    private ArrayList<Observer> d_Observers  = new ArrayList<>();
+    private List<Observer> d_Observers = new ArrayList<Observer>();
 
     /**
-     * Attaches an observer.
+     * to add an observer.
+     * 
      * @param p_observer is the observer's reference
      */
-    public void attach(Observer p_observer){
+    public void addObserver(Observer p_observer) {
         this.d_Observers.add(p_observer);
     }
 
     /**
-     * Detach an observer.
+     * removes an observer.
+     * 
      * @param p_observer is the observer's reference
      */
-    public void detach(Observer p_observer){
-        if(!d_Observers.isEmpty()){
+    public void removeObserver(Observer p_observer) {
+        // check if observer is empty or not
+        if (d_Observers.isEmpty() == false) {
             d_Observers.remove(p_observer);
         }
     }
 
     /**
-     * Notifies the observers.
+     * for informing the observers.
+     * 
      * @param p_observers is the observable reference
      */
-    public void notifyObservers(Observable p_observers){
-        for(Observer l_observer : d_Observers){
+    public void inform(Observable p_observers) {
+        for (Observer l_observer : d_Observers) {
             l_observer.update(p_observers);
         }
     }

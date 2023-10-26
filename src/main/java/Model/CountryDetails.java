@@ -19,9 +19,9 @@ public class CountryDetails implements Serializable {
 	 */
 	private String d_CountryId;
 	/**
-	 * d_InContinent is the name of the continent in which country is present
+	 * d_ContinentName is the name of the continent in which country is present
 	 */
-	private String d_InContinent;
+	private String d_ContinentName;
 	/**
 	 * d_XCoordinate is the x-coordinate of the country
 	 */
@@ -35,20 +35,20 @@ public class CountryDetails implements Serializable {
 	 */
 	private int d_NumOfArmies;
 	/**
-	 * d_Neighboursis the neighbor of the country
+	 * d_Neighbours tell the neighbours of the country
 	 */
 	private HashMap<String, CountryDetails> d_Neighbours;
 	/**
-	 * ownerPlayer is the owner of the country
+	 * owner is the owner of the country
 	 */
-	private Player ownerPlayer;
+	private Player owner;
 
 	Country country;
 
 	/**
 	 * collection for storing continents
 	 */
-	private Collection<Continent> values;
+	private Collection<Continent> continentValues;
 
 	/**
 	 * Set CountryDetails object with default values.
@@ -65,7 +65,7 @@ public class CountryDetails implements Serializable {
 	 */
 	public CountryDetails(String p_countryId, String p_inContinent) {
 		this.d_CountryId = p_countryId;
-		this.d_InContinent = p_inContinent;
+		this.d_ContinentName = p_inContinent;
 		this.d_NumOfArmies = 0;
 		this.d_Neighbours = new HashMap<String, CountryDetails>();
 	}
@@ -87,11 +87,11 @@ public class CountryDetails implements Serializable {
 		this.d_Index = Integer.parseInt(p_index);
 		this.d_CountryId = p_countryId;
 
-		values = p_map.getContinents().values();
+		continentValues = p_map.getContinents().values();
 
-		for (Continent ct : values) {
+		for (Continent ct : continentValues) {
 			if (ct.getInMapIndex() == Integer.parseInt(p_continentIndex)) {
-				this.d_InContinent = ct.getContinentId();
+				this.d_ContinentName = ct.getContinentId();
 			}
 		}
 
@@ -113,12 +113,12 @@ public class CountryDetails implements Serializable {
 	public CountryDetails(String p_countryId, String p_xCoordinate, String p_yCoordinate, String p_inContinent) {
 		this.d_Index = 0;
 		this.d_CountryId = p_countryId;
-		this.d_InContinent = p_inContinent;
+		this.d_ContinentName = p_inContinent;
 		this.d_Neighbours = new HashMap<String, CountryDetails>();
 		this.d_XCoordinate = Integer.parseInt(p_xCoordinate);
 		this.d_YCoordinate = Integer.parseInt(p_yCoordinate);
 		this.d_NumOfArmies = 0;
-		this.ownerPlayer = null;
+		this.owner = null;
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class CountryDetails implements Serializable {
 	 * @return returns d_inContinent in which this country belongs
 	 */
 	public String getInContinent() {
-		return this.d_InContinent;
+		return this.d_ContinentName;
 	}
 
 	/**
@@ -201,7 +201,7 @@ public class CountryDetails implements Serializable {
 	public void printCountry() {
 		System.out.println("Index of the country : " + d_Index);
 		System.out.println("ID of the country : " + d_CountryId);
-		System.out.println("Name of the continent in which country is present : " + d_InContinent);
+		System.out.println("Name of the continent in which country is present : " + d_ContinentName);
 	}
 
 	/**
@@ -237,16 +237,16 @@ public class CountryDetails implements Serializable {
 	 * @return Player owning this country.
 	 */
 	public Player getOwnerPlayer() {
-		return ownerPlayer;
+		return owner;
 	}
 
 	/**
 	 * Sets the player owning this country currently
 	 * 
-	 * @param ownerPlayer Player owning this country.
+	 * @param owner Player owning this country.
 	 */
-	public void setOwnerPlayer(Player ownerPlayer) {
-		this.ownerPlayer = ownerPlayer;
+	public void setOwnerPlayer(Player owner) {
+		this.owner = owner;
 	}
 
 	public String getCountryName() {

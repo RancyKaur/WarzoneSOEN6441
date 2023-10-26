@@ -18,7 +18,7 @@ public class GameEngine {
     private WargameMap d_map;
     private GameStartPhase d_gameStartPhase;
 
-    public LogEntryBuffer d_LogEntry;
+    public LogEntry d_LogEntry;
 
     public GamePhase d_GamePhase;
 

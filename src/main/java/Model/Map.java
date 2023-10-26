@@ -18,21 +18,21 @@ public class Map implements Serializable {
 	 */
 	private boolean d_Valid;
 	/**
-	 * d_Continents stores all the continents of the map
+	 * d_MapContinents stores all the continents of the map
 	 */
-	private HashMap<String, Continent> d_Continents;
+	private HashMap<String, Continent> d_MapContinents;
 	/**
-	 * d_Countries stores all the countries of the map
+	 * d_MapCountries stores all the countries of the map
 	 */
-	private HashMap<String, CountryDetails> d_Countries;
+	private HashMap<String, CountryDetails> d_MapCountries;
 
 	/**
 	 * Constructor for creating Map object without naming the map.
 	 */
 	public Map() {
 		this.d_MapName = "";
-		this.d_Continents = new HashMap<>();
-		this.d_Countries = new HashMap<>();
+		this.d_MapContinents = new HashMap<>();
+		this.d_MapCountries = new HashMap<>();
 		this.d_Valid = false;
 	}
 
@@ -44,8 +44,8 @@ public class Map implements Serializable {
 	 */
 	public Map(String p_mapName) {
 		this.d_MapName = p_mapName;
-		this.d_Continents = new HashMap<>();
-		this.d_Countries = new HashMap<>();
+		this.d_MapContinents = new HashMap<>();
+		this.d_MapCountries = new HashMap<>();
 		this.d_Valid = false;
 	}
 
@@ -91,16 +91,16 @@ public class Map implements Serializable {
 	 * @return return HashMap maintaining the list of continents in the map.
 	 */
 	public HashMap<String, Continent> getContinents() {
-		return this.d_Continents;
+		return this.d_MapContinents;
 	}
 
 	/**
-	 * Setter method to set the d_Continents HashMap to the given HashMap parameter.
+	 * Setter method to set the d_MapContinents HashMap to the given HashMap parameter.
 	 * 
-	 * @param p_continents HashMap for d_Continents
+	 * @param p_continents HashMap for d_MapContinents
 	 */
 	public void setContinents(HashMap<String, Continent> p_continents) {
-		this.d_Continents = p_continents;
+		this.d_MapContinents = p_continents;
 	}
 
 	/**
@@ -109,16 +109,16 @@ public class Map implements Serializable {
 	 * @return return HashMap maintaining the list of countries in the map
 	 */
 	public HashMap<String, CountryDetails> getCountries() {
-		return this.d_Countries;
+		return this.d_MapCountries;
 	}
 
 	/**
-	 * Setter method to set the d_Countries HashMap to the given HashMap parameter.
+	 * Setter method to set the d_MapCountries HashMap to the given HashMap parameter.
 	 * 
-	 * @param p_countries HashMap for d_Countries
+	 * @param p_countries HashMap for d_MapCountries
 	 */
 	public void setCountries(HashMap<String, CountryDetails> p_countries) {
-		this.d_Countries = p_countries;
+		this.d_MapCountries = p_countries;
 	}
 
 }

@@ -16,7 +16,7 @@ public class Card implements Serializable {
     /**
      * This list contains the cards issued to players
      */
-    private static final String[] d_CardsList = { "Bomb", "Airlift", "Blockade", "Diplomacy" };
+    private static final String[] d_ListOfCards = { "Bomb", "Airlift", "Blockade", "Diplomacy" };
 
     /**
      * Default constructor of Card to access the methods of this class.
@@ -61,12 +61,12 @@ public class Card implements Serializable {
     /**
      * Picks a random card from the Cards List using random generator
      * 
-     * @return The index of the Cards List
+     * @return The card from the Cards List
      */
     public String randomCard() {
         Random randomCardGenerator = new Random();
-        int index = randomCardGenerator.nextInt(d_CardsList.length);
-        return d_CardsList[index];
+        int idx = randomCardGenerator.nextInt(d_ListOfCards.length);
+        return d_ListOfCards[idx];
     }
 
 }

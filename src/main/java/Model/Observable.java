@@ -39,7 +39,7 @@ public class Observable {
      */
     public void inform(Observable p_observers) {
         for (Observer l_observer : d_Observers) {
-            l_observer.update(p_observers);
+            l_observer.workUpdate(p_observers);
         }
     }
 }

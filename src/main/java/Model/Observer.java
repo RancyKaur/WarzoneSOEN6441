@@ -1,13 +1,13 @@
 package Model;
 
 /**
- * Updates the observing classes on getting notification from Observable.
+ * For notifying the observing classes when it receives a notification from the Observable.
  */
 public interface Observer {
     /**
-     * Function carrying out update work in response to some observed action.
+     * carrying out updates in result of an observed action
      * @param p_observer Observable object
      */
-    public void update(Observable p_observer);
+    public void workUpdate(Observable p_observer);
 
 }

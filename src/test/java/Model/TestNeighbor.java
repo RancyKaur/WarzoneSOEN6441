@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test if neighbors are being added and removed properly or not
+ * Test if neighbours are being added and removed properly or not
  *
  */
 public class TestNeighbor {

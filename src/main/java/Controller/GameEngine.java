@@ -496,7 +496,7 @@ public class GameEngine {
                                     //System.out.println("Player " + p_player.getPlayerName() + " Can provide deploy order or pass order");
                                     if (l_checkOwnedCountry && l_checkArmies) {
                                         Deploy l_temp = new Deploy(p_player, l_countryId, l_numberOfArmies);
-                                        p_player.addOrder(l_temp);
+                                        p_player.setOrder(l_temp);
                                         p_player.issueOrder();
                                         p_player.setOwnedArmies(p_player.getOwnedArmies() - l_numberOfArmies);
                                         //System.out.println("Player " + p_player.getPlayerName() + " NOW has " + p_player.getOwnedArmies() + " Army units left!");
@@ -559,7 +559,7 @@ public class GameEngine {
                                     boolean l_checkOwnedCountry = p_player.getOwnedCountries().containsKey(l_countryId.toLowerCase());
                                     boolean checkCard = p_player.checkCardExists("Blockade");
                                     if(l_checkOwnedCountry && checkCard){
-                                        p_player.addOrder(new Blockade(p_player, l_countryId));
+                                        p_player.setOrder(new Blockade(p_player, l_countryId));
                                         p_player.issueOrder();
                                         System.out.println(p_player.getPlayerName()+" Blockade order added to Players OrdersList: "+l_param[0]+"  "+l_param[1]);
                                         p_player.removeCard("Blockade");
@@ -599,7 +599,7 @@ public class GameEngine {
                     int l_count = 0;
                     // get count of total orders for all players
                     for (Player l_p : d_Players) {
-                        Queue<Order> l_templist = l_p.getD_orderList();
+                        Queue<Order> l_templist = l_p.getOrderList();
                         l_count = l_count +l_templist.size();
                     }
 
@@ -614,7 +614,7 @@ public class GameEngine {
                         while (l_count != 0) {
                             for (Player l_p : d_Players) {
 
-                                Queue<Order> l_tempOrderList = l_p.getD_orderList();
+                                Queue<Order> l_tempOrderList = l_p.getOrderList();
                                 if (!l_tempOrderList.isEmpty()) {
                                     Order l_toRemove = l_p.nextOrder();
                                     System.out.println("Order executed for player: "+l_p.getPlayerName());

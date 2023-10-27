@@ -110,7 +110,7 @@ public class Player {
     /**
      * This function adds an Order object to the list of Orders.
      */
-    public void issueOrder() {
+    public void issue_order() {
         this.d_OrderList.add(this.d_Order);
     }
 
@@ -119,7 +119,7 @@ public class Player {
      *
      * @return d_OrderList
      */
-    public Queue<Order> getOrderList() {
+    public Queue<Order> getD_orderList() {
         return d_OrderList;
     }
 
@@ -128,7 +128,7 @@ public class Player {
      *
      * @param p_order created Order
      */
-    public void setOrder(Order p_order) {
+    public void addOrder(Order p_order) {
         this.d_Order = p_order;
     }
 
@@ -137,7 +137,7 @@ public class Player {
      *
      * @return first Order in the list.
      */
-    public Order nextOrder() {
+    public Order next_order() {
         return d_OrderList.poll();
     }
 
@@ -200,6 +200,7 @@ public class Player {
      * @param card
      * @return true if the player has the card in the deck; otherwise, false
      */
+
     public boolean checkCardExists(String card) {
         for (GameCard gameCard : d_CardDeck) {
             if (gameCard.getCardName().equals(card)) {

@@ -181,7 +181,7 @@ public class Player {
         Iterator l_Carditer = d_CardDeck.iterator();
         while (l_Carditer.hasNext()) {
             GameCard l_card = (GameCard) l_Carditer.next();
-            if (l_card.getCardName() == p_cardName) {
+            if (l_card.getCardName().equals(p_cardName)) {
                 d_CardDeck.remove(l_card);
                 break;
             }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 /**
  * This class creates a Player and assigns attributes to the player.
  *
- * @author Aarthi
+ * @author Sujith
  */
 public class Player {
 
@@ -200,8 +200,9 @@ public class Player {
         Iterator l_iter = d_CardDeck.iterator();
         while (l_iter.hasNext()) {
             GameCard l_card = (GameCard) l_iter.next();
-            if (l_card.getCardName()==p_card)
+            if (l_card.getCardName() == p_card) {
                 return true;
+            }
         }
         return false;
     }

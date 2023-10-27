@@ -10,7 +10,7 @@ import java.util.HashMap;
 /**
  * This class creates a Player and assigns attributes to the player.
  *
- * @author Aarthi
+ * @author Sujith
  */
 public class Player {
 
@@ -33,6 +33,7 @@ public class Player {
         d_OwnedCountries = new HashMap<>();
         this.d_OwnedArmies = 0;
         d_OrderList = new ArrayDeque<Order>();
+        d_CardDeck = new ArrayList<>();
     }
 
     public void printOwnedCountries() {
@@ -180,7 +181,7 @@ public class Player {
         Iterator l_Carditer = d_CardDeck.iterator();
         while (l_Carditer.hasNext()) {
             GameCard l_card = (GameCard) l_Carditer.next();
-            if (l_card.getCardName() == p_cardName) {
+            if (l_card.getCardName().equals(p_cardName)) {
                 d_CardDeck.remove(l_card);
                 break;
             }
@@ -199,8 +200,9 @@ public class Player {
         Iterator l_iter = d_CardDeck.iterator();
         while (l_iter.hasNext()) {
             GameCard l_card = (GameCard) l_iter.next();
-            if (l_card.getCardName()==p_card)
+            if (l_card.getCardName() == p_card) {
                 return true;
+            }
         }
         return false;
     }

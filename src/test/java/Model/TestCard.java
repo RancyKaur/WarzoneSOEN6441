@@ -10,8 +10,8 @@ import static org.junit.Assert.assertEquals;
 /**
  * Test Class to checks wheteher card is getting added or not.
  */
-public class TestCard {d_Listofcards
-    ArrayList<GameCard> ;
+public class TestCard {
+    ArrayList<GameCard> d_Listofcards;
     GameCard d_Card;
     String d_CardType;
     /**

@@ -1,10 +1,13 @@
 package Model;
-
 /**
- * Command Interface used to execute the order when it is issued by the Player class.
+ * class performs execute orders functionality 
  */
 public interface Order {
 
+    /**
+     * implement the execution of particular order
+     * @return true if execution is successful, false if it fails
+     */
     public boolean execute();
 
 }

@@ -1,4 +1,4 @@
-package model;
+package Test;
 
 import Model.EngineCommand;
 import Model.WargameMap;

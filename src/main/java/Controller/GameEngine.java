@@ -84,7 +84,7 @@ public class GameEngine {
     }
 
     public void addRemovePlayer(String[] l_data) {
-        String l_playerName=null;
+        String l_playerName = null;
         try {
             for (int i = 1; i < l_data.length - 1; i++) {
                 if (l_data[i].equals("-add")) {
@@ -497,7 +497,7 @@ public class GameEngine {
                                     if (l_checkOwnedCountry && l_checkArmies) {
                                         Deploy l_temp = new Deploy(p_player, l_countryId, l_numberOfArmies);
                                         p_player.addOrder(l_temp);
-                                        p_player.issue_order();
+                                        p_player.issueOrder();
                                         p_player.setOwnedArmies(p_player.getOwnedArmies() - l_numberOfArmies);
                                         //System.out.println("Player " + p_player.getPlayerName() + " NOW has " + p_player.getOwnedArmies() + " Army units left!");
                                     } else {
@@ -560,7 +560,7 @@ public class GameEngine {
                                     boolean checkCard = p_player.checkCardExists("Blockade");
                                     if(l_checkOwnedCountry && checkCard){
                                         p_player.addOrder(new Blockade(p_player, l_countryId));
-                                        p_player.issue_order();
+                                        p_player.issueOrder();
                                         System.out.println(p_player.getPlayerName()+" Blockade order added to Players OrdersList: "+l_param[0]+"  "+l_param[1]);
                                         p_player.removeCard("Blockade");
                                         System.out.println("Blockade card removed from Player's cardList ");
@@ -615,8 +615,8 @@ public class GameEngine {
                             for (Player l_p : d_Players) {
 
                                 Queue<Order> l_tempOrderList = l_p.getD_orderList();
-                                if (l_tempOrderList.size() > 0) {
-                                    Order l_toRemove = l_p.next_order();
+                                if (!l_tempOrderList.isEmpty()) {
+                                    Order l_toRemove = l_p.nextOrder();
                                     System.out.println("Order executed for player: "+l_p.getPlayerName());
                                     l_toRemove.execute();
                                 }

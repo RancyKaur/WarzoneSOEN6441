@@ -42,7 +42,7 @@ public class EngineCommand {
 
     public boolean addContinentToMap(WargameMap p_gameMap, int p_continentControlValue, String p_continentName) {
         //first of all checking is this given continent already exists
-        //if it does not exists then create the new continent object and add it to the game map
+        //if it does not exist then create the new continent object and add it to the game map
         if (!(GameGraph.isContinentExists(p_gameMap, p_continentName))) {
             Continent l_continent = new Continent(p_continentName, p_continentControlValue);
             p_gameMap.addContinents(p_continentName, l_continent);
@@ -53,7 +53,7 @@ public class EngineCommand {
     }
 
     /**
-     * This will remove continent from the map. In order to do that we first have to remove each country resides in that continent
+     * This will remove continent from the map. In order to do that we first have to remove each country resides in that continent,
      * and then we can remove the continent itself.
      *
      * @param p_gameMap

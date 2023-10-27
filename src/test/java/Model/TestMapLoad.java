@@ -5,6 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test if the map is loading or not
+ *
+ */
 public class TestMapLoad {
 
     EngineCommand d_RunGame;

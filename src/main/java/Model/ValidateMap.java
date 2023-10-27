@@ -76,10 +76,7 @@ public class ValidateMap {
      */
     public boolean isGraphConnected(Graph<Country, DefaultEdge> p_graph) {
         ConnectivityInspector<Country, DefaultEdge> l_cInspector = new ConnectivityInspector<>(p_graph);
-        if (l_cInspector.isConnected())
-            return true;
-        else
-            return false;
+        return l_cInspector.isConnected();
     }
 
     /**
@@ -107,10 +104,7 @@ public class ValidateMap {
      * @return true if continent already exists, else false
      */
     public static boolean doesContinentExist(WargameMap p_map, String p_continentId) {
-        if (p_map.getContinents().containsKey(p_continentId.toLowerCase()))
-            return true;
-        else
-            return false;
+        return p_map.getContinents().containsKey(p_continentId.toLowerCase());
     }
 
     /**
@@ -121,10 +115,7 @@ public class ValidateMap {
      * @return true if country already exists, else false
      */
     public static boolean doesCountryExist(WargameMap p_map, String p_countryId) {
-        if (p_map.getCountries().containsKey(p_countryId.toLowerCase()))
-            return true;
-        else
-            return false;
+        return p_map.getCountries().containsKey(p_countryId.toLowerCase());
     }
 
     /**

@@ -60,8 +60,9 @@ public class GamePlay {
 
     /**
      * Purpose of this method is to check if there are SAVED maps in the system
-     * If there are saved maps, those would be displayed and player can decide to use saved map to play or create new one
-     * If there are none, then user would be prompted to create new map
+     * If there are saved maps,
+     * those would be displayed and player can decide to use saved map to play or create a new one
+     * If there are none, then user would be prompted to create a new map
      */
     private void displaySavedMaps() {
         File d_mapContainer = new File("src/main/resources/maps/");
@@ -114,7 +115,7 @@ public class GamePlay {
                 }
                 System.out.println();
                 System.out.println("It's " + l_p.getPlayerName() + "'s turn");
-                //listen orders from players - deploy | pass
+                //listen to orders from players - deploy | pass
                 l_phase = GamePhase.ISSUEORDER;
                 l_cmd.setD_phase(l_phase);
                 System.out.println("Player " + l_p.getPlayerName() + " Can provide deploy order or pass order");

@@ -1,7 +1,7 @@
 package Model;
 
 /**
- * Class containing logic for implementation of advance order
+ * Class containing logic for implementation of Advance order
  * 
  * @author Rucha
  *
@@ -89,7 +89,7 @@ public class Advance implements Order {
 							d_Player.addCard();
 
 						}
-						// if defending coutry has armies
+						// if defending country has armies
 						else {
 							defendingCountry.setNumberOfArmies(defenderArmyLeft);
 							if (attackerArmyLeft < 0)

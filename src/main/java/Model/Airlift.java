@@ -16,10 +16,10 @@ public class Airlift implements Order {
     /**
      * Constructor of Airlift class
      *
-     * @param p_player          source player who is using the Airlift
-     * @param p_sourceCountryId source country ID
-     * @param p_targetCountryId target country ID
-     * @param p_numArmies       number of armies to Airlift
+     * @param p_player           source player who is using the Airlift
+     * @param p_sourceCountryId  source country ID
+     * @param p_targetCountryId  target country ID
+     * @param p_numArmies        number of armies to Airlift
      */
     public Airlift(Player p_player, String p_sourceCountryId, String p_targetCountryId, int p_numArmies) {
         d_Player = p_player;

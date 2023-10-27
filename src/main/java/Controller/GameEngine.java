@@ -43,7 +43,7 @@ public class GameEngine {
     }
 
     /**
-     * Checks if passed string just has alphbets
+     * Checks if passed string just has alphabets
      *
      * @param p_string
      * @return true if string has all alphabets or false
@@ -166,7 +166,7 @@ public class GameEngine {
                                 l_mapName = l_param[1];
                                 System.out.println(" You are editing Map: " + l_mapName);
                                 this.d_phase = GamePhase.EDITMAP;
-                                //setting up the map object can be newly created if the user given map name does not exists
+                                //setting up the map object can be newly created if the user given map name does not exist
                                 this.d_map = d_RunCommand.editMap(l_mapName);
 
                                 this.printEditmapHelpCommands();
@@ -193,7 +193,7 @@ public class GameEngine {
                             System.out.printf("Map %s loaded in game memory successfully\n", l_mapName);
                             System.out.println("Now you are have to follow two following steps IN ORDER");
                             System.out.println("Step 1: add the players to the game by using gameplayer -add <playername>. There total number of players must be between 2 and 6");
-                            System.out.println("\t You can also remove the player by replacing -add to -remove exmaple gameplayer -remove <playername>");
+                            System.out.println("\t You can also remove the player by replacing -add to -remove example gameplayer -remove <playername>");
                             System.out.println("Step 2: issue 'assigncountries' command to initially assign the countries randomly to all the players");
 
                         } else {
@@ -247,7 +247,7 @@ public class GameEngine {
 
                         if (l_typeOfEditcontinent.equals("-add")) {
                             l_continentName = l_param[2].toLowerCase();
-                            //Checking for the country name and I given by the user should be string without any special characters
+                            //Checking for the country name and 1 given by the user should be string without any special characters
                             try {
                                 if (this.containsAlphabetsOnly(l_continentName)) {
                                     //2nd Index Contains Continent ID like 1 2 3 int number
@@ -276,7 +276,7 @@ public class GameEngine {
                                     d_phase = GamePhase.EDITMAP;
                                 }
                             } else {
-                                //condition when parameter is neither add or remove
+                                //condition when parameter is neither add nor remove
                                 System.out.println("Only '-add' or '-remove' parameter allowed in editcountry");
                             }
                         }
@@ -301,7 +301,7 @@ public class GameEngine {
 
                         if (l_typeOfEditcountry.equals("-add")) {
                             String l_userGivenContinentName = l_param[3].toLowerCase(); //continentID param
-                            //Checking for the country name and I given by the user should be string without any special characters
+                            //Checking for the country name and 1 given by the user should be string without any special characters
                             if (this.containsAlphabetsOnly(l_userGivenCountryName) && this.containsAlphabetsOnly(l_userGivenContinentName)) {
 
                                 boolean l_status = d_RunCommand.addCountryToContinent(d_map, l_userGivenCountryName, l_userGivenContinentName);
@@ -563,7 +563,7 @@ public class GameEngine {
                                         p_player.issue_order();
                                         System.out.println(p_player.getPlayerName()+" Blockade order added to Players OrdersList: "+l_param[0]+"  "+l_param[1]);
                                         p_player.removeCard("Blockade");
-                                        System.out.println("Bloackade card removed from Player's cardList ");
+                                        System.out.println("Blockade card removed from Player's cardList ");
                                     }
                                     else{
                                         System.out.println("Blockade Card not Owned or Country not owned by current player | please pass to next player");

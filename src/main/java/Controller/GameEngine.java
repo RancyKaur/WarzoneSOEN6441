@@ -479,7 +479,7 @@ public class GameEngine {
             //System.out.println("Total Armies left with all Players in Pool: " + l_counter);
 
             // show the list of cards that play holds currently
-            if(!p_player.get_CardDeck().isEmpty()){
+            if(!p_player.getCardDeck().isEmpty()){
                 p_player.showCards();
             }
 

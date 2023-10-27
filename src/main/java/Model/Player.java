@@ -33,6 +33,7 @@ public class Player {
         d_OwnedCountries = new HashMap<>();
         this.d_OwnedArmies = 0;
         d_OrderList = new ArrayDeque<Order>();
+        d_CardDeck = new ArrayList<>();
     }
 
     public void printOwnedCountries() {

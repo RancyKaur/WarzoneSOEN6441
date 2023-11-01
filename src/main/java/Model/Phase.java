@@ -27,7 +27,7 @@ public abstract class Phase {
      * @param p_players The list of players participating in the game.
      * @return True if countries are successfully allocateed, false otherwise.
      */
-	abstract public boolean allocateCountries(Map p_map, ArrayList<Player> p_players);
+	abstract public boolean allocateCountries(WargameMap p_map, ArrayList<Player> p_players);
 	
 	/**
      * Load a map from the provided data and map name.
@@ -42,7 +42,7 @@ public abstract class Phase {
      * 
      * @param p_map The map to be displayed.
      */
-	abstract public void displayMap(Map p_map) ;
+	abstract public void displayMap(WargameMap p_map) ;
 	
 	/**
      * for changing the map
@@ -102,7 +102,7 @@ public abstract class Phase {
      * @param p_players The list of players.
      * @param p_map     The map that is loaded.
      */
-	abstract public void displayMap(ArrayList<Player> p_players, Map p_map);
+	abstract public void displayMap(ArrayList<Player> p_players, WargameMap p_map);
 	
 	/**
 	 * Method for validation of map.

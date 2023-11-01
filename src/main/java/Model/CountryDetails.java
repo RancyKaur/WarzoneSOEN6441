@@ -83,7 +83,7 @@ public class CountryDetails implements Serializable {
 	 * @param p_map            GameMap in which this country resides
 	 */
 	public CountryDetails(String p_index, String p_countryId, String p_continentIndex, String p_xCoordinate,
-			String p_yCoordinate, Map p_map) {
+			String p_yCoordinate, WargameMap p_map) {
 		this.d_Index = Integer.parseInt(p_index);
 		this.d_CountryId = p_countryId;
 

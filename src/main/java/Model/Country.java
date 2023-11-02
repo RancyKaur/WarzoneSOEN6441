@@ -13,8 +13,7 @@ public class Country {
     private HashMap<String, Country> d_neighbourCountries;
     private int d_countryIndex;
     private int d_armiesAllocated;
-    CountryDetails cd;
-
+    
     /**
      * Empty default constructor
      */
@@ -111,6 +110,6 @@ public class Country {
     }
 
     public String getCountryId() {
-        return cd.getCountryId();
+        return this.getCountryId();
     }
 }

@@ -147,7 +147,7 @@ public class GameGraph {
      */
     //It first gets all the continents presents in the map
     //Then it creates the sub graphs for each of the continents and checks for its validity.
-    // if all of the continents's subgraphs form a valid subgraphs then it will return true otherwise false.
+    // if all the continent's subgraphs form a valid subgraphs then it will return true otherwise false.
     public boolean isEachContinentConnected(WargameMap p_gameGraph) {
         for (Continent l_continent : p_gameGraph.getContinents().values()) {
             Graph<Country, DefaultEdge> l_subMap = new DefaultUndirectedGraph<>(DefaultEdge.class);

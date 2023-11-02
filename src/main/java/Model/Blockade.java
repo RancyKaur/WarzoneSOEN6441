@@ -1,8 +1,8 @@
 package Model;
 
 /**
- * Class containing logic for implementation of blockade order
- * @author Rahul
+ * Class containing logic for implementation of Blockade order
+ * @author Alekhya K
  *
  */
 public class Blockade implements Order{
@@ -11,8 +11,8 @@ public class Blockade implements Order{
 
     /**
      * This constructor will initialize the order object with deploy details.
-     * @param p_player current player issuing blockade order
-     * @param p_countryId country where blockade will effect
+     * @param p_player    current player issuing blockade order
+     * @param p_countryId country where blockade will affect
      */
     public Blockade(Player p_player,String p_countryId) {
         d_Player = p_player;

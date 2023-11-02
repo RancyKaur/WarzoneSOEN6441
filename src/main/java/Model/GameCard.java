@@ -30,7 +30,7 @@ public class GameCard {
     }
 
     /**
-     * This method is the main method that helps in choosing random card to be assgined
+     * This method is the main method that helps in choosing random card to be assigned
      * @return card name
      */
     public String generateRandomCard()

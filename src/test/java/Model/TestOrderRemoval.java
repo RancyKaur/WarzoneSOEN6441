@@ -10,7 +10,7 @@ import java.util.Queue;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests if addition of orders works
+ * Tests if the removal of orders works
  */
 public class TestOrderRemoval {
     Deploy d_Order;

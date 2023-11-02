@@ -5,6 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test if a new map can be created or existing map can be edited.
+ */
+
 public class TestMapEdit {
 
     EngineCommand d_RunGame;

@@ -533,7 +533,7 @@ public class GameEngine {
             // l_counter);
 
             // show the list of cards that play holds currently
-            if (!p_player.get_CardDeck().isEmpty()) {
+            if (!p_player.getCardDeck().isEmpty()) {
                 p_player.showCards();
             }
 

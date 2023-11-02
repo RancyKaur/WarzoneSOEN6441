@@ -9,14 +9,23 @@ import java.util.Random;
 public class Card implements Serializable {
 
     /**
-     * Represents type of Card from Bomb, Airlift, Blockade and Diplomacy
+     * Represents type of Card from Bomb, Airlift, Blockade, and Diplomacy
      */
-    private String d_CardType;
+    String d_CardType;
 
     /**
      * This list contains the cards issued to players
      */
-    private static final String[] d_ListOfCards = { "Bomb", "Airlift", "Blockade", "Diplomacy" };
+    String[] d_CardsList = {"Bomb", "Airlift", "Blockade", "Diplomacy"};
+
+    /**
+     * The method gives the type of a card.
+     *
+     * @return string card type
+     */
+    String getCardType() {
+        return d_CardType;
+    }
 
     /**
      * Default constructor of Card to access the methods of this class.
@@ -25,21 +34,12 @@ public class Card implements Serializable {
     }
 
     /**
-     * This constructor will assign type of cards
-     * 
+     * This constructor will assign the type of cards.
+     *
      * @param p_cardType Card Type that is assigned
      */
     public Card(String p_cardType) {
         this.d_CardType = p_cardType;
-    }
-
-    /**
-     * The method gives type of card.
-     * 
-     * @return string card type
-     */
-    String getCardType() {
-        return d_CardType;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Card implements Serializable {
 
     /**
      * Stores the temp card picked in the CardType String
-     * 
+     *
      * @param temp specific card
      */
     public void createCard(String temp) {
@@ -59,14 +59,13 @@ public class Card implements Serializable {
     }
 
     /**
-     * Picks a random card from the Cards List using random generator
-     * 
-     * @return The card from the Cards List
+     * Picks a random card from the Cards List using a random generator
+     *
+     * @return The index of the Cards List
      */
     public String randomCard() {
         Random randomCardGenerator = new Random();
-        int idx = randomCardGenerator.nextInt(d_ListOfCards.length);
-        return d_ListOfCards[idx];
+        int index = randomCardGenerator.nextInt(d_CardsList.length);
+        return d_CardsList[index];
     }
-
 }

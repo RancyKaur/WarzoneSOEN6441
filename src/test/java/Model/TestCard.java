@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Test Class to checks wheteher card is getting added or not.
+ * Test Class to checks whether card is getting added or not.
  */
 public class TestCard {
     ArrayList<GameCard> d_Listofcards;

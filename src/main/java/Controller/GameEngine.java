@@ -34,6 +34,7 @@ public class GameEngine {
         d_phase = GamePhase.BEGINGAME;
         d_RunCommand = new EngineCommand();
         d_map = new WargameMap();
+        d_LogEntry = new LogEntry();
         d_gameStartPhase = new GameStartPhase();
         d_Players = new ArrayList<>();
     }
@@ -604,7 +605,7 @@ public class GameEngine {
                                     Country defendingCountry = attackingCountry.getNeighbours()
                                             .get(l_countryNameTo.toLowerCase());
                                     boolean l_checkNeighbourCountry = (l_countryNameTo
-                                            .equals(defendingCountry.getCountryId()));
+                                            .equals(defendingCountry.getCountryName()));
 
                                     // Checks if required armies present on Source territory
                                     Country l_c = p_player.getOwnedCountries().get(l_countryNameFrom.toLowerCase());
@@ -844,7 +845,7 @@ public class GameEngine {
         }
 
         Country defendingCountry = attackingCountry.getNeighbours().get(l_countryNameTo.toLowerCase());
-        if (defendingCountry == null || !l_countryNameTo.equals(defendingCountry.getCountryId())) {
+        if (defendingCountry == null || !l_countryNameTo.equals(defendingCountry.getCountryName())) {
             return false;
         }
 

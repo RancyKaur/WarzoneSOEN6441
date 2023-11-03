@@ -563,21 +563,6 @@ public class GameEngine {
                                                 "Country not owned by player or insufficient Army units | please pass to next player");
                                     }
                                     d_phase = GamePhase.TAKETURN;
-
-                                    // below code block to avoid extra turn when all armies are deployed
-                                    l_itr = d_Players.listIterator();
-                                    int l_tempcounter = 0;
-                                    while (l_itr.hasNext()) {
-                                        Player l_p = l_itr.next();
-                                        if (l_p.getOwnedArmies() > 0) {
-                                            l_tempcounter = l_tempcounter + l_p.getOwnedArmies();
-                                        }
-                                    }
-                                    if (l_tempcounter == 0) {
-                                        System.out.println("press ENTER to continue to execute Phase..");
-                                        d_phase = GamePhase.EXECUTEORDER;
-                                        return d_phase;
-                                    }
                                     break;
                                 }
                             } else
@@ -625,6 +610,9 @@ public class GameEngine {
                                         p_player.addOrder(new Advance(p_player, l_countryNameFrom, l_countryNameTo,
                                                 l_numberOfArmies, l_targetPlayer));
                                         p_player.issue_order();
+                                        System.out.println(p_player.getPlayerName()
+                                                + " advance order added to Players OrdersList: " + l_data[0] + "  "
+                                                + l_data[1] + " " + l_data[2]);
                                         d_LogEntry.setMessage(p_player.getPlayerName()
                                                 + " advance order added to Players OrdersList: " + l_data[0] + "  "
                                                 + l_data[1] + " " + l_data[2]);
@@ -634,7 +622,7 @@ public class GameEngine {
                                         d_LogEntry.setMessage(
                                                 "Country not owned by player or target Country not adjacent or insufficient Army units | please pass to next player");
                                     }
-                                    d_GamePhase = GamePhase.TAKETURN;
+                                    this.d_phase = GamePhase.TAKETURN;
                                     break;
                                 }
                             } else
@@ -648,6 +636,7 @@ public class GameEngine {
                         }
                         break;
 
+                        /*
                     case "advanc":
                         d_LogEntry.setCommand(l_commandName + " Command is being executed");
                         try {
@@ -679,7 +668,7 @@ public class GameEngine {
                                     "Invalid command or country not owned by the player, target country not adjacent, or insufficient army units. Please pass to the next player.");
                         }
                         break;
-
+                     */
                     case "pass":
                         try {
                             d_phase = GamePhase.TAKETURN;
@@ -752,8 +741,10 @@ public class GameEngine {
         // EXECUTE_ORDERS Phase
         // EXECUTE ORDERS : execute, showmap
         else if (d_phase.equals(GamePhase.EXECUTEORDER)) {
+            d_LogEntry.setMessage("Entered Execute Orders Phase:");
             switch (l_commandName) {
                 case "execute":
+                    d_LogEntry.setMessage("Orders in process of being executed for all players");
                     int l_count = 0;
                     // get count of total orders for all players
                     for (Player l_p : d_Players) {
@@ -762,12 +753,14 @@ public class GameEngine {
                     }
 
                     if (l_count == 0) {
-                        System.out.println("All orders are already executed!");
+                        System.out.println("No order left to execute, all orders have been executed!");
+                        d_LogEntry.setMessage("No order left to execute, all orders have been executed!");
                         d_gameStartPhase.showMap(d_Players, d_map);
                         d_phase = GamePhase.ISSUEORDER;
                         return d_phase;
                     } else {
                         System.out.println("Total Orders in Queue are : " + l_count);
+                        d_LogEntry.setMessage("Total Orders in Queue are : " + l_count);
                         while (l_count != 0) {
                             for (Player l_p : d_Players) {
 
@@ -775,31 +768,65 @@ public class GameEngine {
                                 if (l_tempOrderList.size() > 0) {
                                     Order l_toRemove = l_p.next_order();
                                     System.out.println("Order executed for player: " + l_p.getPlayerName());
+                                    d_LogEntry.setMessage("Order executed for player: " + l_p.getPlayerName());
                                     l_toRemove.execute();
                                 }
                             }
                             l_count--;
                         }
 
-                        System.out.println("All Orders executed and current deployment is shown below:");
-                        System.out.println();
-                        d_gameStartPhase.showMap(d_Players, d_map);
+                        for(Player l_p : d_Players) {
+                            l_p.removeAllNegotiators();
+                        }
+                        System.out.println("All Orders executed!");
+                        d_LogEntry.setMessage("All Orders executed!");
+                        d_gameStartPhase.showMap(d_Players,d_map);
+
+                        /** Below block needs to be refactored as part of State Pattern **/
+                        Iterator<Player> l_playerItr = d_Players.listIterator();
+                        while(l_playerItr.hasNext()) {
+                            Player p = l_playerItr.next();
+                            ReinforcePlayers.assignReinforcementArmies(p);
+                        }
+                        //above block ends here
+
+                        //Check if any Player owns all Countries
+                        for (Player l_p : d_Players){
+                            if(l_p.getOwnedCountries().size() == d_map.getCountries().size()){
+                                System.out.println(l_p.getPlayerName()+" has Won the Game!");
+                                d_LogEntry.setMessage(l_p.getPlayerName()+" has Won the Game!");
+                                //d_LogEntry.detach(d_WriteLog);
+                                System.exit(0);
+                            }
+                        }
+                        //check if any player needs to be removed as of losing all territories
+                        for (Player l_p : d_Players){
+                            if(l_p.getOwnedCountries().size() == 0){
+                                System.out.println(l_p.getPlayerName()+" is no longer part of the game since all territories owned are lost");
+                                d_LogEntry.setMessage(l_p.getPlayerName()+" is no longer part of the game since all territories owned are lost");
+                                d_Players.remove(l_p);
+                            }
+                        }
+
+                        System.out.println("All orders for all players are executed, now assigning NEW Reinforcements!");
+                        System.out.println("Reinforcements assigned! Players can start with deploying Orders again!");
+                        System.out.println("\nPlayer 1 can provide either deploy | pass order..");
+
+                        d_LogEntry.setMessage("All orders for all players are executed, now assigning NEW Reinforcements!");
+                        d_LogEntry.setMessage("Reinforcements assigned! Players can start with deploying Orders again!");
+                        d_LogEntry.setMessage("\nPlayer 1 can provide either deploy | pass order..");
+
                         d_phase = GamePhase.ISSUEORDER;
                     }
-                    // System.out.println("Type Exit to end the game");
-                    // break;
-
-                case "exit":
-                    System.out.println("Build 1 ENDS HERE!");
-                    exit(0);
+                    break;
 
                 case "showmap":
                     d_gameStartPhase.showMap(d_Players, d_map);
                     break;
 
                 default:
-                    System.out
-                            .println("Execute Order Phase has commenced, please type 'execute' to execute all orders");
+                    System.out.println("Entered Execute Order Phase, please type 'execute' to execute all orders");
+                    d_LogEntry.setMessage("Entered Execute Order Phase0");
                     break;
             }
         }

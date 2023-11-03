@@ -161,6 +161,9 @@ public class Player {
         d_NegotiateList.remove(player);
     }
 
+    public void removeAllNegotiators() {
+        d_NegotiateList.clear();
+    }
     /**
      * Method to assign a random card to the player once they have won any territory.
      */

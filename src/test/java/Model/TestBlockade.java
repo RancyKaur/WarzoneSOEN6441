@@ -28,7 +28,7 @@ public class TestBlockade{
     EngineCommand d_Rge;
     String d_CountryId = null;
     boolean l_checkOwnedCountry;
-    int d_NumberOfArmies = 4;
+    int d_NumberOfArmies = 3;
     /**
      * initial setup
      */
@@ -36,8 +36,8 @@ public class TestBlockade{
     public void before() {
         d_Player1 = new Player("Alekhya");
         d_Player2 = new Player("Jahnavi");
-        d_Map = new WargameMap("earth.map");
-        d_CountryId = "India";
+        d_Map = new WargameMap("world.map");
+        d_CountryId = "india";
         d_Rge = new EngineCommand();
         d_Players = new ArrayList<Player>();
         d_Players.add(d_Player1);
@@ -57,14 +57,15 @@ public class TestBlockade{
     public void testBlockadeEffect() {
         d_Ge = new GameEngine();
         d_Stup = new GameStartPhase();
-        d_Map = d_Rge.loadMap("earth.map");
+        d_Map = d_Rge.loadMap("world.map");
         d_Stup.assignCountries(d_Map, d_Players);
         ReinforcePlayers.assignReinforcementArmies(d_Player1);
 
         //performed checks for owned country and allowed army units.
+        System.out.println(d_Player1.getOwnedArmies());
         boolean l_checkOwnedCountry = d_Player1.getOwnedCountries().containsKey(d_CountryId);
         boolean l_checkArmies = (d_Player1.getOwnedArmies() >= d_NumberOfArmies);
-        System.out.println(l_checkOwnedCountry+"   "+l_checkArmies);
+        System.out.println(l_checkOwnedCountry+"   "+ l_checkArmies);
         if(l_checkOwnedCountry && l_checkArmies){
             d_Player1.addOrder(d_DOrder);
             d_Player1.issue_order();
@@ -102,7 +103,7 @@ public class TestBlockade{
         Country l_cB= d_Player1.getOwnedCountries().get(d_CountryId.toLowerCase());
         System.out.println(l_cB.getNumberOfArmies());
 
-        assertEquals(12 ,l_cB.getNumberOfArmies());
+        assertEquals(9 ,l_cB.getNumberOfArmies());
     }
 
 }

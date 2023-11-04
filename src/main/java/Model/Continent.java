@@ -39,7 +39,6 @@ public class Continent {
      * 
      * @param p_continentName
      * @param p_continentID
-     * @param p_existingmap
      */
     Continent(String p_continentName, int p_continentID) {
         this.d_continentName = p_continentName;

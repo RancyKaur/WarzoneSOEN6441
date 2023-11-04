@@ -534,9 +534,9 @@ public class GameEngine {
             // l_counter);
 
             // show the list of cards that play holds currently
-            if (!p_player.getCardDeck().isEmpty()) {
-                p_player.showCards();
-            }
+//            if (!p_player.getCardDeck().isEmpty()) {
+//                p_player.showCards();
+//            }
 
             if (l_counter > 0) {
                 switch (l_commandName) {
@@ -636,39 +636,6 @@ public class GameEngine {
                         }
                         break;
 
-                        /*
-                    case "advanc":
-                        d_LogEntry.setCommand(l_commandName + " Command is being executed");
-                        try {
-                            if (validateAdvanceCommand(l_data, p_player)) {
-                                l_countryNameFrom = l_data[1];
-                                l_countryNameTo = l_data[2];
-                                l_numberOfArmies = Integer.parseInt(l_data[3]);
-
-                                Player l_targetPlayer = findPlayerByCountry(d_Players, l_countryNameTo);
-
-                                p_player.addOrder(new Advance(p_player, l_countryNameFrom, l_countryNameTo,
-                                        l_numberOfArmies, l_targetPlayer));
-                                p_player.issue_order();
-                                d_LogEntry.setMessage(
-                                        p_player.getPlayerName() + " advance order added to Players OrdersList: "
-                                                + l_data[0] + "  " + l_data[1] + " " + l_data[2]);
-                            } else {
-                                System.out.println(
-                                        "Invalid command or country not owned by the player, target country not adjacent, or insufficient army units. Please pass to the next player.");
-                                d_LogEntry.setMessage(
-                                        "Invalid command or country not owned by the player, target country not adjacent, or insufficient army units. Please pass to the next player.");
-                            }
-                            d_GamePhase = GamePhase.TAKETURN;
-                            break;
-                        } catch (Exception e) {
-                            System.out.println(
-                                    "Invalid command or country not owned by the player, target country not adjacent, or insufficient army units. Please pass to the next player.");
-                            d_LogEntry.setMessage(
-                                    "Invalid command or country not owned by the player, target country not adjacent, or insufficient army units. Please pass to the next player.");
-                        }
-                        break;
-                     */
                     case "pass":
                         try {
                             d_phase = GamePhase.TAKETURN;

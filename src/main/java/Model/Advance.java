@@ -87,10 +87,11 @@ public class Advance implements Order {
 							// If Attack Successful and new territory added to Player
 							// Generate a random Card from {'BOMB', 'AIRLIFT', 'BLOCKADE', 'DIPLOMACY'}
 							d_Player.addCard();
-
+							System.out.println(attackingCountry.getCountryName() + " won the attack and country " + defendingCountry.getCountryName());
 						}
 						// if defending country has armies
 						else {
+							System.out.println(defendingCountry.getCountryName() + " won the attack");
 							defendingCountry.setNumberOfArmies(defenderArmyLeft);
 							if (attackerArmyLeft < 0)
 								attackingCountry.setNumberOfArmies(((d_Player.getOwnedCountries()

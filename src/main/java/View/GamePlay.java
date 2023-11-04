@@ -118,8 +118,11 @@ public class GamePlay {
                 //listen to orders from players - deploy | pass
                 l_phase = GamePhase.ISSUEORDER;
                 l_cmd.setD_phase(l_phase);
-                System.out.println("Player " + l_p.getPlayerName() + " Can provide deploy order or pass order");
+                System.out.println("Player " + l_p.getPlayerName() + " can provide next game command");
                 while (l_phase != GamePhase.TAKETURN) {
+                    if (!l_p.getCardDeck().isEmpty()) {
+                        l_p.showCards();
+                    }
                     l_command = d_inp.nextLine();
                     l_phase = l_cmd.parseCommand(l_p, l_command);
                 }

@@ -11,7 +11,7 @@ public class WargameMap {
     private HashMap<String, Country> d_Countries;
 
     /**
-     * Default constructor to create map with null/empty values
+     * Default constructor to create a map with null/empty values
      */
     public WargameMap() {
         this.d_MapName = null;
@@ -21,7 +21,8 @@ public class WargameMap {
     }
 
     /**
-     * Custom constructor that takes name of the map and creates map object with null/empty values for other data members
+     * Custom constructor that takes the name of the map
+     * and creates a map object with null/empty values for other data members
      *
      * @param p_MapName
      */
@@ -43,7 +44,7 @@ public class WargameMap {
     }
 
     /**
-     * Getter method to return validity of map
+     * Getter method to return validity of the map
      *
      * @return return whether the map is suitable for playing
      */
@@ -61,7 +62,7 @@ public class WargameMap {
     }
 
     /**
-     * Getter method to return list of continents in the map
+     * Getter method to return a list of continents in the map
      *
      * @return return HashMap of continents
      */

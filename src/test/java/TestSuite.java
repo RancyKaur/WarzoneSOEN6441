@@ -17,8 +17,9 @@ import org.junit.runners.Suite;
 		TestCountryAssignment.class,
 		TestNumberOfArmies.class,
 		TestOrderAddition.class,
-		TestOrderRemoval.class
-
+		TestOrderRemoval.class,
+		TestBlockade.class,
+		TestCard.class
 })
 
 	/**

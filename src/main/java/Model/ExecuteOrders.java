@@ -6,7 +6,7 @@ import java.util.Iterator;
 /**
  * class performs execute orders functionality
  */
-public class ExecuteOrders {
+public class ExecuteOrders implements Order {
 
     /**
      * @param d_CountryId is for country name

@@ -17,6 +17,7 @@ on:
     branches:
       - 'main'
       - 'build2'
+
 jobs:
   build:
 

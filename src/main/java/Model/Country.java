@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 
 /**
- * This class represents country object that comprises of country name, continent it resides in and its neighbhouring countries.
+ * This class represents country object that consists of country name, continent it resides in and its neighbouring countries.
  */
 public class Country {
     private static int countryIndex = 1;
@@ -13,7 +13,7 @@ public class Country {
     private HashMap<String, Country> d_neighbourCountries;
     private int d_countryIndex;
     private int d_armiesAllocated;
-
+    
     /**
      * Empty default constructor
      */
@@ -75,7 +75,7 @@ public class Country {
     }
 
     /**
-     * Getter method to get all the neighbhouring countries
+     * Getter method to get all the neighbouring countries
      *
      * @return d_neighbourCountries
      */
@@ -109,4 +109,7 @@ public class Country {
         this.d_armiesAllocated = p_numberOfArmies;
     }
 
+    // public String getCountryId() {
+    //     return this.getCountryId();
+    // }
 }

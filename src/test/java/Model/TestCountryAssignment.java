@@ -20,7 +20,7 @@ public class TestCountryAssignment {
     Player d_Player2;
     WargameMap d_Map;
     ArrayList<Player> d_Players;
-    GameStartPhase d_Stup;
+    StartUp d_Stup;
     EngineCommand d_Rge;
     GamePhase d_GamePhase;
     GameEngine d_Ge;
@@ -47,7 +47,7 @@ public class TestCountryAssignment {
      */
     @Test
     public void testPopulateCountries() {
-        d_Stup = new GameStartPhase();
+        d_Stup = new StartUp(d_Ge);
         d_Ge = new GameEngine();
         d_Map = d_Rge.loadMap("new.map");
         boolean l_check = d_Stup.assignCountries(d_Map, d_Players);

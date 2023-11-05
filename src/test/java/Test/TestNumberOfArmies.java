@@ -4,7 +4,6 @@ package Test;
 import Model.EngineCommand;
 import Model.WargameMap;
 import Model.GamePhase;
-import Model.GameStartPhase;
 import Model.Player;
 import Model.ReinforcePlayers;
 import org.junit.Before;

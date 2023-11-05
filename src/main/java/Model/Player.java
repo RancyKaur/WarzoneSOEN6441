@@ -12,10 +12,18 @@ public class Player {
     private HashMap<String, Continent> d_OwnedContinents;
     private HashMap<String, Country> d_OwnedCountries;
     private int d_OwnedArmies;
+
+
+
     private Order d_Order;
+
+
+
     private Queue<Order> d_OrderList;
     ArrayList<GameCard> d_CardDeck;
     public List<Player> d_NegotiateList;
+
+
 
     /**
      * This constructor assigns a name to the player.
@@ -30,6 +38,14 @@ public class Player {
         d_OrderList = new ArrayDeque<Order>();
         d_CardDeck = new ArrayList<>();
         d_NegotiateList = new ArrayList<>(); // Initialize the negotiation list
+    }
+
+    /**
+     * this is the getter method for getting the order.
+     * @return d_Order
+     */
+    public Order getD_Order() {
+        return d_Order;
     }
 
     public void printOwnedCountries() {

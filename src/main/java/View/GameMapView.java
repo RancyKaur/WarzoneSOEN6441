@@ -1,74 +1,23 @@
-package Model;
+package View;
 
-import java.util.*;
+import Controller.GameEngine;
+import Model.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
- * Implementation of startup phase of the game.
+ * This class is responsible for showing the map.
  */
-public class GameStartPhase {
 
-
-    /**
-     * Addition of players to the game
-     * The maximum no. of players assigned is restricted to 6
-     *
-     * @param p_players    List of players in the game
-     * @param p_playerName Names of players in the game
-     * @return true if the players are added successfully, else false
-     */
-    public boolean addPlayer(ArrayList<Player> p_players, String p_playerName) {
-        if (p_players.size() == 6) {
-            System.out.println("Can not add any more player. Maximum no. of players allowed is 6.");
-            return false;
-        }
-        p_players.add(new Player(p_playerName));
-        return true;
-    }
+public class GameMapView {
 
     /**
-     * Removing players from the game
-     *
-     * @param p_players    List of players in the game
-     * @param p_playerName Names of players in the game
-     * @return true if the players are removed successfully, else false
+     * Simple Constructor
      */
-    public boolean removePlayer(ArrayList<Player> p_players, String p_playerName) {
-        Iterator<Player> itr = p_players.listIterator();
-        while (itr.hasNext()) {
-            Player l_p = itr.next();
-            if (l_p.getPlayerName().equals(p_playerName)) {
-                p_players.remove(l_p);
-                return true;
-            }
-        }
-        return false;
+    public GameMapView(){
     }
 
-    /**
-     * Responsible for distributing countries amongst players.
-     *
-     * @param p_map     Game map
-     * @param p_players List of players in the game
-     * @return true if successful, else false
-     */
-    public boolean assignCountries(WargameMap p_map, ArrayList<Player> p_players) {
-        int l_numberOfPlayers = p_players.size();
-        if (p_players.size() < 2) {
-            System.out.println("Minimum two players are required to play the game.");
-            return false;
-        }
-        int l_counter = 0;
-        for (Country l_c : p_map.getCountries().values()) {
-            Player l_p = p_players.get(l_counter);
-            l_p.getOwnedCountries().put(l_c.getCountryName().toLowerCase(), l_c);
-            if (l_counter >= l_numberOfPlayers - 1)
-                l_counter = 0;
-            else
-                l_counter++;
-        }
-
-        return true;
-    }
 
     /**
      * Shows map with along with Owner and Army units.
@@ -120,4 +69,50 @@ public class GameStartPhase {
             l_printNumberOfArmies = true;
         }
     }
+
+    /**
+     * This method has the logic to display the passed map into text format to the user
+     *
+     * @param p_map map object to be displayed
+     */
+    public void showMap(WargameMap p_map) {
+        if (p_map != null) {
+            System.out.println("The map " + p_map.getMapName() + " is displayed below");
+            System.out.println();
+            System.out.printf("%75s\n", "-------------------------------------------------------------------------------------------");
+            System.out.printf("%25s%25s%25s\n", "Continents", "Country", "Neighbours");
+            System.out.printf("%75s\n", "-------------------------------------------------------------------------------------------");
+            boolean l_displayContinent = true;
+            boolean l_displayCountry = true;
+
+            for (Continent l_continent : p_map.getContinents().values()) {
+                if (l_continent.getListOfCountries().isEmpty()) {
+                    System.out.printf("\n%25s%25s%25s\n", GameEngine.capitalizeString(l_continent.getContinentName()), "", "");
+                    continue;
+                }
+                Collection<Country> tt = l_continent.getListOfCountries().values();
+
+                for (Country l_country : l_continent.getListOfCountries().values()) {
+                    if (l_country.getNeighbours().isEmpty()) {
+                        System.out.printf("\n%25s%25s%25s\n", l_displayContinent ? GameEngine.capitalizeString(l_continent.getContinentName()) : "", l_displayCountry ? GameEngine.capitalizeString(l_country.getCountryName()) : "", "");
+                        l_displayContinent = false;
+                        l_displayCountry = false;
+                    }
+
+                    for (Country l_neighbor : l_country.getNeighbours().values()) {
+                        System.out.printf("\n%25s%25s%25s\n", l_displayContinent ? GameEngine.capitalizeString(l_continent.getContinentName()) : "", l_displayCountry ? GameEngine.capitalizeString(l_country.getCountryName()) : "", GameEngine.capitalizeString(l_neighbor.getCountryName()));
+                        l_displayContinent = false;
+                        l_displayCountry = false;
+                    }
+
+                    l_displayCountry = true;
+                }
+                l_displayContinent = true;
+            }
+        }
+    }
+
+
+
+
 }

@@ -7,11 +7,18 @@ import java.io.IOException;
 import java.util.*;
 
 import Controller.GameEngine;
+import View.GameMapView;
 
 /**
  * This class contains implementation of all the actions defined by the game
  */
 public class EngineCommand {
+
+    /**
+     * Reference to GameMapView for map printing
+     */
+    GameMapView d_mapView;
+
 
     /**
      * This method would check if the map with given Name exists
@@ -283,40 +290,11 @@ public class EngineCommand {
      * @param p_map map object to be displayed
      */
     public void showMap(WargameMap p_map) {
-        if (p_map != null) {
-            System.out.println("The map " + p_map.getMapName() + " is displayed below");
-            System.out.println();
-            System.out.printf("%75s\n", "-------------------------------------------------------------------------------------------");
-            System.out.printf("%25s%25s%25s\n", "Continents", "Country", "Neighbours");
-            System.out.printf("%75s\n", "-------------------------------------------------------------------------------------------");
-            boolean l_displayContinent = true;
-            boolean l_displayCountry = true;
 
-            for (Continent l_continent : p_map.getContinents().values()) {
-                if (l_continent.getListOfCountries().isEmpty()) {
-                    System.out.printf("\n%25s%25s%25s\n", GameEngine.capitalizeString(l_continent.getContinentName()), "", "");
-                    continue;
-                }
-                Collection<Country> tt = l_continent.getListOfCountries().values(); 
+        d_mapView=new GameMapView();
+        d_mapView.showMap(p_map);
 
-                for (Country l_country : l_continent.getListOfCountries().values()) {
-                    if (l_country.getNeighbours().isEmpty()) {
-                        System.out.printf("\n%25s%25s%25s\n", l_displayContinent ? GameEngine.capitalizeString(l_continent.getContinentName()) : "", l_displayCountry ? GameEngine.capitalizeString(l_country.getCountryName()) : "", "");
-                        l_displayContinent = false;
-                        l_displayCountry = false;
-                    }
 
-                    for (Country l_neighbor : l_country.getNeighbours().values()) {
-                        System.out.printf("\n%25s%25s%25s\n", l_displayContinent ? GameEngine.capitalizeString(l_continent.getContinentName()) : "", l_displayCountry ? GameEngine.capitalizeString(l_country.getCountryName()) : "", GameEngine.capitalizeString(l_neighbor.getCountryName()));
-                        l_displayContinent = false;
-                        l_displayCountry = false;
-                    }
-
-                    l_displayCountry = true;
-                }
-                l_displayContinent = true;
-            }
-        }
     }
 
     /**

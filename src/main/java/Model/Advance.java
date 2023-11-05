@@ -24,8 +24,8 @@ public class Advance implements Order {
 	public Advance(Player p_player, String p_sourceCountryId, String p_targetCountryId, int p_numArmies,
 			Player p_targetPlayer) {
 		d_Player = p_player;
-		d_SourceCountryId = p_sourceCountryId;
-		d_TargetCountryId = p_targetCountryId;
+		d_SourceCountryId = p_sourceCountryId.toLowerCase();
+		d_TargetCountryId = p_targetCountryId.toLowerCase();
 		d_NumArmies = p_numArmies;
 		d_TargetPlayer = p_targetPlayer;
 	}

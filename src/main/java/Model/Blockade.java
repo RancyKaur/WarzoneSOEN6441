@@ -16,7 +16,7 @@ public class Blockade implements Order{
      */
     public Blockade(Player p_player,String p_countryId) {
         d_Player = p_player;
-        d_CountryId = p_countryId;
+        d_CountryId = p_countryId.toLowerCase();
     }
 
     /**

@@ -16,8 +16,8 @@ public class Continent {
     private String d_continentName = null;
     private HashMap<String, Country> d_listOfCountries;
     private int d_indexOfContinent;
-    private int d_InMapIndex;
-    private String d_ContinentId;
+    //private int d_InMapIndex;
+    //private String d_ContinentId;
 
     /**
      * This constructor is called when reading existing map file
@@ -27,8 +27,8 @@ public class Continent {
      * @param p_existingmap
      */
     Continent(String p_continentName, String p_continentID, String p_existingmap) {
-        d_ContinentId = p_continentID;
-        this.d_continentName = p_continentName;
+        //d_ContinentId = p_continentID;
+        this.d_continentName = p_continentName.toLowerCase();
         d_continentControlValue = Integer.parseInt(p_continentID);
         this.d_indexOfContinent = LoadGraph.d_indexInMap;
         this.d_listOfCountries = new HashMap<>();
@@ -41,10 +41,10 @@ public class Continent {
      * @param p_continentID
      */
     Continent(String p_continentName, int p_continentID) {
-        this.d_continentName = p_continentName;
+        this.d_continentName = p_continentName.toLowerCase();
         d_continentControlValue = p_continentID;
-        this.d_indexOfContinent = LoadGraph.d_indexInMap;
         this.d_listOfCountries = new HashMap<>();
+        this.d_indexOfContinent=Continent.continentCount++;
     }
 
     /**
@@ -82,9 +82,9 @@ public class Continent {
         return this.d_indexOfContinent;
     }
 
-    public String getContinentId() {
+   /* public String getContinentId() {
         return this.d_ContinentId;
-    }
+    }*/
 
     /**
      * Returns the Index value for this continent when saved in ".map" file
@@ -92,16 +92,16 @@ public class Continent {
      * 
      * @return returns Index value of the continent
      */
-    public int getInMapIndex() {
+    /*public int getInMapIndex() {
         return this.d_InMapIndex;
-    }
+    }*/
 
     /**
      * Sets the Index value of this continent
      * 
      * @param p_inMapIndex Index value of the continent
      */
-    public void setInMapIndex(int p_inMapIndex) {
+    /*public void setInMapIndex(int p_inMapIndex) {
         d_InMapIndex = p_inMapIndex;
-    }
+    }*/
 }

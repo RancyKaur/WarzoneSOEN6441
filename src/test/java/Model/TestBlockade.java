@@ -22,7 +22,7 @@ public class TestBlockade{
     Player d_Player2;
     WargameMap d_Map;
     ArrayList<Player> d_Players;
-    GameStartPhase d_Stup;
+    StartUp d_Stup;
     GamePhase d_GamePhase;
     GameEngine d_Ge;
     EngineCommand d_Rge;
@@ -56,7 +56,7 @@ public class TestBlockade{
     @Test
     public void testBlockadeEffect() {
         d_Ge = new GameEngine();
-        d_Stup = new GameStartPhase();
+        d_Stup = new StartUp(d_Ge);
         d_Map = d_Rge.loadMap("world.map");
         d_Stup.assignCountries(d_Map, d_Players);
         ReinforcePlayers.assignReinforcementArmies(d_Player1);

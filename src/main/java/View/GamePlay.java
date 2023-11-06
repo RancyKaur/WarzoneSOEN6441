@@ -116,11 +116,6 @@ public class GamePlay {
                 System.out.println("It's " + l_p.getPlayerName() + "'s turn");
                 //show the list of cards that play holds currently
                 System.out.println();
-
-                if (!l_p.getCardDeck().isEmpty()) {
-                    System.out.println("Player has the following cards.");
-                    l_p.showCards();
-                }
                 //listen to orders from players - deploy | pass
                 l_phase = GamePhase.ISSUEORDER;
                 l_cmd.setD_GamePhase(l_phase);

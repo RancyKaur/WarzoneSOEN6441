@@ -16,7 +16,7 @@ public class Observable {
      * 
      * @param p_observer is the observer's reference
      */
-    public void addObserver(Observer p_observer) {
+    public void attachObserver(Observer p_observer) {
         this.d_Observers.add(p_observer);
     }
 
@@ -25,7 +25,7 @@ public class Observable {
      * 
      * @param p_observer is the observer's reference
      */
-    public void removeObserver(Observer p_observer) {
+    public void detachObserver(Observer p_observer) {
         // check if observer is empty or not
         if (d_Observers.isEmpty() == false) {
             d_Observers.remove(p_observer);

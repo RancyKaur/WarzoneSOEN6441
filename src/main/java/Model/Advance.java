@@ -1,9 +1,9 @@
 package Model;
 
 /**
- * Class containing logic for implementation of Advance order
- * 
- * @author Rucha
+ * Class containing logic for implementation of Advance command
+ * If the target territory belongs to the same player, army units are moved to the target territory.
+ * If the target territory belongs to another player, an attack is simulated when the order is executed.
  *
  */
 public class Advance implements Order {
@@ -31,7 +31,11 @@ public class Advance implements Order {
 	}
 
 	/**
-	 * Contain the implementation logic of advance order
+	 * 	 Contain the implementation logic of advance order
+	 * 	 If the target territory belongs to the same player, army units are moved to the target territory.
+	 * 	 If the target territory belongs to another player, an attack is simulated when the order is executed.
+	 * 	 Attach is only simulated between players if they have not played negotiate or diplomacy card during current turn
+	 * @return false if any issue occurred during execution otherwise returns true
 	 */
 	@Override
 	public boolean execute() {
@@ -56,11 +60,12 @@ public class Advance implements Order {
 					System.out.println(d_TargetCountryId + " is not owned by the player");
 
 					if (d_Player.d_NegotiateList.contains(d_TargetPlayer)) {
-						// skip execute
+						// skip execution of attack since there was negotiation between two players
+						System.out.println("Skip execution of attack since there was negotiation between two players");
 						return false;
 					} else {
 						// attack logic
-						System.out.println("Attack Occur between: " + d_TargetCountryId + " and " + d_SourceCountryId);
+						System.out.println("Attack happened between: " + d_TargetCountryId + " and " + d_SourceCountryId);
 
 						// fetching the countries and its armies
 						Country attackingCountry = d_Player.getOwnedCountries().get(d_SourceCountryId.toLowerCase());

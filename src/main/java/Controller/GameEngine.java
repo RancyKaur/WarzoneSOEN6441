@@ -595,9 +595,41 @@ public class GameEngine {
                         }
                         break;
 
+                    case "negotiate":
+                        d_LogEntry.setCommand(l_commandName+" command given");
+                        try {
+                            if (!(l_data[1] == null)){
+                                if (this.isAlphabetic(l_data[1])) {
+                                    Player l_NegPlayer = fetchPlayerByName(l_data[1]);
+                                    boolean checkCard = p_player.checkCardExists("Diplomacy");
+                                    if(checkCard){
+                                        p_player.addOrder(new Negotiate(p_player, l_NegPlayer));
+                                        p_player.issue_order();
+                                        System.out.println("For player " + p_player.getPlayerName()+" Diplomacy order added to Players OrdersList: "+l_data[0]+"  "+l_data[1]+" "+l_data[2]+" "+l_data[3]);
+                                        d_LogEntry.setMessage("For player " + p_player.getPlayerName()+" Diplomacy order added to Players OrdersList: "+l_data[0]+"  "+l_data[1]+" "+l_data[2]+" "+l_data[3]);
+                                        p_player.removeCard("Diplomacy");
+                                        d_LogEntry.setMessage("Diplomacy card used hence it is now removed from Player's cardList ");
+                                    }
+                                    else{
+                                        System.out.println("Diplomacy Card is not  by the player");
+                                        d_LogEntry.setMessage("Diplomacy Card is not  by the player");
+                                    }
+                                    this.d_GamePhase = GamePhase.TAKETURN;
+                                    break;
+                                }
+                            } else {
+                                System.out.println("Invalid Country entered");
+                                d_LogEntry.setMessage("Invalid Country entered");
+                            }
+                        }catch (Exception e) {
+                            System.out.println("Either Diplomacy Card not Owned or Invalid Player name");
+                            d_LogEntry.setMessage("Either Diplomacy Card not Owned or Invalid Player name");
+                        }
+                        break;
+
                     default:
                         System.out.println(
-                                "Invalid command - either use deploy | pass | showmap commands in ISSUE_ORDERS Phase");
+                                "Invalid command entered in ISSUE_ORDERS Phase");
                         break;
                 }
             } else {
@@ -645,6 +677,8 @@ public class GameEngine {
                         }
 
                         for(Player l_p : d_Players) {
+                            System.out.println("Negotiations reset since turn has ended");
+                            d_LogEntry.setMessage("Negotiations reset since turn has ended");
                             l_p.removeAllNegotiators();
                         }
                         System.out.println("All Orders executed!");
@@ -717,46 +751,10 @@ public class GameEngine {
         System.out.println("Waiting for next command..");
     }
 
-    // Validation function
-    private boolean validateAdvanceCommand(String[] l_data, Player p_player) {
-        if (l_data.length < 4) {
-            return false;
-        }
-
-        String l_countryNameFrom = l_data[1];
-        String l_countryNameTo = l_data[2];
-        int l_numberOfArmies;
-
-        try {
-            l_numberOfArmies = Integer.parseInt(l_data[3]);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-
-        Country attackingCountry = p_player.getOwnedCountries().get(l_countryNameFrom.toLowerCase());
-        if (attackingCountry == null) {
-            return false;
-        }
-
-        Country defendingCountry = attackingCountry.getNeighbours().get(l_countryNameTo.toLowerCase());
-        if (defendingCountry == null || !l_countryNameTo.equals(defendingCountry.getCountryName())) {
-            return false;
-        }
-
-        int existingArmies = attackingCountry.getNumberOfArmies();
-        if (existingArmies < l_numberOfArmies) {
-            return false;
-        }
-
-        return true;
-    }
-
-    // Find the player who owns the target country
-    private Player findPlayerByCountry(ArrayList<Player> players, String targetCountryName) {
-        for (Player player : players) {
-            if (player.getOwnedCountries().containsKey(targetCountryName.toLowerCase())) {
-                return player;
-            }
+    private Player fetchPlayerByName(String p_playerName) {
+        for(Player l_player:d_Players) {
+            if(l_player.getPlayerName().equals(p_playerName))
+                return l_player;
         }
         return null;
     }

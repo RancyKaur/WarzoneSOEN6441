@@ -19,7 +19,10 @@ import org.junit.runners.Suite;
 		TestOrderAddition.class,
 		TestOrderRemoval.class,
 		TestBlockade.class,
-		TestCard.class
+		TestCard.class,
+		TestAirlift.class,
+		TestBomb.class,
+		TestDiplomacy.class
 })
 
 	/**

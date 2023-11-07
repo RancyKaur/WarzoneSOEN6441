@@ -11,7 +11,7 @@ public class Negotiate implements Order{
     private Player d_sourcePlayer, d_targetPlayer;
     /**
      * Constructor that initializes class variable.
-     * @param p_currentPlayer sorce player giving order
+     * @param p_currentPlayer source player giving order
      * @param p_targetPlayer target player
      */
     public Negotiate(Player p_currentPlayer,Player p_targetPlayer){

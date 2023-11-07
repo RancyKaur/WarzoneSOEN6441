@@ -1,6 +1,0 @@
-
-In PreLoad Phase:
-loadmap Command is being executed
-Command given by user:loadmap new.map
-new.map Map is valid. Add players -> 
-In StartUp Phase:

@@ -12,13 +12,7 @@ public class Player {
     private HashMap<String, Continent> d_OwnedContinents;
     private HashMap<String, Country> d_OwnedCountries;
     private int d_OwnedArmies;
-
-
-
     private Order d_Order;
-
-
-
     private Queue<Order> d_OrderList;
     ArrayList<GameCard> d_CardDeck;
     public List<Player> d_NegotiateList;

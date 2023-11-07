@@ -26,7 +26,6 @@ public class GameEngine {
     public Phase d_Phase;
 
 
-
     public void setD_GamePhase(GamePhase d_GamePhase) {
         this.d_GamePhase = d_GamePhase;
     }

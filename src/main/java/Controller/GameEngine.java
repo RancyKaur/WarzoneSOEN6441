@@ -60,7 +60,7 @@ public class GameEngine {
     }
 
     /**
-     * Checks if passed string just has alphbets
+     * Checks if passed string just has alphabets
      *
      * @param p_string
      * @return true if string has all alphabets or false
@@ -552,58 +552,61 @@ public class GameEngine {
                     case "bomb":
                         System.out.println(l_commandName + " command entered");
                         try {
-                            if (!(l_param[1] == null)) {
-                                if (this.isAlphabetic(l_param[1])) {
-                                    setPhase(new IssueOrderPhase(this));
-                                    l_countryId = l_param[1];
-                                    boolean l_checkOwnedCountry = p_player.getOwnedCountries()
-                                            .containsKey(l_countryId.toLowerCase());
-                                    boolean checkCard = p_player.checkCardExists("Bomb");
-                                    if (l_checkOwnedCountry && checkCard) {
-                                        // Create a Bomb order
-                                        Bomb bombOrder = new Bomb(p_player, l_countryId);
+                            if (l_param.length == 2 && this.isAlphabetic(l_param[1])) {
+                                setPhase(new IssueOrderPhase(this));
+                                String countryId = l_param[1];
 
-                                        // Add the Bomb order to the current player's order list
-                                        p_player.addOrder(bombOrder);
+                                // Get the target player from your game logic; replace "fetchTargetPlayer" with the appropriate method
+                                Player targetPlayer = fetchTargetPlayer(p_player);
 
-                                        //p_player.issue_order();
-                                        d_Phase.issue_order(p_player);
+                                boolean sourceCountryOwned = p_player.getOwnedCountries().containsKey(countryId.toLowerCase());
+                                boolean checkCard = p_player.checkCardExists("Bomb");
 
-                                        System.out.println("For player " + p_player.getPlayerName()
-                                                + " Bomb order added to Players OrdersList: " + l_param[0] + "  "
-                                                + l_param[1]);
-                                        d_LogEntry.setMessage("For player " + p_player.getPlayerName()
-                                                + " Bomb order added to Players OrdersList: " + l_param[0] + "  "
-                                                + l_param[1]);
-                                        p_player.removeCard("Bomb");
-                                        System.out.println("Bomb card used hence it is now removed from Player's cardList ");
-                                        d_LogEntry.setMessage("Bomb card used hence it is now removed from Player's cardList ");
-                                    } else {
-                                        System.out.println(
-                                                "Bomb Card not owned or Country not owned by current player | please pass to next player");
-                                        d_LogEntry.setMessage(
-                                                "Bomb Card not owned or Country not owned by the current player | please pass to the next player");
-                                    }
-                                    this.d_GamePhase = GamePhase.TAKETURN;
-                                    break;
+                                if (sourceCountryOwned && checkCard) {
+                                    // Create a Bomb order
+                                    Bomb bombOrder = new Bomb(p_player, targetPlayer, countryId);
+
+                                    // Add the Bomb order to the current player's order list
+                                    p_player.addOrder(bombOrder);
+
+                                    // Issue the order (p_player.issue_order() or d_Phase.issue_order(p_player))
+                                    // ...
+
+                                    System.out.println("For player " + p_player.getPlayerName()
+                                            + " Bomb order added to Players OrdersList: " + l_param[0] + "  "
+                                            + l_param[1]);
+                                    d_LogEntry.setMessage("For player " + p_player.getPlayerName()
+                                            + " Bomb order added to Players OrdersList: " + l_param[0] + "  "
+                                            + l_param[1]);
+                                    p_player.removeCard("Bomb");
+                                    System.out.println("Bomb card used, hence it is now removed from Player's cardList");
+                                    d_LogEntry.setMessage("Bomb card used, hence it is now removed from Player's cardList");
+                                } else {
+                                    System.out.println(
+                                            "Bomb Card not owned or Country not owned by current player | please pass to the next player");
+                                    d_LogEntry.setMessage(
+                                            "Bomb Card not owned or Country not owned by the current player | please pass to the next player");
                                 }
+                                this.d_GamePhase = GamePhase.TAKETURN;
+                                break;
                             } else {
                                 System.out.println("Invalid Command");
                             }
                         } catch (Exception e) {
                             System.out.println(
-                                    "Bomb Card is not Owned or Country not owned by current player | please pass to next player");
+                                    "Bomb Card is not Owned or Country not owned by the current player | please pass to the next player");
                             d_LogEntry.setMessage(
-                                    "Bomb Card is not Owned or Country not owned by current player | please pass to the next player");
+                                    "Bomb Card is not Owned or Country not owned by the current player | please pass to the next player");
                         }
                         break;
+
 
 
                     case "airlift":
                         System.out.println(l_commandName + " command entered");
                         try {
                             if (!(l_param[1] == null) && !(l_param[2] == null) && !(l_param[3] == null)) {
-                                if (this.isAlphabetic(l_param[1]) && this.isNumeric(l_param[2]) && this.isNumeric(l_param[3])) {
+                                if (this.isAlphabetic(l_param[1]) && this.isNumeric(l_param[2]) && this.isAlphabetic(l_param[3])) {
                                     setPhase(new IssueOrderPhase(this));
                                     String sourceCountryId = l_param[1];
                                     int numArmiesToAirlift = Integer.parseInt(l_param[2]);
@@ -617,7 +620,7 @@ public class GameEngine {
 
                                     if (sourceCountryOwned && targetCountryOwned && checkCard) {
                                         // Create an Airlift order
-                                        Airlift airliftOrder = new Airlift(p_player, sourceCountryId, numArmiesToAirlift, targetCountryId);
+                                        Airlift airliftOrder = new Airlift(p_player, sourceCountryId, targetCountryId, numArmiesToAirlift);
 
                                         // Add the Airlift order to the current player's order list
                                         p_player.addOrder(airliftOrder);
@@ -654,6 +657,7 @@ public class GameEngine {
                         }
                         break;
 
+
                     case "blockade":
                         System.out.println(l_commandName + " command entered");
                         try {
@@ -681,7 +685,7 @@ public class GameEngine {
                                         System.out.println(
                                                 "Blockade Card not owned or Country not owned by current player | please pass to next player");
                                         d_LogEntry.setMessage(
-                                                "Blockade Card not qwned or Country not owned by current player | please pass to next player");
+                                                "Blockade Card not owned or Country not owned by current player | please pass to next player");
                                     }
                                     this.d_GamePhase = GamePhase.TAKETURN;
                                     break;
@@ -862,5 +866,16 @@ public class GameEngine {
                 return l_player;
         }
         return null;
+    }
+
+    private Player fetchTargetPlayer(Player currentPlayer) {
+        // Replace this logic with your actual implementation
+        for (Player player : d_Players) {
+            if (!player.getPlayerName().equals(currentPlayer.getPlayerName())) {
+                // Return the first player that is not the current player as the target player
+                return player;
+            }
+        }
+        return null; // Return null if no suitable target player is found
     }
 }

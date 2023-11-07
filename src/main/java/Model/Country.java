@@ -13,8 +13,7 @@ public class Country {
     private HashMap<String, Country> d_neighbourCountries;
     private int d_countryIndex;
     private int d_armiesAllocated;
-    CountryDetails cd;
-
+    
     /**
      * Empty default constructor
      */
@@ -46,7 +45,7 @@ public class Country {
      */
     public Country(String p_index, String p_countryName, String p_unique_continentID, WargameMap p_map) {
         this.d_countryIndex = Integer.parseInt(p_index);
-        this.d_countryName = p_countryName;
+        this.d_countryName = p_countryName.toLowerCase();
         for (Continent c : p_map.getContinents().values()) {
             if (c.getIndexOfContinent() == Integer.parseInt(p_unique_continentID)) {
                 this.d_ContinentName = c.getContinentName();
@@ -110,7 +109,7 @@ public class Country {
         this.d_armiesAllocated = p_numberOfArmies;
     }
 
-    public String getCountryId() {
-        return cd.getCountryId();
-    }
+    // public String getCountryId() {
+    //     return this.getCountryId();
+    // }
 }

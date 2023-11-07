@@ -17,6 +17,8 @@ public class Player {
     ArrayList<GameCard> d_CardDeck;
     public List<Player> d_NegotiateList;
 
+
+
     /**
      * This constructor assigns a name to the player.
      *
@@ -30,6 +32,14 @@ public class Player {
         d_OrderList = new ArrayDeque<Order>();
         d_CardDeck = new ArrayList<>();
         d_NegotiateList = new ArrayList<>(); // Initialize the negotiation list
+    }
+
+    /**
+     * this is the getter method for getting the order.
+     * @return d_Order
+     */
+    public Order getD_Order() {
+        return d_Order;
     }
 
     public void printOwnedCountries() {
@@ -161,6 +171,9 @@ public class Player {
         d_NegotiateList.remove(player);
     }
 
+    public void removeAllNegotiators() {
+        d_NegotiateList.clear();
+    }
     /**
      * Method to assign a random card to the player once they have won any territory.
      */

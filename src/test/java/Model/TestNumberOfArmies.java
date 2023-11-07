@@ -1,6 +1,7 @@
 package Model;
 
 
+import Controller.GameEngine;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,11 +20,11 @@ public class TestNumberOfArmies {
     Player d_Player2;
     WargameMap d_Map;
     ArrayList<Player> d_Players;
-    GameStartPhase d_StartPhase;
+    StartUp d_StartPhase;
     GamePhase d_GamePhase;
     EngineCommand d_Engine;
     ReinforcePlayers d_Arfc;
-
+    GameEngine d_Ge;
     /**
      * initial setup
      */
@@ -47,7 +48,8 @@ public class TestNumberOfArmies {
     @Test
     public void testAssignReinforcements() {
         d_Engine = new EngineCommand();
-        d_StartPhase = new GameStartPhase();
+        d_Ge = new GameEngine();
+        d_StartPhase = new StartUp(d_Ge);
         d_Map = d_Engine.loadMap("world.map");
         boolean l_check = d_StartPhase.assignCountries(d_Map, d_Players);
         System.out.println(d_Player1.getOwnedCountries());

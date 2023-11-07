@@ -13,7 +13,7 @@ public class LogEntry extends Observable {
      * Stores the map being edited or the map being played on depending on the
      * player's choice.
      */
-    private Map d_Map;
+    private WargameMap d_Map;
 
     /**
      * Stores the current phase of the game.
@@ -49,7 +49,7 @@ public class LogEntry extends Observable {
      * Constructor to initialize the LogEntry.
      */
     public LogEntry() {
-        d_Map = new Map();
+        d_Map = new WargameMap();
         d_Players = new ArrayList<Player>();
         d_ActivePlayer = null;
         d_GamePhase = null;
@@ -63,7 +63,7 @@ public class LogEntry extends Observable {
      * 
      * @return returns the map being edited or played on.
      */
-    public Map getMap() {
+    public WargameMap getMap() {
         return this.d_Map;
     }
 
@@ -72,7 +72,7 @@ public class LogEntry extends Observable {
      * 
      * @param p_map map to set as the game map.
      */
-    public void setMap(Map p_map) {
+    public void setMap(WargameMap p_map) {
         this.d_Map = p_map;
     }
 

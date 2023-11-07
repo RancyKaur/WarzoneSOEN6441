@@ -18,24 +18,24 @@ public class TestAirlift {
     Player d_Player2;
     WargameMap d_Map;
     ArrayList<Player> d_Players;
-    GameStartPhase d_Stup;
+    StartUp  d_Stup;
     GamePhase d_GamePhase;
     GameEngine d_Ge;
     EngineCommand d_Rge;
     String d_SourceCountryId = null;
     String d_TargetCountryId = null;
     boolean l_checkOwnedCountry;
-    int d_NumberOfArmies = 4;
+    int d_NumberOfArmies = 3;
     /**
      * initial setup
      */
     @Before
     public void before() {
-        d_Player1 = new Player( "jungkook");
-        d_Player2 = new Player("janu");
-        d_Map = new WargameMap("alekmap.map");
-        d_SourceCountryId = "pero";
-        d_TargetCountryId = "egypt";
+        d_Player1 = new Player( "Alekhya");
+        d_Player2 = new Player("Janu");
+        d_Map = new WargameMap("Alekhya.map");
+        d_SourceCountryId = "southamerica";
+        d_TargetCountryId = "france";
         d_Rge = new  EngineCommand();
         d_Players = new ArrayList<Player>();
         d_Players.add(d_Player1);
@@ -54,12 +54,13 @@ public class TestAirlift {
     @Test
     public void testAirliftEffect() {
         d_Ge = new GameEngine();
-        d_Stup = new GameStartPhase();
-        d_Map = d_Rge.loadMap("alekmap.map");
+        d_Stup = new  StartUp(d_Ge);
+        d_Map = d_Rge.loadMap("Alekhya.map");;
         d_Stup.assignCountries(d_Map, d_Players);
         ReinforcePlayers.assignReinforcementArmies(d_Player1);
 
         //performed checks for owned country and allowed army units.
+
         boolean l_checkOwnedCountry = d_Player1.getOwnedCountries().containsKey(d_SourceCountryId);
         boolean l_checkArmies = (d_Player1.getOwnedArmies() >= d_NumberOfArmies);
         //System.out.println("Countries assigned to "+d_Player1.getPlayerName()+" : "+d_Player1.getOwnedCountries());
@@ -81,6 +82,7 @@ public class TestAirlift {
         Country l_c= d_Player1.getOwnedCountries().get(d_SourceCountryId.toLowerCase());
         //Check if deployed
         System.out.println(l_c.getNumberOfArmies());
+
         boolean l_checkTargetOwnedCountry = d_Player1.getOwnedCountries().containsKey(d_TargetCountryId.toLowerCase());
         int l_existingArmies = l_c.getNumberOfArmies();
         boolean l_checkArmiesD = (l_existingArmies >= d_NumberOfArmies);
@@ -91,6 +93,8 @@ public class TestAirlift {
             d_Player1.addOrder(d_AOrder);
             d_Player1.issue_order();
             d_Player1.removeCard("Airlift");
+        }else {
+            System.out.println("HHH");
         }
 
         Order l_toRemoveB = d_Player1.next_order();
@@ -99,7 +103,7 @@ public class TestAirlift {
         Country l_cB= d_Player1.getOwnedCountries().get(d_TargetCountryId.toLowerCase());
         //Check if airlifted to target
         System.out.println(l_cB.getNumberOfArmies());
-        assertEquals(4 ,l_cB.getNumberOfArmies());
+        assertEquals(3 ,l_cB.getNumberOfArmies());
     }
 
 }

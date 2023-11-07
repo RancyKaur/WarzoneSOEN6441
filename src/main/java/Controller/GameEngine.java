@@ -549,6 +549,111 @@ public class GameEngine {
                         exit(0);
                     }
 
+                    case "bomb":
+                        System.out.println(l_commandName + " command entered");
+                        try {
+                            if (!(l_param[1] == null)) {
+                                if (this.isAlphabetic(l_param[1])) {
+                                    setPhase(new IssueOrderPhase(this));
+                                    l_countryId = l_param[1];
+                                    boolean l_checkOwnedCountry = p_player.getOwnedCountries()
+                                            .containsKey(l_countryId.toLowerCase());
+                                    boolean checkCard = p_player.checkCardExists("Bomb");
+                                    if (l_checkOwnedCountry && checkCard) {
+                                        // Create a Bomb order
+                                        Bomb bombOrder = new Bomb(p_player, l_countryId);
+
+                                        // Add the Bomb order to the current player's order list
+                                        p_player.addOrder(bombOrder);
+
+                                        //p_player.issue_order();
+                                        d_Phase.issue_order(p_player);
+
+                                        System.out.println("For player " + p_player.getPlayerName()
+                                                + " Bomb order added to Players OrdersList: " + l_param[0] + "  "
+                                                + l_param[1]);
+                                        d_LogEntry.setMessage("For player " + p_player.getPlayerName()
+                                                + " Bomb order added to Players OrdersList: " + l_param[0] + "  "
+                                                + l_param[1]);
+                                        p_player.removeCard("Bomb");
+                                        System.out.println("Bomb card used hence it is now removed from Player's cardList ");
+                                        d_LogEntry.setMessage("Bomb card used hence it is now removed from Player's cardList ");
+                                    } else {
+                                        System.out.println(
+                                                "Bomb Card not owned or Country not owned by current player | please pass to next player");
+                                        d_LogEntry.setMessage(
+                                                "Bomb Card not owned or Country not owned by the current player | please pass to the next player");
+                                    }
+                                    this.d_GamePhase = GamePhase.TAKETURN;
+                                    break;
+                                }
+                            } else {
+                                System.out.println("Invalid Command");
+                            }
+                        } catch (Exception e) {
+                            System.out.println(
+                                    "Bomb Card is not Owned or Country not owned by current player | please pass to next player");
+                            d_LogEntry.setMessage(
+                                    "Bomb Card is not Owned or Country not owned by current player | please pass to the next player");
+                        }
+                        break;
+
+
+                    case "airlift":
+                        System.out.println(l_commandName + " command entered");
+                        try {
+                            if (!(l_param[1] == null) && !(l_param[2] == null) && !(l_param[3] == null)) {
+                                if (this.isAlphabetic(l_param[1]) && this.isNumeric(l_param[2]) && this.isNumeric(l_param[3])) {
+                                    setPhase(new IssueOrderPhase(this));
+                                    String sourceCountryId = l_param[1];
+                                    int numArmiesToAirlift = Integer.parseInt(l_param[2]);
+                                    String targetCountryId = l_param[3];
+
+                                    boolean sourceCountryOwned = p_player.getOwnedCountries()
+                                            .containsKey(sourceCountryId.toLowerCase());
+                                    boolean targetCountryOwned = p_player.getOwnedCountries()
+                                            .containsKey(targetCountryId.toLowerCase());
+                                    boolean checkCard = p_player.checkCardExists("Airlift");
+
+                                    if (sourceCountryOwned && targetCountryOwned && checkCard) {
+                                        // Create an Airlift order
+                                        Airlift airliftOrder = new Airlift(p_player, sourceCountryId, numArmiesToAirlift, targetCountryId);
+
+                                        // Add the Airlift order to the current player's order list
+                                        p_player.addOrder(airliftOrder);
+
+                                        //p_player.issue_order();
+                                        d_Phase.issue_order(p_player);
+
+                                        System.out.println("For player " + p_player.getPlayerName()
+                                                + " Airlift order added to Players OrdersList: " + l_param[0] + "  "
+                                                + l_param[1] + " " + l_param[2] + " " + l_param[3]);
+                                        d_LogEntry.setMessage("For player " + p_player.getPlayerName()
+                                                + " Airlift order added to Players OrdersList: " + l_param[0] + "  "
+                                                + l_param[1] + " " + l_param[2] + " " + l_param[3]);
+                                        p_player.removeCard("Airlift");
+                                        System.out.println("Airlift card used hence it is now removed from Player's cardList ");
+                                        d_LogEntry.setMessage("Airlift card used hence it is now removed from Player's cardList ");
+                                    } else {
+                                        System.out.println(
+                                                "Airlift Card not owned or Source/Target country not owned by current player | please pass to next player");
+                                        d_LogEntry.setMessage(
+                                                "Airlift Card not owned or Source/Target country not owned by current player | please pass to the next player");
+                                    }
+                                    this.d_GamePhase = GamePhase.TAKETURN;
+                                    break;
+                                }
+                            } else {
+                                System.out.println("Invalid Command");
+                            }
+                        } catch (Exception e) {
+                            System.out.println(
+                                    "Airlift Card is not Owned or Source/Target country not owned by current player | please pass to next player");
+                            d_LogEntry.setMessage(
+                                    "Airlift Card is not Owned or Source/Target country not owned by current player | please pass to the next player");
+                        }
+                        break;
+
                     case "blockade":
                         System.out.println(l_commandName + " command entered");
                         try {

@@ -1,6 +1,45 @@
 
 In PreLoad Phase:
 loadmap Command is being executed
-Command given by user:loadmap new.map
-new.map Map is valid. Add players -> 
+Command given by user:loadmap ronaktest.map
+ronaktest.map Map is valid. Add players -> 
 In StartUp Phase:
+gameplayer command entered
+gameplayer command entered
+Assigning Countries to players
+Country: china assigned to player: sk
+Country: russia assigned to player: sj
+Country: germany assigned to player: sk
+Country: india assigned to player: sj
+In MainPlay Phase:
+assigncountries command entered
+Countries allocated randomly amongst Players
+Assign reinforcement armies to player sk
+Assign reinforcement armies to player sj
+Entered Execute Orders Phase:
+Entered Execute Orders Phase:
+Orders in process of being executed for all players
+Total Orders in Queue are : 2
+Order executed for player: sk
+Order executed for player: sj
+Negotiations reset since turn has ended
+Negotiations reset since turn has ended
+All Orders executed!
+All orders for all players are executed, now assigning NEW Reinforcements!
+Reinforcements assigned! Players can start with deploying Orders again!
+Country not owned by player or insufficient Army units | please pass to next player
+advance command entered
+For player sk advance order added to Players OrdersList: advance  china india
+Country not owned by player or insufficient Army units | please pass to next player
+Entered Execute Orders Phase:
+Entered Execute Orders Phase:
+Orders in process of being executed for all players
+Total Orders in Queue are : 3
+Order executed for player: sk
+Order executed for player: sj
+Order executed for player: sk
+Negotiations reset since turn has ended
+Negotiations reset since turn has ended
+All Orders executed!
+All orders for all players are executed, now assigning NEW Reinforcements!
+Reinforcements assigned! Players can start with deploying Orders again!

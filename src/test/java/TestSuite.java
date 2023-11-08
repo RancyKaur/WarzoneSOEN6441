@@ -22,7 +22,20 @@ import org.junit.runners.Suite;
 		TestCard.class,
 		TestAirlift.class,
 		TestBomb.class,
-		TestDiplomacy.class
+		TestDiplomacy.class,
+		TestAdvanceOnly.class,
+		TestAdvanceWithAttack.class,
+		TestCardRemoval.class,
+		TestDisconnectedContinent.class,
+		TestGameWin.class,
+		TestIsCountryAdjacent.class,
+		TestIssueOrderPhase.class,
+		TestNotANeighbour.class,
+		TestNeutralCountry.class,
+		TestObserverPattern.class,
+		TestPlayerRemoved.class,
+		TestRemoveContinent.class,
+		TestStatePattern.class
 })
 
 	/**

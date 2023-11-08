@@ -1,0 +1,17 @@
+map:Alekhya.map
+
+[Continents]
+1 Europe 1
+2 America 2
+
+[Countries]
+4 Southamerica 2
+1 Germany 1
+2 France 1
+3 Northamerica 2
+
+[Borders]
+4 1 3
+1 4 2
+2 1
+3 4

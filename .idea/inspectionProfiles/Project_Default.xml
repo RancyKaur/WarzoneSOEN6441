@@ -33,6 +33,7 @@
         <set>
           <option value="java.util.ArrayList" />
           <option value="java.util.HashMap" />
+          <option value="java.util.Queue" />
         </set>
       </option>
     </inspection_tool>

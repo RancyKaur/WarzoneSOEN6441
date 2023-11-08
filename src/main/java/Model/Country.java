@@ -45,7 +45,7 @@ public class Country {
      */
     public Country(String p_index, String p_countryName, String p_unique_continentID, WargameMap p_map) {
         this.d_countryIndex = Integer.parseInt(p_index);
-        this.d_countryName = p_countryName;
+        this.d_countryName = p_countryName.toLowerCase();
         for (Continent c : p_map.getContinents().values()) {
             if (c.getIndexOfContinent() == Integer.parseInt(p_unique_continentID)) {
                 this.d_ContinentName = c.getContinentName();

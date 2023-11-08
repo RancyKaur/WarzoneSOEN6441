@@ -18,9 +18,7 @@ import java.util.Scanner;
 public class GamePlay {
 
     Scanner d_inp = new Scanner(System.in);
-
     private static GamePlay l_game;
-
     static {
         l_game = new GamePlay();
     }
@@ -44,7 +42,8 @@ public class GamePlay {
      */
     private void enterGamePhases() {
         GameEngine l_cmd = new GameEngine();
-        String l_command = GetCommands.validateCommand(l_cmd.getD_phase());
+        String l_command = GetCommands.validateCommand(l_cmd.d_GamePhase);
+
 
         GamePhase l_phase = l_cmd.parseCommand(null, l_command);
         l_phase = handleStartPhase(l_phase, l_cmd, l_command);
@@ -115,9 +114,11 @@ public class GamePlay {
                 }
                 System.out.println();
                 System.out.println("It's " + l_p.getPlayerName() + "'s turn");
+                //show the list of cards that play holds currently
+                System.out.println();
                 //listen to orders from players - deploy | pass
                 l_phase = GamePhase.ISSUEORDER;
-                l_cmd.setD_phase(l_phase);
+                l_cmd.setD_GamePhase(l_phase);
                 System.out.println("Player " + l_p.getPlayerName() + " can provide next game command");
                 while (l_phase != GamePhase.TAKETURN) {
                     if (!l_p.getCardDeck().isEmpty()) {
@@ -130,14 +131,14 @@ public class GamePlay {
                 l_traversalCounter++;
             }
             l_phase = GamePhase.ISSUEORDER;
-            l_cmd.setD_phase(l_phase);
+            l_cmd.setD_GamePhase(l_phase);
             l_traversalCounter = 0;
         }
     }
 
     public GamePhase handleStartPhase(GamePhase p_phase, GameEngine p_cmd, String p_command) {
         while (p_phase != GamePhase.ENDGAME && p_phase != GamePhase.ISSUEORDER) {
-            p_command = GetCommands.validateCommand(p_cmd.getD_phase());
+            p_command = GetCommands.validateCommand(p_cmd.d_GamePhase);
             p_phase = p_cmd.parseCommand(null, p_command);
             System.out.println("Waiting for next command...");
         }

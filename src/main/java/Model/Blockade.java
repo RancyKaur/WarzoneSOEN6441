@@ -2,6 +2,9 @@ package Model;
 
 /**
  * Class containing logic for implementation of Blockade order
+ * Blockade cards change one of your territories to a neutral and multiply the number of armies on that territory by 3 times.
+ * They're useful for creating a defensive blockade, among other uses.
+ *
  * @author Alekhya K
  *
  */
@@ -16,7 +19,7 @@ public class Blockade implements Order{
      */
     public Blockade(Player p_player,String p_countryId) {
         d_Player = p_player;
-        d_CountryId = p_countryId;
+        d_CountryId = p_countryId.toLowerCase();
     }
 
     /**

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import Controller.GameEngine;
 
 /**
+ * This is the State interface that contains the methods that will change their behaviour depending on the type of the
+ * state it is in.
  * It maintains the current phase of the game.
  */
 public abstract class Phase {
@@ -52,7 +54,7 @@ public abstract class Phase {
      * @param p_data it is array of strings passed as command
      * @param p_mapName name of the map
      */
-    abstract public void savemap(String[] p_data, String p_mapName) ;
+    abstract public void saveMap(String[] p_data, String p_mapName) ;
 
     /**
      * Method to edit neighbors
@@ -110,5 +112,12 @@ public abstract class Phase {
     public void printInvalidCommandMessage(){
         System.out.println("Invalid command in "+getD_PhaseName()+" state " );
     }
+
+    /**
+     * method to issue order for each player.
+     */
+    public abstract void issue_order(Player p_player);
+
+
 }
 

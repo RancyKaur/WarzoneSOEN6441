@@ -26,7 +26,10 @@ import org.junit.runners.Suite;
 		TestAdvanceOnly.class,
 		TestAdvanceWithAttack.class,
 		TestCardRemoval.class,
-		TestDisconnectedContinent.class
+		TestDisconnectedContinent.class,
+		TestGameWin.class,
+		TestIsCountryAdjacent.class,
+		TestIssueOrderPhase.class
 })
 
 	/**

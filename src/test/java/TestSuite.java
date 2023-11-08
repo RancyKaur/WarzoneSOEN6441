@@ -22,7 +22,9 @@ import org.junit.runners.Suite;
 		TestCard.class,
 		TestAirlift.class,
 		TestBomb.class,
-		TestDiplomacy.class
+		TestDiplomacy.class,
+		TestAdvanceOnly.class,
+		TestAdvanceWithAttack.class
 })
 
 	/**

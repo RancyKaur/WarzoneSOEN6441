@@ -12,7 +12,6 @@ import java.util.Queue;
 import static org.junit.Assert.assertEquals;
 /**
  * Test blockade operation for a specific player in Game
- * @author Rahul
  */
 public class TestBlockade{
     Order d_DOrder;

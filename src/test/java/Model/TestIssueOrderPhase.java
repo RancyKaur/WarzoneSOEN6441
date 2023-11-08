@@ -10,6 +10,9 @@ import org.junit.Test;
 
 import Controller.GameEngine;
 
+/**
+ * Test Issue Order phase under State Pattern
+ */
 public class TestIssueOrderPhase {
 
     public GameEngine d_Ge;
@@ -35,9 +38,7 @@ public class TestIssueOrderPhase {
         d_Players = new ArrayList<Player>();
         d_Map = new WargameMap("test2.map");
     }
-    /**
-     * Test Issue Order phase under State Pattern
-     */
+
     @Test
     public void testIssueOrder(){
         //adds an order

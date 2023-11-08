@@ -10,6 +10,9 @@ import java.util.Queue;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Test AirLift operation for a specific player in Game
+ */
 public class TestAirlift {
     Order d_DOrder;
     Order d_AOrder;

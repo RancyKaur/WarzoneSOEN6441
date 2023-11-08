@@ -6,6 +6,9 @@ import View.GameMapView;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Class containing logic for implementation of StartUp that is implementation of State Pattern
+ */
 public class StartUp extends Play {
 
     /**

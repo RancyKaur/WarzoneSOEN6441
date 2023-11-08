@@ -5,6 +5,9 @@ import View.GameMapView;
 
 import java.util.ArrayList;
 
+/**
+ * Class containing logic for implementation of IssueOrder Phase
+ */
 public class IssueOrderPhase extends Play{
 
 

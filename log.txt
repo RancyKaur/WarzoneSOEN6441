@@ -1,2 +1,6 @@
 
-Invalid command in phase IssueOrderPhase
+Assigning Countries to players
+Country: germany assigned to player: Vignesh
+Country: iran assigned to player: Rancy
+Country: pak assigned to player: Vignesh
+Country: india assigned to player: Rancy

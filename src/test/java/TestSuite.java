@@ -29,7 +29,9 @@ import org.junit.runners.Suite;
 		TestDisconnectedContinent.class,
 		TestGameWin.class,
 		TestIsCountryAdjacent.class,
-		TestIssueOrderPhase.class
+		TestIssueOrderPhase.class,
+		TestNotANeighbour.class,
+		TestNeutralCountry.class
 })
 
 	/**

@@ -33,7 +33,9 @@ import org.junit.runners.Suite;
 		TestNotANeighbour.class,
 		TestNeutralCountry.class,
 		TestObserverPattern.class,
-		TestPlayerRemoved.class
+		TestPlayerRemoved.class,
+		TestRemoveContinent.class,
+		TestStatePattern.class
 })
 
 	/**

@@ -1,6 +1,5 @@
 
-Assigning Countries to players
-Country: germany assigned to player: Player1
-Country: iran assigned to player: Player2
-Country: pak assigned to player: Player1
-Country: india assigned to player: Player2
+Command given by user:edit test2.map
+Start editing test2.map
+In PreLoad Phase:
+Invalid command in phase PreLoad

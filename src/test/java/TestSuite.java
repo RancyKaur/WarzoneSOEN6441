@@ -24,7 +24,9 @@ import org.junit.runners.Suite;
 		TestBomb.class,
 		TestDiplomacy.class,
 		TestAdvanceOnly.class,
-		TestAdvanceWithAttack.class
+		TestAdvanceWithAttack.class,
+		TestCardRemoval.class,
+		TestDisconnectedContinent.class
 })
 
 	/**

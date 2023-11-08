@@ -1,0 +1,16 @@
+name DisconnectedMap.map Map
+
+[files]
+
+[continents]
+North-America 9 100
+Asia 9 100
+
+[countries]
+1 China 2 0 0
+2 Canada 1 0 0
+3 India 2 0 0
+
+[borders]
+2 3
+3 2

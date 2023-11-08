@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * Class containing logic for implementation of BOMB order
+ */
 public class Bomb implements Order {
     private Player sourcePlayer;
     private Player targetPlayer;

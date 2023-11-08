@@ -56,7 +56,7 @@ public class TestBomb{
     /**
      * Player 1 deploys specific army units
      * Player 2 bombs the territory where the armies wee deployed by Player 1
-     * @Author Alekhya
+     * @author Alekhya
      */
     @Test
     public void testBombEffect() {

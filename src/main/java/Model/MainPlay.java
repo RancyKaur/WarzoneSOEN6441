@@ -6,6 +6,9 @@ import View.GameMapView;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Class containing logic for implementation of MainPlay that is implementation of State Pattern
+ */
 public class MainPlay extends Play{
     /**
      * Reference to GameMapView for map printing

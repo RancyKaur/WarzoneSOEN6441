@@ -45,8 +45,8 @@ public class GameCard {
      */
     public void createGameCard()
     {
-        //d_CardName = generateRandomCard();
-        d_CardName="Blockade";
+        d_CardName = generateRandomCard();
+        //d_CardName="Diplomacy";
     }
 
     /**

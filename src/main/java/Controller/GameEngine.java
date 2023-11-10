@@ -558,18 +558,19 @@ public class GameEngine {
                                 // Get the target player from your game logic; replace "fetchTargetPlayer" with the appropriate method
                                 Player targetPlayer = fetchTargetPlayer(p_player);
 
-                                boolean sourceCountryOwned = p_player.getOwnedCountries().containsKey(countryId.toLowerCase());
+                                boolean targetCountryOwned = targetPlayer.getOwnedCountries().containsKey(countryId.toLowerCase());
                                 boolean checkCard = p_player.checkCardExists("Bomb");
 
-                                if (sourceCountryOwned && checkCard) {
+                                if (targetCountryOwned && checkCard) {
                                     // Create a Bomb order
                                     Bomb bombOrder = new Bomb(p_player, targetPlayer, countryId);
 
                                     // Add the Bomb order to the current player's order list
                                     p_player.addOrder(bombOrder);
 
-                                    // Issue the order (p_player.issue_order() or d_Phase.issue_order(p_player))
-                                    // ...
+                                    // Issue the order (p_player.issue_order() or
+                                    d_Phase.issue_order(p_player);
+
 
                                     System.out.println("For player " + p_player.getPlayerName()
                                             + " Bomb order added to Players OrdersList: " + l_param[0] + "  "
@@ -605,11 +606,11 @@ public class GameEngine {
                         System.out.println(l_commandName + " command entered");
                         try {
                             if (!(l_param[1] == null) && !(l_param[2] == null) && !(l_param[3] == null)) {
-                                if (this.isAlphabetic(l_param[1]) && this.isNumeric(l_param[2]) && this.isAlphabetic(l_param[3])) {
+                                if (this.isAlphabetic(l_param[1]) && this.isNumeric(l_param[3]) && this.isAlphabetic(l_param[2])) {
                                     setPhase(new IssueOrderPhase(this));
                                     String sourceCountryId = l_param[1];
-                                    int numArmiesToAirlift = Integer.parseInt(l_param[2]);
-                                    String targetCountryId = l_param[3];
+                                    int numArmiesToAirlift = Integer.parseInt(l_param[3]);
+                                    String targetCountryId = l_param[2];
 
                                     boolean sourceCountryOwned = p_player.getOwnedCountries()
                                             .containsKey(sourceCountryId.toLowerCase());
@@ -708,13 +709,15 @@ public class GameEngine {
                         try {
                             if (!(l_data[1] == null)){
                                 if (this.isAlphabetic(l_data[1])) {
+                                    setPhase(new IssueOrderPhase(this));
                                     Player l_NegPlayer = fetchPlayerByName(l_data[1]);
                                     boolean checkCard = p_player.checkCardExists("Diplomacy");
                                     if(checkCard){
                                         p_player.addOrder(new Negotiate(p_player, l_NegPlayer));
-                                        p_player.issue_order();
-                                        System.out.println("For player " + p_player.getPlayerName()+" Diplomacy order added to Players OrdersList: "+l_data[0]+"  "+l_data[1]+" "+l_data[2]+" "+l_data[3]);
-                                        d_LogEntry.setMessage("For player " + p_player.getPlayerName()+" Diplomacy order added to Players OrdersList: "+l_data[0]+"  "+l_data[1]+" "+l_data[2]+" "+l_data[3]);
+                                        //p_player.issue_order();
+                                        d_Phase.issue_order(p_player);
+                                        System.out.println("For player " + p_player.getPlayerName()+" Diplomacy order added to Players OrdersList: "+l_data[0]+"  "+l_data[1]);
+                                        d_LogEntry.setMessage("For player " + p_player.getPlayerName()+" Diplomacy order added to Players OrdersList: "+l_data[0]+"  "+l_data[1]);
                                         p_player.removeCard("Diplomacy");
                                         d_LogEntry.setMessage("Diplomacy card used hence it is now removed from Player's cardList ");
                                     }

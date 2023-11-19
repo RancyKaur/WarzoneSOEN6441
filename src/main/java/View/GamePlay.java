@@ -101,6 +101,12 @@ public class GamePlay {
         System.out.println("Enter 'showmap' to see country assignments given to each player");
     }
 
+    /**
+     * This method is used when multiple players play to take turn
+     * @param l_cmd
+     * @param l_phase
+     * @param l_command
+     */
     public void takeOrders(GameEngine l_cmd, GamePhase l_phase, String l_command) {
         int l_numberOfPlayers = l_cmd.d_Players.size();
         int l_traversalCounter = 0;

@@ -1,5 +1,12 @@
 
-Command given by user:edit test2.map
-Start editing test2.map
 In PreLoad Phase:
-Invalid command in phase PreLoad
+editmap Command is being executed
+Command given by user:editmap Aus.map
+Start editing Aus.map
+showmap command entered
+savemap command entered
+loadmap Command is being executed
+Command given by user:loadmap Aus.map
+Aus.map Map is valid. Add players -> 
+In StartUp Phase:
+showmap is executed

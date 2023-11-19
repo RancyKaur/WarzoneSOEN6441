@@ -1,0 +1,105 @@
+map:Aus.map
+
+[Continents]
+1 South australia 4
+2 Victoria 3
+3 Northern territory 4
+4 Tasmania 2
+5 New south wales 3
+6 Queensland 3
+7 A.c.t. 1
+8 Western australia 4
+
+[Countries]
+3 Wyndham 1
+17 Bendigo 7
+25 Coober pedy 3
+44 Charleville 4
+7 Perth 1
+23 Adelaide 3
+11 Hobart 8
+14 Bourke 5
+20 Port pirie 3
+31 Tanami desert 2
+43 Toowoomba 4
+9 Albany 1
+6 Nullarbor plains 1
+29 Alice springs 2
+33 Borrdoola 2
+4 Great sandy desert 1
+34 Darwin 2
+42 Brisbane 4
+24 Port augusta 3
+18 Melbourne 7
+5 Gibson desert 1
+21 Lake frome 3
+16 Broken hill 5
+12 Devonport 8
+45 Birdsville 4
+39 Cape york 4
+22 Lake eyre 3
+37 Mt. isa 4
+13 Sydney 5
+30 Simpson desert 2
+40 Mackay 4
+36 Katherine 2
+15 Flinders ranges 5
+10 Canberra 6
+35 Kununurra 2
+38 Cairns 4
+41 Rockhampton 4
+46 Great artesian basin 4
+1 Carnarvon 1
+8 Kalgoorlie 1
+28 Macdonnell ranges 2
+27 Whyalla 3
+32 Tennant creek 2
+19 Geelong 7
+26 Great victorian desert 3
+
+[Borders]
+3 35 4
+17 13 16 20 18 19
+25 9 6 29 28 27 24 26
+44 43 15 46 45
+7 6 8 5
+23 21 12 20 24 27 22
+11 12 18
+14 43 13 15 10
+20 21 17 16 23 19
+31 30 36 35 29 4 28 32 5
+43 13 15 41 44 46 42 14
+9 25 6 8 24
+6 9 25 7 8 28 5 26
+29 30 25 28 27 31 22
+33 30 36 34 32 37
+4 3 35 1 5 31
+34 36 35 33
+42 43 13 41
+24 9 25 23 27
+18 13 17 11 19
+5 6 4 7 1 28 31
+21 15 16 23 45 20 22
+16 21 13 17 15 10 20
+12 23 11
+45 21 30 15 44 46 22 37
+39 38
+22 21 30 29 23 45 27
+37 30 38 33 46 45
+13 43 17 10 16 42 14 18
+30 29 33 45 32 31 22 37
+40 38 41 46
+36 35 33 34 32 31
+15 21 43 16 10 44 45 14
+10 13 15 16 14
+35 3 36 4 34 31
+38 40 46 39 37
+41 43 40 46 42
+46 43 40 38 41 44 45 37
+1 4 5
+8 9 6 7
+28 25 6 29 5 26 31
+27 25 29 23 24 22
+32 30 36 33 31
+19 17 20 18
+26 25 6 28

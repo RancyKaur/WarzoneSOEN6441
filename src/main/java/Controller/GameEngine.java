@@ -22,9 +22,12 @@ public class GameEngine {
     public LogWriter d_LogWriter;
     public GamePhase d_GamePhase;
 
-
+    public GameEngine d_GameEngine;
     public Phase d_Phase;
-
+    /**
+     * Holds the state of the game.
+     */
+    public GameState d_GameState;
 
     public void setD_GamePhase(GamePhase d_GamePhase) {
         this.d_GamePhase = d_GamePhase;
@@ -45,6 +48,7 @@ public class GameEngine {
         d_map = new WargameMap();
         d_LogEntry = new LogEntry();
         d_Players = new ArrayList<Player>();
+        d_GameState= new GameState();
         d_LogWriter = new LogWriter();
         d_LogEntry.attachObserver(d_LogWriter);
     }

@@ -1,5 +1,0 @@
-
-Command given by user:edit test2.map
-Start editing test2.map
-In PreLoad Phase:
-Invalid command in phase PreLoad

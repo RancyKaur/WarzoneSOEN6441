@@ -18,6 +18,9 @@ public class Player {
     public List<Player> d_NegotiateList;
 
 
+    private boolean d_isHuman;
+
+    private PlayStrategy d_Strategy;
 
     /**
      * This constructor assigns a name to the player.
@@ -245,4 +248,29 @@ public class Player {
     public ArrayList<GameCard> getCardDeck() {
         return d_CardDeck;
     }
+
+
+    /**
+     * Method to check if player is human or computer
+     * @return true is player is human otherwise false
+     */
+    public boolean get_isHuman() {
+        return d_isHuman;
+    }
+
+    /**
+     * Method to set player type, that is human or computer
+     * @param d_isHuman
+     */
+    public void set_isHuman(boolean d_isHuman) {
+        this.d_isHuman = d_isHuman;
+    }
+
+    /**
+     * Sets strategy for a specific player
+     * @param p_strategy strategy
+     */
+    public void setStrategy(PlayStrategy p_strategy) {
+        d_Strategy = p_strategy;
+    };
 }

@@ -1,6 +1,7 @@
 package View;
 
 import Controller.GameEngine;
+import Controller.TournamentEngine;
 import Model.GamePhase;
 import Model.GetCommands;
 import Model.Player;
@@ -24,6 +25,7 @@ public class GamePlay {
     }
 
     public static void main(String[] args) {
+        TournamentEngine tEngine;
         System.out.println("****************************************");
         System.out.println("Welcome to the WARZONE game");
         System.out.println("****************************************");
@@ -44,16 +46,10 @@ public class GamePlay {
         GameEngine l_cmd = new GameEngine();
         String l_command = GetCommands.validateCommand(l_cmd.d_GamePhase);
 
-
         GamePhase l_phase = l_cmd.parseCommand(null, l_command);
         l_phase = handleStartPhase(l_phase, l_cmd, l_command);
         l_game.assignEachPlayerReinforcements(l_cmd);
 
-//        Iterator<Player> l_itr = l_cmd.d_Players.listIterator();
-//        while (l_itr.hasNext()) {
-//            Player l_p = l_itr.next();
-//            System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmies() + " Armies currently left to be deployed!");
-//        }
         takeOrders(l_cmd, l_phase, l_command);
     }
 

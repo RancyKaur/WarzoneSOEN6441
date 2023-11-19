@@ -27,11 +27,18 @@ public enum GamePhase {
     STARTPLAY,
 
     /**
+     * Player assigns initial armies to the countries owned by him/her.
+     * Phase ends when all player's have assigned initial armies.
+     */
+    ASSIGN_REINFORCEMENTS,
+
+    /**
      * This phase starts when player executes 'deploy' command
      * That would add the orders to the order list until all reinforcement armies are deployed
      * It ends after all players have played their turn in round-robin
      */
     ISSUEORDER,
+
 
     EXECUTEORDER,
 

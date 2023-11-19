@@ -1,0 +1,12 @@
+
+In PreLoad Phase:
+editmap Command is being executed
+Command given by user:editmap Aus.map
+Start editing Aus.map
+showmap command entered
+savemap command entered
+loadmap Command is being executed
+Command given by user:loadmap Aus.map
+Aus.map Map is valid. Add players -> 
+In StartUp Phase:
+showmap is executed

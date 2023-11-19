@@ -1,0 +1,13 @@
+[Map]
+
+[Continents]
+asia=201
+europe=202
+
+[Territories]
+china,asia,russia,india
+russia,asia,china,france
+germany,europe,italy
+france,europe,russia,italy
+india,asia,china,italy
+italy,europe,germany,france,india

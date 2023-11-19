@@ -60,7 +60,7 @@ public class GameCard {
 
     /**
      * Getter method to return card name
-     * @return card's name
+     * @return card name
      */
     public String getCardName()
     {

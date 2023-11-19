@@ -30,7 +30,7 @@ public class Continent {
         //d_ContinentId = p_continentID;
         this.d_continentName = p_continentName.toLowerCase();
         d_continentControlValue = Integer.parseInt(p_continentID);
-        this.d_indexOfContinent = LoadGraph.d_indexInMap;
+        this.d_indexOfContinent = DominationTypeMap.d_indexOfContinent;
         this.d_listOfCountries = new HashMap<>();
     }
 

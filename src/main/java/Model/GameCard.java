@@ -1,10 +1,11 @@
 package Model;
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * This class is the entity class that represents "Card" that needs to be assigned to players once they conquer any country
  */
-public class GameCard {
+public class GameCard implements Serializable {
 
     /**
      * d_CardName is the name of the card that is assigned to player

@@ -15,7 +15,7 @@ public class StartUp extends Play {
      * Reference to GameMapView for map printing
      */
     GameMapView d_mapView;
-
+    String playerStrategy;
     /**
      * it is constructor to initialize values
      * @param p_gameEngineObj is the reference of gameEngine class
@@ -24,7 +24,7 @@ public class StartUp extends Play {
         d_Ge = p_gameEngineObj;
         d_PhaseName = "StartUp";
         d_mapView = new GameMapView();
-
+        playerStrategy = null;
     }
 
     /**
@@ -82,6 +82,7 @@ public class StartUp extends Play {
         for(Country l_c : p_map.getCountries().values()) {
             Player l_p = p_players.get(l_counter);
             l_p.getOwnedCountries().put(l_c.getCountryName().toLowerCase(), l_c);
+            l_c.setcountryOwnerPlayer(l_p);
             d_Ge.d_LogEntry.setMessage("Country: "+l_c.getCountryName().toLowerCase()+" assigned to player: "+l_p.getPlayerName());
             if(l_counter>=l_numberOfPlayers-1)
                 l_counter = 0;
@@ -107,45 +108,79 @@ public class StartUp extends Play {
 
         String l_playerName = null;
         try {
-            for (int i = 1; i < p_data.length - 1; i++) {
+            for (int i = 1; i < p_data.length; i++) {
                 if (p_data[i].equals("-add")) {
                     if (d_Ge.validatePlayerName(p_data[i + 1])) {
-                        l_playerName = p_data[i + 1];
-                        boolean l_check = addPlayer(p_players, l_playerName);
-                        if (l_check) {
-                            System.out.println("Player added!");
+                        p_playerName = p_data[i + 1];
+                        playerStrategy = p_data[i + 2];
+                        boolean l_check = addPlayer(p_players, p_playerName);
+                        if (l_check && d_Ge.isAlphabetic(p_data[i + 2])) {
+                            for (Player l_p : d_Ge.d_Players) {
+                                if (l_p.getPlayerName().equals(p_playerName)) {
+                                    switch (playerStrategy) {
+                                        case "human":
+                                            l_p.set_isHuman(true);
+                                            break;
+                                        case "aggressive":
+                                            l_p.setStrategy(new AggressiveStrategy(l_p, d_Ge.d_map));
+                                            l_p.set_isHuman(false);
+                                            break;
+                                        case "benevolent":
+                                            l_p.setStrategy(new BenevolentStrategy(l_p, d_Ge.d_map));
+                                            l_p.set_isHuman(false);
+                                            break;
+                                        case "random":
+                                            l_p.setStrategy(new RandomStrategy(l_p, d_Ge.d_map));
+                                            l_p.set_isHuman(false);
+                                            break;
+                                        case "cheater":
+                                            l_p.setStrategy(new CheaterStrategy(l_p, d_Ge.d_map));
+                                            l_p.set_isHuman(false);
+                                            break;
+                                        default:
+                                            System.out.println("Wrong Strategy, Player set as human");
+                                            l_p.set_isHuman(true);
+                                            break;
+                                    }
+                                }
+                            }
+                            if (l_check) {
+                                System.out.println(p_playerName+" added! with strategy : "+playerStrategy);
+                                d_Ge.d_LogEntry.setMessage(p_playerName+" added! with strategy : "+playerStrategy);
+                            } else {
+                                System.out.println("Can not add any more player. Max pool of 6 Satisfied!");
+                                d_Ge.d_LogEntry.setMessage("Can not add any more player. Max pool of 6 Satisfied!");
+                            }
+                            d_Ge.d_GamePhase = GamePhase.STARTPLAY;
                         } else {
-                            System.out.println("Can not add any more player. Max pool of 6 Satisfied!");
+                            System.out.println("Invalid Player Name or Strategy");
+                            d_Ge.d_LogEntry.setMessage("Invalid Player Name or Strategy");
                         }
-                        d_Ge.d_GamePhase = GamePhase.STARTPLAY;
-                    } else {
-                        System.out.println("Invalid Player Name");
+                    } else if (p_data[i].equals("-remove")) {
+                        if (d_Ge.validatePlayerName(p_data[i + 1])) {
+                            p_playerName = p_data[i + 1];
+                            boolean l_check = removePlayer(p_players, p_playerName);
+                            if (l_check) {
+                                System.out.println("Player removed!");
+                                d_Ge.d_LogEntry.setMessage("Player removed! " + p_playerName);
+                            } else {
+                                System.out.println("Player doesn't exist");
+                                d_Ge.d_LogEntry.setMessage("Player doesn't exist");
+                            }
+                            d_Ge.d_GamePhase = GamePhase.STARTPLAY;
+                        } else
+                            System.out.println("Invalid Player Name");
+                        d_Ge.d_LogEntry.setMessage("Invalid Player Name");
                     }
-                } else if (p_data[i].equals("-remove")) {
-                    if (d_Ge.validatePlayerName(p_data[i + 1])) {
-                        l_playerName = p_data[i + 1];
-                        boolean l_check = d_Ge.d_gameStartUpPhase.removePlayer(p_players, l_playerName);
-                        if (l_check)
-                            System.out.println("Player removed!");
-                        else
-                            System.out.println("Player doesn't exist");
-                        d_Ge.d_GamePhase = GamePhase.STARTPLAY;
-                    } else
-                        System.out.println("Invalid Player Name");
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(
-                    "Invalid command - it should be of the form gameplayer -add playername -remove playername");
+            System.out.println("Invalid command - it should be of the form gameplayer -add playername -remove playername");
+            d_Ge.d_LogEntry.setMessage("Invalid command - it should be of the form gameplayer -add playername -remove playername");
         } catch (Exception e) {
-            System.out.println("Error:" + e);
-            System.out.println(
-                    "Invalid command - it should be of the form gameplayer -add playername -remove playername");
+            System.out.println("Invalid command - it should be of the form gameplayer -add playername -remove playername");
+            d_Ge.d_LogEntry.setMessage("Invalid command - it should be of the form gameplayer -add playername -remove playername");
         }
-
     }
-
-
-
 
 }

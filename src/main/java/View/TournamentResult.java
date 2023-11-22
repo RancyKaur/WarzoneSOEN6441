@@ -1,7 +1,11 @@
 package View;
 
+import Model.WargameMap;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -32,5 +36,47 @@ public class TournamentResult {
             System.out.format("\n%25s%25s%25s\n", i, l_mapName, p_winner.get(i));
         }
     }
+
+    /**
+     * This method displays results as specified in the build requirements
+     * @param p_winner
+     * @param p_noOfGames
+     */
+    public void show_TournamentResult(HashMap<String,HashMap<Integer, String>> p_winner, int p_noOfGames) {
+
+        StringBuilder headerBuilder = new StringBuilder();
+        ArrayList<String> printList = new ArrayList<String>() ;
+        headerBuilder.append("%-15s");
+        printList.add("Map Name");
+        for(int i=0;i<p_noOfGames;i++) {
+            headerBuilder.append("%-15s");
+            printList.add("Game " + (i+1));
+        }
+
+        System.out.format(headerBuilder.toString(),printList.toArray());
+        System.out.format("\n");
+        System.out.format("%15s", "-----------------------------------------------------------------------------");
+
+        for (Map.Entry<String,HashMap<Integer, String>> entry : p_winner.entrySet()) {
+            headerBuilder.delete(0, headerBuilder.length());
+            printList.clear();
+
+            HashMap<Integer, String> innerMap = entry.getValue();
+
+            // Access the String (value)
+            printList.add(entry.getKey());
+            headerBuilder.append("%-15s");
+            for (String value : innerMap.values())
+            {
+                headerBuilder.append("%-15s");
+                printList.add(value);
+            }
+            System.out.format("\n");
+            System.out.format(headerBuilder.toString(),printList.toArray());
+        }
+
+    }
+
+
 }
 

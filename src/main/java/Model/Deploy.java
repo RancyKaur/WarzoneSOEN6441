@@ -1,9 +1,11 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * class contains the logic for the deploy order functionality
  */
-public class Deploy implements Order{
+public class Deploy implements Order, Serializable {
 
     /**
      * @param d_CountryId is for country name
@@ -34,10 +36,13 @@ public class Deploy implements Order{
      */
     public boolean execute() {
         Country l_c = d_Player.getOwnedCountries().get(d_CountryId.toLowerCase());
-        int l_existingArmies = l_c.getNumberOfArmies();
-        l_existingArmies += d_NumArmies;
-        l_c.setNumberOfArmies(l_existingArmies);
-        return true;
+        if(l_c != null) {
+            int l_existingArmies = l_c.getNumberOfArmies();
+            l_existingArmies += d_NumArmies;
+            l_c.setNumberOfArmies(l_existingArmies);
+            return true;
+        }
+        else{ return false;}
     }
 
     /**

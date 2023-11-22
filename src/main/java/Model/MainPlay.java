@@ -3,13 +3,14 @@ package Model;
 import Controller.GameEngine;
 import View.GameMapView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
  * Class containing logic for implementation of MainPlay that is implementation of State Pattern
  */
-public class MainPlay extends Play{
+public class MainPlay extends Play implements Serializable {
     /**
      * Reference to GameMapView for map printing
      */

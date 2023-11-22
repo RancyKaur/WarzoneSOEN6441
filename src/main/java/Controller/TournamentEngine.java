@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Queue;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Manages Tournament
  */
@@ -164,6 +166,8 @@ public class TournamentEngine extends GameEngine{
         int l_traversalCounter = 0;
         int l_gameNumber = 0;
         HashMap<Integer, String> l_winner = new HashMap<Integer, String>();
+        HashMap<String,HashMap<Integer, String>> l_winnerPerMap = new  HashMap<String,HashMap<Integer, String>>();
+
         int Ps = d_Players.size();
         while(Ps != 0 ){
             d_Players.remove(0);
@@ -172,6 +176,8 @@ public class TournamentEngine extends GameEngine{
 
         //Start playing on each map
         for(String l_mapName : p_mapFiles) {
+            l_winner.clear();
+            l_gameNumber = 0;
             System.out.println("Playing on :"+l_mapName);
             //Start playing each game
             int P = d_Players.size();
@@ -261,7 +267,7 @@ public class TournamentEngine extends GameEngine{
                         //get Orders
                         for (Player p : d_Players) {
                             if (p.getOwnedCountries().size() != 0) {
-                                p.issue_order();
+                                p.issueAutoOrder();
                             } else {
                                 p.setOwnedArmies(0);
                             }
@@ -302,9 +308,9 @@ public class TournamentEngine extends GameEngine{
                                 if (l_temp.size() > 0) {
                                     Order tempO = d_Players.get(0).next_order();
                                     if(tempO != null){
-                                        System.out.println("Executing "+l_toRemove);
-                                        l_toRemove.execute();
-                                        l_count--;
+                                            System.out.println("Executing " + l_toRemove);
+                                            l_toRemove.execute();
+                                            l_count--;
                                     }
                                 }
                                 anyOneWon = true;
@@ -319,9 +325,9 @@ public class TournamentEngine extends GameEngine{
                                     if (l_temp.size() > 0) {
                                         Order l_toRemove = l_p.next_order();
                                         if(l_toRemove != null){
-                                            System.out.println("Executing "+l_toRemove);
-                                            l_toRemove.execute();
-                                            l_count--;
+                                                System.out.println("Executing " + l_toRemove);
+                                                l_toRemove.execute();
+                                                l_count--;
                                         }
                                     }
                                 }
@@ -343,6 +349,7 @@ public class TournamentEngine extends GameEngine{
                         System.out.println(l_p.getPlayerName() + " has Won the Game!");
                         d_LogEntry.setMessage(l_p.getPlayerName() + " has Won the Game!");
                         l_winner.put(l_gameNumber, l_p.getPlayerName());
+
                         break;
                     }else{
                         System.out.println("Current Game resulted in a Draw");
@@ -359,10 +366,14 @@ public class TournamentEngine extends GameEngine{
                 }
                 System.out.println("Players left after game "+d_Players.size());
             }
+            l_winnerPerMap.put(l_mapName,l_winner);
         }
         //return winner;
+        System.out.println("\nThe Tournament Result is given below");
+        System.out.println("==========================================================\n");
         TournamentResult tournamentResultView = new TournamentResult();
-        tournamentResultView.showTournamentResult(l_winner, p_mapFiles);
+        tournamentResultView.show_TournamentResult(l_winnerPerMap, p_numberOfGames);
+        //tournamentResultView.showTournamentResult(l_winner, p_mapFiles);
     }
 
     /**

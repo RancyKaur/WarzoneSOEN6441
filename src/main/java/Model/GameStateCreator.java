@@ -146,7 +146,7 @@ public class GameStateCreator implements Serializable {
      * Creates the required GameData object.
      * @return returns the newly created GameData object.
      */
-    public GameState buildGameData(){
+    public GameState buildGameState(){
         //System.out.println(d_Map+" "+ d_MapType+" "+ d_GamePhase+" "+ d_Players+" "+ d_ActivePlayer+" "+ d_Card+" "+d_CardsDealt);
         return new GameState(d_Map, d_MapType, d_GamePhase,d_Phase, d_Players, d_ActivePlayer, d_Card,d_PhaseName);
     }

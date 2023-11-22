@@ -1,10 +1,11 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /** Represents a wargame map containing continents and countries. */
 
-public class WargameMap {
+public class WargameMap implements Serializable {
     private String d_MapName;
     private boolean d_isValid;
     private HashMap<String, Continent> d_Continents;

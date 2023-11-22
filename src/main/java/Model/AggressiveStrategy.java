@@ -254,7 +254,7 @@ public class AggressiveStrategy extends PlayStrategy{
                             int l_value = l_randomCard.nextInt(2);
                             if (l_value == 0) {
                                 d_Player.removeCard("Bomb");
-                                return new Bomb(d_Player, l_defendingCountry.getcountryOwnerPlayer(), l_defendingCountry.getCountryName());
+                                return new Bomb(d_Player, l_defendingCountry.getcountryOwnerPlayer(), d_DefendingCountry.getCountryName());
                             } else
                                 break;
                         }
@@ -264,7 +264,7 @@ public class AggressiveStrategy extends PlayStrategy{
                         else
                             return null;
                         if (l_randomVal != 0)
-                            return new Advance(d_Player, l_attackingCountry.getCountryName(), l_defendingCountry.getCountryName(), l_randomVal, d_DefendingCountry.getcountryOwnerPlayer());
+                            return new Advance(d_Player, l_attackingCountry.getCountryName(), l_defendingCountry.getCountryName(), l_randomVal, l_defendingCountry.getcountryOwnerPlayer());
                         else
                             return null;
                     } else

@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -10,7 +11,7 @@ import java.util.HashMap;
  * This class provides a comprehensive representation of continents within the
  * context of a game map.
  */
-public class Continent {
+public class Continent implements Serializable {
     private static int continentCount = 1;
     private int d_continentControlValue;
     private String d_continentName = null;

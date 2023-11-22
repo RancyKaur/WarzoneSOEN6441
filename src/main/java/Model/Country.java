@@ -1,12 +1,13 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 
 /**
  * This class represents country object that consists of country name, continent it resides in and its neighbouring countries.
  */
-public class Country {
+public class Country implements Serializable {
     private static int countryIndex = 1;
     private String d_countryName = null;
     private String d_ContinentName = null;

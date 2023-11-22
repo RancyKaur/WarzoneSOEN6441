@@ -1,9 +1,6 @@
 package Model;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 import Controller.GameEngine;
@@ -334,92 +331,6 @@ public class EngineCommand {
 
 
 
-
-
-
-//    /**
-//     * This function is used to write continent, country and neighbours/borders to a map file
-//     * It is executed when user enters savemap command
-//     * It first displays continents then countries and then borders
-//     *
-//     * @param p_map      map object whose value needs to be saved
-//     * @param p_fileName filename where map's values are saved
-//     * @return true if map save is successful otherwise false
-//     */
-//    public boolean saveMap(WargameMap p_map, String p_fileName) {
-//        if (checkGameMap(p_map)) {
-//            try {
-//                BufferedWriter l_fileWriter = new BufferedWriter(new FileWriter("src/main/resources/maps/" + p_fileName));
-//                l_fileWriter.write("map:" + p_fileName);
-//                l_fileWriter.newLine();
-//                l_fileWriter.newLine();
-//                l_fileWriter.flush();
-//                l_fileWriter.write("[Continents]");
-//                l_fileWriter.newLine();
-//
-//                //write continents first to the file in country Index, country name and continent's control value
-//                for (Continent l_continent : p_map.getContinents().values()) {
-//                    l_fileWriter.write(l_continent.getIndexOfContinent() + " " + GameEngine.capitalizeString(l_continent.getContinentName()) + " " + l_continent.getContinentControlValue());
-//                    l_fileWriter.newLine();
-//                    l_fileWriter.flush();
-//                }
-//
-//                // Writing country details
-//                l_fileWriter.newLine();
-//                l_fileWriter.write("[Countries]");
-//                l_fileWriter.newLine();
-//
-//                List<String> l_bordersList = new ArrayList<>();
-//                String l_bordersMetaData = new String();
-//
-//                System.out.println(p_map.getCountries());
-//                for (Country l_country : p_map.getCountries().values()) {
-//                    String l_countryName = GameEngine.capitalizeString(l_country.getCountryName());
-//
-//                    String l_line = l_country.getIndexOfCountry() + " " + l_countryName + " " + p_map.getContinents().get(l_country.getContinentName()).getIndexOfContinent();
-//
-//                    l_fileWriter.write(l_line);
-//                    l_fileWriter.newLine();
-//                    l_fileWriter.flush();
-//
-//                    if (l_country.getNeighbours() != null && !l_country.getNeighbours().isEmpty()) {
-//                        l_bordersMetaData = new String();
-//                        l_bordersMetaData = Integer.toString(l_country.getIndexOfCountry());
-//                        for (Country l_neighbor : l_country.getNeighbours().values()) {
-//                            l_bordersMetaData = l_bordersMetaData.concat(" ").concat(Integer.toString(l_neighbor.getIndexOfCountry()));
-//                        }
-//                        l_bordersList.add(l_bordersMetaData);
-//                    }
-//                }
-//
-//                System.out.println();
-//                l_fileWriter.newLine();
-//                l_fileWriter.write("[Borders]");
-//                l_fileWriter.newLine();
-//                l_fileWriter.flush();
-//
-//
-//                // Writes Border data to the File
-//                if (l_bordersList != null && !l_bordersList.isEmpty()) {
-//                    for (String l_borderStr : l_bordersList) {
-//                        l_fileWriter.write(l_borderStr);
-//                        l_fileWriter.newLine();
-//                    }
-//                    l_fileWriter.flush();
-//                }
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                return false;
-//            }
-//            return true;
-//        } else {
-//            System.out.println("Map is invalid, it is not suitable for the game.");
-//            System.out.println("Please either correct the map so that it is connected to be valid or load an existing saved map");
-//            return false;
-//        }
-//    }
-
     /**
      * Load map for playing the game.
      * It checks whether map file exist or not.
@@ -485,18 +396,59 @@ public class EngineCommand {
         return true;
     }
 
-    private void printMap(WargameMap map){
+    /**
+     * Function for saving game.
+     * @param p_game Represents the state of the game.
+     * @param p_fileName Name of the file saving the game.
+     * @return true boolean value.
+     */
 
-    }
+    public boolean saveGame(GameState  p_game, String p_fileName){
+        GameStateCreator l_gameStateCreator = new GameStateCreator();
+        l_gameStateCreator.setMap(p_game.getMap());
+        l_gameStateCreator.setMapType(p_game.getMapType());
+        l_gameStateCreator.setGamePhase(p_game.getGamePhase());
+        l_gameStateCreator.setPlayers(p_game.getPlayers());
+        l_gameStateCreator.setActivePlayer(p_game.getActivePlayer());
+        l_gameStateCreator.setDeck(p_game.getDeck());
+        l_gameStateCreator.setCardsDealt((p_game.getCardsDealt()));
+        l_gameStateCreator.setPhase(p_game.get_Phase());
+        l_gameStateCreator.setPhaseName(p_game.get_PhaseName());
 
-
-    //remove these before deliverable 2
-    public WargameMap editMapUtil(String p_mapName){
-        return new WargameMap();
-    }
-
-    public boolean validateMapUtil(WargameMap p_map){
+        System.out.println(l_gameStateCreator);
+        try{
+            ObjectOutputStream l_o = new ObjectOutputStream(new FileOutputStream(new File("src/main/resources/SavedGames/" + p_fileName)));
+            l_o.writeObject(l_gameStateCreator);
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
         return true;
     }
+
+    /**
+     * Function to help load existing saved game
+     * @param p_fileName
+     * @return game state object
+     */
+    public GameStateCreator loadGame(String p_fileName){
+        GameStateCreator l_gameStateCreator=new GameStateCreator();
+        try{
+            FileInputStream l_f = new FileInputStream((new File("src/main/resources/SavedGames/" + p_fileName)));
+            ObjectInputStream l_o = new ObjectInputStream((l_f));
+            l_gameStateCreator = (GameStateCreator) l_o.readObject();
+
+        } catch(FileNotFoundException e){
+            System.out.println("Provide file name does not exist.");
+            return null;
+        } catch(IOException e) {
+            return null;
+        } catch (ClassNotFoundException e){
+            return null;
+        }
+        return l_gameStateCreator;
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.HashMap;
 
@@ -7,7 +8,7 @@ import java.util.HashMap;
  * Class representing a player in a game. Players have a name, own countries, continents, armies, orders, cards, and can negotiate with other players.
  */
 
-public class Player {
+public class Player  implements Serializable {
     private String d_PlayerName;
     private HashMap<String, Continent> d_OwnedContinents;
     private HashMap<String, Country> d_OwnedCountries;
@@ -130,6 +131,20 @@ public class Player {
      */
     public void issue_order() {
         this.d_OrderList.add(this.d_Order);
+    }
+
+    /**
+     * This function adds Order object to the list of Orders for a non-human Player
+     * @return true if Order added else false
+     */
+    public boolean issueAutoOrder() {
+        Order order;
+        order = d_Strategy.createOrder();
+        if (order != null) {
+            this.d_OrderList.add(order);
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -61,14 +61,14 @@ public class GameState extends Observable implements Serializable {
      * Get the current phase of the game.
      * @return returns the current phase of the game.
      */
-    public Phase getD_Phase() {
+    public Phase get_Phase() {
         return d_Phase;
     }
     /**
      * sets current phase of the game
      * @param d_Phase phase of the game.
      */
-    public void setD_Phase(Phase d_Phase) {
+    public void set_Phase(Phase d_Phase) {
         this.d_Phase = d_Phase;
     }
 
@@ -204,7 +204,7 @@ public class GameState extends Observable implements Serializable {
      * This function is a setter function for phasename
      * @param p_phaseName is a sting for phasename in which game is running.
      */
-    public void setD_PhaseName(String p_phaseName)
+    public void set_PhaseName(String p_phaseName)
     {
         this.d_PhaseName = p_phaseName;
     }
@@ -213,7 +213,7 @@ public class GameState extends Observable implements Serializable {
      * This function is a getter function for phaseName
      * @return d_PhaseName
      */
-    public String getD_PhaseName() {
+    public String get_PhaseName() {
         return d_PhaseName;
     }
 

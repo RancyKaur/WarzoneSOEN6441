@@ -3,6 +3,7 @@ package View;
 import Controller.GameEngine;
 import Model.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -10,7 +11,7 @@ import java.util.Collection;
  * This class is responsible for showing the map.
  */
 
-public class GameMapView {
+public class GameMapView implements Serializable {
 
     /**
      * Simple Constructor

@@ -1,2 +1,8 @@
 
-In Issue Orders Phase:
+Assigning Countries to players
+Country: china assigned to player: Wonder
+Country: russia assigned to player: Amaze
+Country: germany assigned to player: Wonder
+Country: france assigned to player: Amaze
+Country: india assigned to player: Wonder
+Country: italy assigned to player: Amaze

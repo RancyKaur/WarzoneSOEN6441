@@ -22,5 +22,23 @@ public class TestMapTypes {
         d_LoadMap= new LoadGraph();
     }
 
-    
+    /**
+     * Test for type conquest
+     */
+    @Test
+    public void testConquestMap(){
+        d_MapName= "Australia.map";
+        d_MapType= d_LoadMap.readMap("src/main/resources/maps/"+ d_MapName);
+        assertEquals("conquest", d_MapType);
+    }
+
+    /**
+     * Test for type domination
+     */
+    @Test
+    public void testDominationMap(){
+        d_MapName= "Aus.map";
+        d_MapType= d_LoadMap.readMap("src/main/resources/maps/"+ d_MapName);
+        assertEquals("domination", d_MapType);
+    }
 }

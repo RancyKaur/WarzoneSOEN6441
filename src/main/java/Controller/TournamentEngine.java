@@ -72,7 +72,7 @@ public class TournamentEngine extends GameEngine{
                                         l_strategies.add(l_data[l_indexNew]);
                                     } else {
                                         printFailureMessage();
-                                        return "";
+                                        return commandErrorMessage;
                                     }
 
                                 } else {
@@ -165,7 +165,7 @@ public class TournamentEngine extends GameEngine{
         int l_numberOfPlayers = p_strategies.size();
         int l_traversalCounter = 0;
         int l_gameNumber = 0;
-        HashMap<Integer, String> l_winner = new HashMap<Integer, String>();
+        //HashMap<Integer, String> l_winner = new HashMap<Integer, String>();
         HashMap<String,HashMap<Integer, String>> l_winnerPerMap = new  HashMap<String,HashMap<Integer, String>>();
 
         int Ps = d_Players.size();
@@ -176,9 +176,9 @@ public class TournamentEngine extends GameEngine{
 
         //Start playing on each map
         for(String l_mapName : p_mapFiles) {
-            l_winner.clear();
+            HashMap<Integer, String> l_winner = new HashMap<Integer, String>();
             l_gameNumber = 0;
-            System.out.println("Playing on :"+l_mapName);
+            //System.out.println("Playing on :"+l_mapName);
             //Start playing each game
             int P = d_Players.size();
             while(P != 0 ){
@@ -187,7 +187,7 @@ public class TournamentEngine extends GameEngine{
             }
             for (int i = 1; i <= p_numberOfGames; i++) {
                 l_gameNumber++;
-                System.out.println("Playing Game :"+l_gameNumber);
+                //System.out.println("Playing Game :"+l_gameNumber);
                 d_GameEngine = new GameEngine();
                 d_GameState = new GameState();
                 d_RunCommand = new EngineCommand();
@@ -227,7 +227,7 @@ public class TournamentEngine extends GameEngine{
                             l_p.set_isHuman(false);
                             break;
                         default:
-                            System.out.println("Invalid Player Strategy");
+                            //System.out.println("Invalid Player Strategy");
                             break;
                     }
                 }
@@ -247,7 +247,7 @@ public class TournamentEngine extends GameEngine{
                 boolean anyOneWon = false;
                 for (int j = 1; j <= p_numberOfTurns; j++) {
                     int l_counter = 0;
-                    System.out.println("It's " + j + "'th Turn");
+                    //System.out.println("It's " + j + "'th Turn");
 
                     //traverses through all players to check if armies left in pool
                     Iterator<Player> l_itr = d_Players.listIterator();
@@ -258,7 +258,7 @@ public class TournamentEngine extends GameEngine{
                         }
                     }
 
-                    System.out.println("Total Armies left with all Players in Pool: " + l_counter);
+                    //System.out.println("Total Armies left with all Players in Pool: " + l_counter);
                     //Case when pool has at least 1 army left
 
                     //Issued Orders
@@ -281,7 +281,7 @@ public class TournamentEngine extends GameEngine{
                         }
                     }
 
-                    System.out.println("Total Armies left with all Players in Pool: " + l_counter);
+                    //System.out.println("Total Armies left with all Players in Pool: " + l_counter);
 
                     //Execute current Pool of Orders
                     int l_count = 0;
@@ -293,22 +293,22 @@ public class TournamentEngine extends GameEngine{
 
                     if (l_count == 0) {
                         //Case when no Order
-                        System.out.println("Orders already executed!");
+                        //System.out.println("Orders already executed!");
                     } else {
                         //Execute Orders and check if Player won
-                        System.out.println("Total Orders  :" + l_count);
+                        //System.out.println("Total Orders  :" + l_count);
                         //Execute Current Orders
                         boolean win = true;
                         while (l_count != 0 && win ) {
                             if (d_Players.size() == 1){
                                 Order l_toRemove = d_Players.get(0).next_order();
-                                System.out.println("Order  :"+l_toRemove+" : for "+d_Players.get(0) );
+                                //System.out.println("Order  :"+l_toRemove+" : for "+d_Players.get(0) );
                                 l_winner.put(l_gameNumber, d_Players.get(0).getPlayerName());
                                 Queue<Order> l_temp = d_Players.get(0).getD_orderList();
                                 if (l_temp.size() > 0) {
                                     Order tempO = d_Players.get(0).next_order();
                                     if(tempO != null){
-                                            System.out.println("Executing " + l_toRemove);
+                                            //System.out.println("Executing " + l_toRemove);
                                             l_toRemove.execute();
                                             l_count--;
                                     }
@@ -318,14 +318,14 @@ public class TournamentEngine extends GameEngine{
                                 win = false;
                                 break;
                             }else{
-                                System.out.println("When More Players");
+                                //System.out.println("When More Players");
                                 for (Player l_p : d_Players) {
                                     Queue<Order> l_temp = l_p.getD_orderList();
-                                    System.out.println("Got Order :"+l_temp+" from "+l_p.getPlayerName());
+                                    //System.out.println("Got Order :"+l_temp+" from "+l_p.getPlayerName());
                                     if (l_temp.size() > 0) {
                                         Order l_toRemove = l_p.next_order();
                                         if(l_toRemove != null){
-                                                System.out.println("Executing " + l_toRemove);
+                                                //System.out.println("Executing " + l_toRemove);
                                                 l_toRemove.execute();
                                                 l_count--;
                                         }
@@ -334,7 +334,7 @@ public class TournamentEngine extends GameEngine{
 
                             }
                         }
-                        System.out.println("Total Armies left with all Players in Pool: " + l_counter);
+                        //System.out.println("Total Armies left with all Players in Pool: " + l_counter);
                         //Flush Owned Cards
                         for (Player l_p : d_Players) {
                             System.out.println("Flushing Cards of "+l_p.getPlayerName());
@@ -343,7 +343,32 @@ public class TournamentEngine extends GameEngine{
                     }
                     assignEachPlayerReinforcements(d_Players);
                 }
-                //Check if any Player Won
+
+
+                // Initialize variables to keep track of the player with the most countries
+                Player winner = null;
+                int maxOwnedCountries = 0;
+
+                // Iterate through each player to find the one with the most owned countries
+                for (Player l_p : d_Players) {
+                    int ownedCountries = l_p.getOwnedCountries().size();
+                    if (ownedCountries > maxOwnedCountries) {
+                        maxOwnedCountries = ownedCountries;
+                        winner = l_p;
+                    }
+                }
+
+                // Check if a winner is found and declare them as winner
+                if (winner != null && maxOwnedCountries > 0) {
+                    System.out.println(winner.getPlayerName() + " has Won the Game!");
+                    d_LogEntry.setMessage(winner.getPlayerName() + " has Won the Game!");
+                    l_winner.put(l_gameNumber, winner.getPlayerName());
+                } else {
+                    System.out.println("Current Game resulted in a Draw");
+                    l_winner.put(l_gameNumber, "Draw");
+                }
+
+                /*Check if any Player Won
                 for (Player l_p : d_Players) {
                     if (l_p.getOwnedCountries().size() == d_map.getCountries().size()) {
                         System.out.println(l_p.getPlayerName() + " has Won the Game!");
@@ -356,7 +381,7 @@ public class TournamentEngine extends GameEngine{
                         l_winner.put(l_gameNumber, "Draw");
                         break;
                     }
-                }
+                }*/
 
                 //Flushing Objects which are getting reused
                 int Psize = d_Players.size();
@@ -364,7 +389,7 @@ public class TournamentEngine extends GameEngine{
                     d_Players.remove(0);
                     Psize -= 1;
                 }
-                System.out.println("Players left after game "+d_Players.size());
+                //System.out.println("Players left after game "+d_Players.size());
             }
             l_winnerPerMap.put(l_mapName,l_winner);
         }

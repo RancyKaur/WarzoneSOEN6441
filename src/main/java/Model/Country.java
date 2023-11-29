@@ -1,19 +1,21 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 
 /**
  * This class represents country object that consists of country name, continent it resides in and its neighbouring countries.
  */
-public class Country {
+public class Country implements Serializable {
     private static int countryIndex = 1;
     private String d_countryName = null;
     private String d_ContinentName = null;
     private HashMap<String, Country> d_neighbourCountries;
     private int d_countryIndex;
     private int d_armiesAllocated;
-    
+
+    private Player countryOwnerPlayer;
     /**
      * Empty default constructor
      */
@@ -109,7 +111,19 @@ public class Country {
         this.d_armiesAllocated = p_numberOfArmies;
     }
 
-    // public String getCountryId() {
-    //     return this.getCountryId();
-    // }
+    /**
+     * Gets the player owning the country currently.
+     * @return Player owning this country.
+     */
+    public Player getcountryOwnerPlayer() {
+        return countryOwnerPlayer;
+    }
+
+    /**
+     * Sets the player owning this country currently
+     * @param ownerPlayer Player owning this country.
+     */
+    public void setcountryOwnerPlayer(Player ownerPlayer) {
+        this.countryOwnerPlayer = ownerPlayer;
+    }
 }

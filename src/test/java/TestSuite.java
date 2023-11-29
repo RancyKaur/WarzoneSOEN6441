@@ -1,4 +1,6 @@
 
+import Controller.TestLogWriter;
+import Controller.TournamentModeTest;
 import Model.*;
 
 
@@ -35,7 +37,17 @@ import org.junit.runners.Suite;
 		TestObserverPattern.class,
 		TestPlayerRemoved.class,
 		TestRemoveContinent.class,
-		TestStatePattern.class
+		TestStatePattern.class,
+		TestLogWriter.class,
+		TournamentModeTest.class,
+		TestAggressiveStrategy.class,
+		TestBenevolentStrategy.class,
+		TestCheaterStrategy.class,
+		TestRandomStrategy.class,
+		TestGameSave.class,
+		TestLoadGame.class,
+		TestMapTypes.class,
+		TestBothMapLoad.class
 })
 
 	/**

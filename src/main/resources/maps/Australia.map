@@ -1,0 +1,83 @@
+[Map]
+author=Steve Whyte
+warn=yes
+image=Australia (big).bmp
+wrap=no
+scroll=no
+
+[Continents]
+Western Australia=4
+Northern Territory=4
+South Australia=4
+Queensland=3
+New South Wales=3
+A.C.T.=1
+Victoria=3
+Tasmania=2
+
+[Territories]
+
+Carnarvon,65,285,Western Australia,Broome,Great Sandy Desert,Gibson Desert
+Broome,131,205,Western Australia,Wyndham,Great Sandy Desert,Carnarvon
+Wyndham,211,150,Western Australia,Broome,Great Sandy Desert,Kununurra
+Great Sandy Desert,176,224,Western Australia,Wyndham,Broome,Carnarvon,Gibson Desert,Kununurra,Tanami Desert
+Gibson Desert,149,323,Western Australia,Carnarvon,Great Sandy Desert,Nullarbor Plains,Perth,Tanami Desert,Macdonnell Ranges
+Nullarbor Plains,214,345,Western Australia,Gibson Desert,Perth,Kalgoorlie,Albany,Coober Pedy,Great Victorian desert,Macdonnell Ranges
+Perth,124,396,Western Australia,Kalgoorlie,Nullarbor Plains,Gibson Desert
+Kalgoorlie,158,430,Western Australia,Perth,Albany,Nullarbor Plains
+Albany,208,415,Western Australia,Kalgoorlie,Nullarbor Plains,Coober Pedy,Port Augusta
+
+Canberra,578,392,A.C.T.,Sydney,Bourke,Flinders Ranges,Broken Hill
+
+Hobart,531,517,Tasmania,Melbourne,Devonport
+Devonport,484,518,Tasmania,Hobart,Adelaide
+
+Sydney,622,363,New South Wales,Melbourne,Bendigo,Canberra,Broken Hill,Bourke,Brisbane,Toowoomba
+Bourke,560,351,New South Wales,Sydney,Toowoomba,Flinders Ranges,Canberra
+Flinders Ranges,499,358,New South Wales,Bourke,Charleville,Birdsville,Lake frome,Broken Hill,Canberra,Toowoomba
+Broken Hill,492,388,New South Wales,Port Pirie,Lake frome,Flinders Ranges,Canberra,Sydney,Bendigo
+
+Bendigo,498,420,Victoria,Port Pirie,Broken Hill,Melbourne,Geelong,Sydney
+Melbourne,551,441,Victoria,Sydney,Bendigo,Geelong,Hobart
+Geelong,488,446,Victoria,Bendigo,Port Pirie,Melbourne
+
+Port Pirie,433,405,South Australia,Adelaide,Lake Frome,Broken Hill,Bendigo,Geelong
+Lake Frome,434,343,South Australia,Lake Eyre,Adelaide,Port Pirie,Birdsville,Flinders Ranges,Broken HIll
+Lake Eyre,406,311,South Australia,Whyalla,adelaide,Lake Frome,Alice Springs,Simpson Desert,Birdsville
+Adelaide,382,373,South Australia,Port Augusta,Whyalla,Lake Eyre,Lake Frome,Port Pirie,Devonport
+Port Augusta,296,386,South Australia,Albany,Coober Pedy,Whyalla,Adelaide
+Coober Pedy,294,333,South Australia,Albany,Nullarbor Plains,Great Victorian Desert,Macdonnell Ranges,Alice Springs,Whyalla,Port Augusta
+Great Victorian Desert,254,325,South Australia,Nullarbor Plains,Macdonnell Ranges,Coober Pedy
+Whyalla,337,330,South Australia,Coober Pedy,Port Augusta,Adelaide,Lake Eyre,Alice Springs
+
+Macdonnell Ranges,276,274,Northern Territory,Gibson Desert,Nullarbor Plains,Great Victorian Desert,Coober Pedy,Alice Springs,Tanami Desert
+Alice Springs,348,278,Northern Territory,Macdonnell Ranges,Coober Pedy,Whyalla,Lake eyre,Simpson Desert,Tanami Desert
+Simpson Desert,383,240,Northern Territory,Alice Springs,Lake Eyre,Birdsville,Mt. Isa,Borrdoola,Tennant Creek,Tanami Desert
+Tanami Desert,278,223,Northern Territory,Great Sandy Desert,Gibson Desert,Kununurra,Katherine,Tennant Creek,Simpson Desert,Macdonnell Ranges,Alice Springs
+Tennant Creek,336,188,Northern Territory,Simpson Desert,Tanami Desert,Borrdoola,Katherine
+Borrdoola,375,145,Northern Territory,Mt. Isa,Simpson Desert,Tennant Creek,Katherine,Darwin
+Darwin,320,81,Northern Territory,Kununurra,Katherine,Borrdoola
+Kununurra,265,143,Northern Territory,Wyndham,Great Sandy Desert,Tanami Desert,Katherine,Darwin
+Katherine,304,151,Northern Territory,Darwin,Kununurra,Borrdoola,Tennant Creek,Tanami Desert
+
+Mt. Isa,445,209,Queensland,Borrdoola,Simpson Desert,Birdsville,Great Artesian Basin,Cairns
+Cairns,508,135,Queensland,Cape York,Mt. Isa,Great Artesian Basin,Mackay
+Cape York,508,62,Queensland,Cairns
+Mackay,562,187,Queensland,Cairns,Great Artesian Basin,Rockhampton
+Rockhampton,586,242,Queensland,Brisbane,Toowoomba,Great Artesian Basin,Mackay
+Brisbane,636,279,Queensland,Sydney,Toowoomba,Rockhampton
+Toowoomba,585,307,Queensland,Sydney,Brisbane,Bourke,Flinders Ranges,Charleville,Great Artesian Basin,Rockhampton
+Charleville,520,294,Queensland,Flinders ranges,Birdsville,Great Artesian Basin,Toowoomba
+Birdsville,462,283,Queensland,Lake Eyre,Lake Frome,Flinders Ranges,Charleville,Simpson Desert,Mt. Isa,Great Artesian Basin
+Great Artesian Basin,516,229,Queensland,Mt. Isa,Birdsville,Charleville,Toowoomba,Rockhampton,Mackay,Cairns
+
+
+
+
+
+
+
+
+
+
+

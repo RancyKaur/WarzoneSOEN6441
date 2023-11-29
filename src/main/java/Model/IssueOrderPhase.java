@@ -3,12 +3,13 @@ package Model;
 import Controller.GameEngine;
 import View.GameMapView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Class containing logic for implementation of IssueOrder Phase
  */
-public class IssueOrderPhase extends Play{
+public class IssueOrderPhase extends Play implements Serializable {
 
 
     public IssueOrderPhase(GameEngine p_ge) {

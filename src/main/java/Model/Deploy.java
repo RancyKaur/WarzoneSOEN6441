@@ -7,10 +7,7 @@ import java.io.Serializable;
  */
 public class Deploy implements Order, Serializable {
 
-    /**
-     * @param d_CountryId is for country name
-     * @param d_Player player issuing deploy order
-     */
+
     private int d_NumArmies;
     private String d_CountryId;
     private Player d_Player;
